@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_primary_medium">@color/teal_medium</color>
+    <color name="color_primary_light">@color/teal_light</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="red">#f44336</color>
@@ -12,6 +14,8 @@
     <color name="cyan">#00bcd4</color>
     <color name="teal">#009688</color>
     <color name="teal_dark">#00796b</color>
+    <color name="teal_medium">#00897b</color>
+    <color name="teal_light">#5dbaaf</color>
     <color name="green">#4caf50</color>
     <color name="light_green">#8bc34a</color>
     <color name="lime">#cddc39</color>
@@ -23,5 +27,6 @@
     <color name="grey">#9e9e9e</color>
     <color name="blue_grey">#607d8b</color>
     <color name="divider_color">#FF0000</color>
+    <color name="fav_deselect">#CCCCCC</color>
 
 </resources>

@@ -48,16 +48,20 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="3dp"
             android:gravity="center_vertical"
             android:id="@+id/event_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1 pm - 2 pm"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="@dimen/typography_body"
-            android:textColor="@color/teal_dark"
-            android:textStyle="bold"/>
+            android:fontFamily="sans-serif-light"
+            android:textSize="13sp"
+            android:textColor="?attr/colorPrimaryDark"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:background="@drawable/rounded_background"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/venue"
                     android:textSize="@dimen/typography_body"
+                    android:fontFamily="sans-serif-medium"
                     android:layout_marginRight="4dp"
                     android:layout_marginEnd="4dp"/>
 
@@ -93,10 +98,13 @@
 
             <ImageView
                 android:id="@+id/event_fav_image_view"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/ic_favorite"
-                android:tint="#CCCCCC"/>
+                android:tint="@color/fav_deselect"
+                android:tag="Deselected"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"/>
 
         </LinearLayout>
 

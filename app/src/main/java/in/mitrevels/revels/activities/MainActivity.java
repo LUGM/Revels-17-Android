@@ -1,10 +1,10 @@
 package in.mitrevels.revels.activities;
 
-import android.app.ActionBar;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,9 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.fragments.EventsFragment;
@@ -28,13 +25,28 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.main_app_bar_layout);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setElevation(0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                toolbar.setElevation(0);
+                appBarLayout.setElevation(0);
+                appBarLayout.setTargetElevation(0);
+            }
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        getFragmentManager().beginTransaction().add(R.id.main_container, new EventsFragment(), "Events Fragment").commit();
+        FragmentManager fm = getSupportFragmentManager();
+
+        if (fm.findFragmentById(R.id.main_container) == null){
+            fm.beginTransaction().add(R.id.main_container, new EventsFragment(), "Events Fragment").commit();
+        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     }

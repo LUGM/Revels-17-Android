@@ -1,7 +1,11 @@
 package in.mitrevels.revels.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.mitrevels.revels.R;
+import in.mitrevels.revels.activities.EventActivity;
 import in.mitrevels.revels.models.EventModel;
 
 /**
@@ -45,7 +50,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         return eventsList.size();
     }
 
-    public class EventViewHolder extends RecyclerView.ViewHolder {
+    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView eventLogo;
         TextView eventName;
@@ -61,6 +66,33 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventTime = (TextView)itemView.findViewById(R.id.event_time_text_view);
             eventVenue = (TextView)itemView.findViewById(R.id.event_venue_text_view);
             eventFav = (ImageView)itemView.findViewById(R.id.event_fav_image_view);
+
+            eventFav.setOnClickListener(this);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (v.getId() == eventFav.getId()){
+                if (eventFav.getTag().toString().equals("Deselected")){
+                    eventFav.setTag("Selected");
+                    eventFav.setColorFilter(ContextCompat.getColor(context, R.color.red));
+                    Snackbar.make(v, eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+                else{
+                    eventFav.setTag("Deselected");
+                    eventFav.setColorFilter(ContextCompat.getColor(context, R.color.fav_deselect));
+                    Snackbar.make(v, eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            if (v.getId() == itemView.getId()){
+                Log.d("Item", "pressed");
+                Intent intent = new Intent(context, EventActivity.class);
+                intent.putExtra("Event Name", eventName.getText());
+                context.startActivity(intent);
+            }
         }
     }
 }

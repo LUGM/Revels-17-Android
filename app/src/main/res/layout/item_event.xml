@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:paddingTop="@dimen/padding_default"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/event_logo_image_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/tt_aero"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginStart="@dimen/padding_default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/event_name_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/typography_title"
+                android:textColor="@color/black"
+                tools:text="Event Name"
+                android:fontFamily="sans-serif-medium" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_right"
+                android:tint="?attr/colorPrimaryDark"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:id="@+id/event_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1 pm - 2 pm"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="@dimen/typography_body"
+            android:textColor="@color/teal_dark"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue"
+                    android:textSize="@dimen/typography_body"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/event_venue_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Quadrangle"
+                    android:textSize="@dimen/typography_body"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/event_fav_image_view"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_favorite"
+                android:tint="#CCCCCC"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding_default"
+            android:background="@android:drawable/divider_horizontal_bright"/>
+
+    </LinearLayout>
+
+</LinearLayout>

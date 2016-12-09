@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -32,6 +34,10 @@ public class EventActivity extends AppCompatActivity {
     private int primaryColor, darkColor;
     private LinearLayout headerLayout;
     private ImageView logo;
+    private LinearLayout favouriteLayout;
+    private TextView favouriteTextView;
+    private ImageView favouriteIcon;
+    private AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +51,27 @@ public class EventActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.event_collapsing_toolbar);
+        appBarLayout = (AppBarLayout)findViewById(R.id.event_app_bar_layout);
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.event_coordinator_layout);
         headerLayout = (LinearLayout)findViewById(R.id.event_header_layout);
 
+        favouriteLayout = (LinearLayout)findViewById(R.id.event_favourite_layout);
+        favouriteTextView = (TextView)findViewById(R.id.event_fav_text_view);
+        favouriteIcon = (ImageView)findViewById(R.id.event_fav_image_view);
+
         logo = (ImageView)findViewById(R.id.event_cat_logo);
 
         isFavourited = getIntent().getBooleanExtra("Favourite", false);
+
+        if (isFavourited){
+            favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
+            favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);
+        }
+        else{
+            favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
+            favouriteIcon.setImageResource(R.drawable.ic_fav_selected);
+        }
 
         title = getIntent().getStringExtra("Event Name");
         String date = getIntent().getStringExtra("Event Date");
@@ -118,6 +138,41 @@ public class EventActivity extends AppCompatActivity {
                     Window window = getWindow();
                     window.setStatusBarColor(darkColor);
                     window.setNavigationBarColor(primaryColor);
+                }
+            }
+        });
+
+        favouriteLayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (isFavourited){
+                    favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
+                    favouriteIcon.setImageResource(R.drawable.ic_fav_selected);
+                    isFavourited = false;
+                    if (title!=null) Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+                else{
+                    favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
+                    favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);
+                    isFavourited = true;
+                    if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
+                {
+                    //Collapsed
+                    favouriteLayout.setVisibility(View.GONE);
+                }
+                else
+                {
+                    //Expanded
+                   favouriteLayout.setVisibility(View.VISIBLE);
                 }
             }
         });

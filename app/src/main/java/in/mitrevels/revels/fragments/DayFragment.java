@@ -42,20 +42,19 @@ public class DayFragment extends Fragment {
     List<EventModel> createList(){
         List<EventModel> eventsList = new ArrayList<>();
 
-        EventModel em = new EventModel();
-        em.setEventName("Fifa 14");
-        em.setStartTime("12:30 PM");
-        em.setEndTime("7:30 PM");
-        em.setEventVenue("NLH 402, 403, 404, 405");
-        eventsList.add(em);
-
         for (int i=0; i<10; i++){
-            EventModel model = new EventModel();
-            model.setEventName("Battle of the Bands");
-            model.setStartTime("1:00 PM");
-            model.setEndTime("8:00 PM");
-            model.setEventVenue("Quadrangle");
-            eventsList.add(model);
+            EventModel em = new EventModel();
+            em.setEventName("Fifa 14");
+            em.setEventDate("08/03/2017");
+            em.setStartTime("12:30 PM");
+            em.setEndTime("7:30 PM");
+            em.setCategory("Gaming");
+            em.setContactName("Gaming Category Head");
+            em.setContactNumber("9090909090");
+            em.setEventVenue("NLH 402, 403, 404, 405");
+            em.setTeamSize("4");
+            em.setDescription("Pretty much everything that happens around us has some sound reason underlying it. The question is are you aware of them?This event pertains to testing your general awareness and how good you are at reasoning. Set aside all your engineering formulae and just stick to basics.");
+            eventsList.add(em);
         }
 
         return eventsList;

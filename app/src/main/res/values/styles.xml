@@ -19,7 +19,7 @@
 
     <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textColor">@color/color_primary_light</item>
-        <item name="android:textSize">@dimen/typography_body</item>
+        <item name="android:textSize">@dimen/typography_subheading</item>
     </style>
 
 </resources>

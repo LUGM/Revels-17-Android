@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.EventActivity;
@@ -25,10 +27,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     List<EventModel> eventsList;
     Context context;
+    Map<String, Boolean> favouritesMap;
 
     public EventsAdapter(Context context, List<EventModel> eventsList) {
         this.context = context;
         this.eventsList = eventsList;
+        favouritesMap = new HashMap<>();
+        for (EventModel event : this.eventsList)
+            favouritesMap.put(event.getEventName(), false);
     }
 
     @Override
@@ -43,6 +49,21 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         holder.eventName.setText(model.getEventName());
         holder.eventVenue.setText(model.getEventVenue());
         holder.eventTime.setText(model.getStartTime()+" - "+model.getEndTime());
+        if (position%2==0){
+            holder.eventLogo.setImageResource(R.drawable.tt_aero);
+        }
+        else{
+            holder.eventLogo.setImageResource(R.drawable.tt_kraftwagen);
+        }
+
+        if (favouritesMap.get(model.getEventName())) {
+            holder.eventFav.setColorFilter(ContextCompat.getColor(context, R.color.red));
+            holder.eventFav.setTag("Selected");
+        }
+        else {
+            holder.eventFav.setColorFilter(ContextCompat.getColor(context, R.color.fav_deselect));
+            holder.eventFav.setTag("Deselected");
+        }
     }
 
     @Override
@@ -75,22 +96,41 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         public void onClick(View v) {
 
             if (v.getId() == eventFav.getId()){
+                String name = eventsList.get(getLayoutPosition()).getEventName();
                 if (eventFav.getTag().toString().equals("Deselected")){
                     eventFav.setTag("Selected");
                     eventFav.setColorFilter(ContextCompat.getColor(context, R.color.red));
                     Snackbar.make(v, eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+
+                    if(favouritesMap.containsKey(name))
+                        favouritesMap.remove(name);
+                    favouritesMap.put(name, true);
                 }
                 else{
                     eventFav.setTag("Deselected");
                     eventFav.setColorFilter(ContextCompat.getColor(context, R.color.fav_deselect));
                     Snackbar.make(v, eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+
+                    if(favouritesMap.containsKey(name))
+                        favouritesMap.remove(name);
+                    favouritesMap.put(name, false);
                 }
             }
 
             if (v.getId() == itemView.getId()){
                 Log.d("Item", "pressed");
                 Intent intent = new Intent(context, EventActivity.class);
-                intent.putExtra("Event Name", eventName.getText());
+                EventModel event = eventsList.get(getLayoutPosition());
+                intent.putExtra("Event Name", event.getEventName());
+                intent.putExtra("Event Date", event.getEventDate());
+                intent.putExtra("Event Time", event.getStartTime()+" - "+event.getEndTime());
+                intent.putExtra("Event Venue", event.getEventVenue());
+                intent.putExtra("Team Of", event.getTeamSize());
+                intent.putExtra("Event Category", event.getCategory());
+                intent.putExtra("Event Contact", event.getContactNumber()+" ("+event.getContactName()+")");
+                intent.putExtra("Event Description", event.getDescription());
+                intent.putExtra("Favourite", favouritesMap.get(event.getEventName()));
+                intent.putExtra("Category Logo", getLayoutPosition()%2);
                 context.startActivity(intent);
             }
         }

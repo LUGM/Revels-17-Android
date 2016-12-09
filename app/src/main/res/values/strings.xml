@@ -8,4 +8,11 @@
     <string name="venue">Venue:</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
+    <string name="team_of">Team of:</string>
+    <string name="category">Category:</string>
+    <string name="contact">Contact:</string>
+    <string name="description">Description:</string>
+    <string name="favourite">Favourite</string>
+    <string name="add_to_favourites">Add to Favourites</string>
+    <string name="remove_from_favourites">Remove From Favourites</string>
 </resources>

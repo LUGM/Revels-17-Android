@@ -2,187 +2,383 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_coordinator_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/event_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/event_app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:fitsSystemWindows="true"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/event_collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:collapsedTitleGravity="left|start"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/event_banner"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"/>
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
-                    android:minHeight="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"/>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.widget.NestedScrollView
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/event_collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/padding_default">
+            app:contentScrim="?attr/colorPrimary"
+            app:collapsedTitleGravity="left|start"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMargin="@dimen/padding_default"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:id="@+id/event_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                app:layout_collapseMode="parallax"
+                android:background="?attr/colorPrimary"
+                android:layout_gravity="center"
+                android:gravity="end">
+
+                <ImageView
+                    android:id="@+id/event_cat_logo"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/tt_aero"
+                    android:background="@drawable/circular_bg"
+                    android:layout_margin="@dimen/padding_2x"/>
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@id/event_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/padding_default"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_date"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/date"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/event_date_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Event Date"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_time"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/time"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <TextView
+                    android:id="@+id/event_time_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Event Time"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_venue"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/venue"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <TextView
+                    android:id="@+id/event_venue_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Event Venue"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_team"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/team_of"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <TextView
+                    android:id="@+id/event_team_of_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Event Date"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_categories"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/category"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <TextView
+                    android:id="@+id/event_category_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Event Category"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/padding_default">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_contact"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/contact"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <TextView
+                    android:id="@+id/event_contact_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Contact"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/padding_half"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/padding_default"
+                android:background="@android:drawable/divider_horizontal_bright"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_description"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/padding_half">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:alpha="0.54"
-                        android:src="@drawable/ic_date"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginRight="32dp"/>
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_title"
-                        android:text="@string/date"
+                        android:textSize="@dimen/typography_body"
+                        android:text="@string/description"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="@dimen/padding_half"
                         android:fontFamily="sans-serif-medium"/>
 
                     <TextView
-                        android:id="@+id/event_date"
+                        android:id="@+id/event_description_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_title"
-                        tools:text="Event Date"
-                        android:layout_marginLeft="@dimen/padding_half"
-                        android:layout_marginStart="@dimen/padding_half"
-                        android:fontFamily="sans-serif-light"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/padding_half">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:alpha="0.54"
-                        android:src="@drawable/ic_time"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginRight="32dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_title"
-                        android:text="@string/time"
-                        android:fontFamily="sans-serif-medium"/>
-
-                    <TextView
-                        android:id="@+id/event_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_title"
-                        tools:text="Event Time"
-                        android:layout_marginLeft="@dimen/padding_half"
-                        android:layout_marginStart="@dimen/padding_half"
-                        android:fontFamily="sans-serif-light"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/padding_half">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:alpha="0.54"
-                        android:src="@drawable/ic_venue"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginRight="32dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_title"
-                        tools:text="Event Venue"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
-                        android:fontFamily="sans-serif-light"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:alpha="0.54"
-                        android:src="@drawable/ic_venue"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginRight="32dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_title"
-                        tools:text="Event Venue"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginStart="4dp"
+                        android:textSize="@dimen/typography_body"
+                        tools:text="Event Description"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-light"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom"
+       android:background="@color/white"
+       android:elevation="2dp"
+       android:gravity="center"
+       android:orientation="vertical">
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@android:drawable/divider_horizontal_bright" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:gravity="center"
+           android:clickable="true"
+           android:padding="@dimen/padding_default"
+           android:background="?attr/selectableItemBackground">
+
+           <ImageView
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:src="@drawable/ic_menu_fav_selected"
+               android:tint="@color/red"
+               android:layout_marginRight="@dimen/padding_default"
+               android:layout_marginEnd="@dimen/padding_default"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/add_to_favourites"
+               android:textSize="@dimen/typography_body"
+               android:textAllCaps="true"
+               android:fontFamily="sans-serif-medium"/>
+
+       </LinearLayout>
+
+   </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

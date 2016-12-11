@@ -15,4 +15,12 @@
     <string name="favourite">Favourite</string>
     <string name="add_to_favourites">Add to Favourites</string>
     <string name="remove_from_favourites">Remove From Favourites</string>
+    <string name="search">Search</string>
+    <string name="drawer_developers">Developers</string>
+    <string name="drawer_about">About Us</string>
+    <string name="drawer_insta">Instagram Feed</string>
+    <string name="drawer_results">Results</string>
+    <string name="drawer_online">Online Events</string>
+    <string name="drawer_favourites">Favourites</string>
+    <string name="drawer_events">Events</string>
 </resources>

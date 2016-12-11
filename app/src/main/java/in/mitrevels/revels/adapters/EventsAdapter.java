@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +27,18 @@ import in.mitrevels.revels.models.EventModel;
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
 
     List<EventModel> eventsList;
+    List<EventModel> allEvents;
     Context context;
     Map<String, Boolean> favouritesMap;
 
     public EventsAdapter(Context context, List<EventModel> eventsList) {
         this.context = context;
         this.eventsList = eventsList;
+        allEvents = new ArrayList<>();
+
+        for (EventModel event : this.eventsList)
+            allEvents.add(event);
+
         favouritesMap = new HashMap<>();
         for (EventModel event : this.eventsList)
             favouritesMap.put(event.getEventName(), false);
@@ -69,6 +76,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     @Override
     public int getItemCount() {
         return eventsList.size();
+    }
+
+    public void filterResults(String query){
+        eventsList.clear();
+
+        for (EventModel event : allEvents){
+            if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
+                eventsList.add(event);
+        }
+
+        notifyDataSetChanged();
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

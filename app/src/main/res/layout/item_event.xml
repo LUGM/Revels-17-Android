@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/event_logo_image_view"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/tt_aero"/>
 
     <LinearLayout
@@ -56,11 +56,10 @@
             tools:text="1 pm - 2 pm"
             android:fontFamily="sans-serif-light"
             android:textSize="13sp"
-            android:textColor="?attr/colorPrimaryDark"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingTop="0.5dp"
+            android:paddingBottom="0.5dp"
+            android:paddingLeft="3.5dp"
+            android:paddingRight="3.5dp"
             android:background="@drawable/rounded_background"/>
 
         <LinearLayout
@@ -98,8 +97,8 @@
 
             <ImageView
                 android:id="@+id/event_fav_image_view"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@drawable/ic_favorite"
                 android:tint="@color/fav_deselect"
                 android:tag="Deselected"

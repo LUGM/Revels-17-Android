@@ -118,6 +118,8 @@ public class EventActivity extends AppCompatActivity {
             bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tt_kraftwagen);
         }
 
+        // Code for dynamic colouring of toolbar, status bar and navigation bar
+
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
 
             @Override

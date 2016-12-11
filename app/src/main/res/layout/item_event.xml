@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:paddingTop="@dimen/padding_default"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/event_logo_image_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/tt_aero"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginStart="@dimen/padding_default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/event_name_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/typography_title"
+                android:textColor="@color/black"
+                tools:text="Event Name"
+                android:fontFamily="sans-serif-medium" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_right"
+                android:tint="?attr/colorPrimaryDark"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:id="@+id/event_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1 pm - 2 pm"
+            android:fontFamily="sans-serif-light"
+            android:textSize="13sp"
+            android:paddingTop="0.5dp"
+            android:paddingBottom="0.5dp"
+            android:paddingLeft="3.5dp"
+            android:paddingRight="3.5dp"
+            android:background="@drawable/rounded_background"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/venue"
+                    android:textSize="@dimen/typography_body"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/event_venue_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Quadrangle"
+                    android:textSize="@dimen/typography_body"
+                    android:fontFamily="sans-serif-light"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/event_fav_image_view"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_favorite"
+                android:tint="@color/fav_deselect"
+                android:tag="Deselected"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/padding_default"
+            android:background="@android:drawable/divider_horizontal_bright"/>
+
+    </LinearLayout>
+
+</LinearLayout>

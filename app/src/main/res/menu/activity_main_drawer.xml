@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/drawer_items_1"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/drawer_menu_events"
+            android:title="@string/drawer_events"
+            android:icon="@drawable/drawer_events"
+            app:showAsAction="always"/>
+
+        <item
+            android:id="@+id/drawer_menu_favourites"
+            android:title="@string/drawer_favourites"
+            android:icon="@drawable/ic_favorite"
+            app:showAsAction="always"/>
+
+        <item
+            android:id="@+id/drawer_menu_results"
+            android:title="@string/drawer_results"
+            android:icon="@drawable/drawer_results"
+            app:showAsAction="always"/>
+
+        <item
+            android:id="@+id/drawer_menu_online"
+            android:title="@string/drawer_online"
+            android:icon="@drawable/drawer_online"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/drawer_menu_insta"
+            android:title="@string/drawer_insta"
+            android:icon="@drawable/drawer_instagram"
+            app:showAsAction="always" />
+    </group>
+
+    <group android:id="@+id/drawer_items_2"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/drawer_menu_developers"
+            android:title="@string/drawer_developers"
+            android:icon="@drawable/drawer_developers"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/drawer_menu_about"
+            android:title="@string/drawer_about"
+            android:icon="@drawable/drawer_about"
+            app:showAsAction="always" />
+
+    </group>
+
+</menu>

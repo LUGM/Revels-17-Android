@@ -23,4 +23,20 @@
     <string name="drawer_online">Online Events</string>
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_events">Events</string>
+    <string name="favourites">Favourites</string>
+    <string name="android">Android</string>
+    <string name="anurag">Anurag Choudhary</string>
+    <string name="naman">Naman Yadav</string>
+    <string name="developer">Developer</string>
+    <string name="anuraag">Anuraag Baishya</string>
+    <string name="head">Head</string>
+    <string name="ios">iOS</string>
+    <string name="ykl">Yash Kumar Lal</string>
+    <string name="abhishek">Abhishek Vora</string>
+    <string name="windows">Windows</string>
+    <string name="vinayak">Vinayak Agarwal</string>
+    <string name="gautham">Gautham Vinod</string>
+    <string name="ui">UI</string>
+    <string name="shubham">Shubham Singhal</string>
+    <string name="ui_designer">UI Designer</string>
 </resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        android:paddingTop="@dimen/padding_half"
+        android:paddingBottom="@dimen/padding_half"
+        android:gravity="center_vertical"
+        android:elevation="3dp"
+        android:clipToPadding="false">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/tt_aero"
+            android:layout_marginRight="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Instagram ID"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/typography_subheading"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/tt_insta_img"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingTop="@dimen/padding_half"
+        android:paddingRight="@dimen/padding_default"
+        android:paddingBottom="@dimen/padding_half"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_fav_deselected"
+            android:layout_marginRight="@dimen/padding_half"
+            android:layout_marginEnd="@dimen/padding_half"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="10 likes"
+            android:fontFamily="sans-serif-light"
+            android:textSize="@dimen/typography_body"
+            android:layout_marginRight="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"/>
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_insta_comments"
+            android:layout_marginRight="@dimen/padding_half"
+            android:layout_marginEnd="@dimen/padding_half"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="10 comments"
+            android:textSize="@dimen/typography_body"
+            android:fontFamily="sans-serif-light"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:drawable/divider_horizontal_bright"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingTop="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        android:paddingBottom="@dimen/padding_half"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Description"
+            android:textSize="@dimen/typography_body"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+</LinearLayout>

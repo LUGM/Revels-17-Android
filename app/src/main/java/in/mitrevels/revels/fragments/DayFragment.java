@@ -1,5 +1,6 @@
 package in.mitrevels.revels.fragments;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -132,5 +134,12 @@ public class DayFragment extends Fragment {
             child.setBackground(null);
             child.setPadding(0, 0, 0, 0);
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        setHasOptionsMenu(false);
+        setMenuVisibility(false);
     }
 }

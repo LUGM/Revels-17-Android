@@ -1,5 +1,6 @@
 package in.mitrevels.revels.activities;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,7 @@ public class EventActivity extends AppCompatActivity {
     private TextView favouriteTextView;
     private ImageView favouriteIcon;
     private AppBarLayout appBarLayout;
+    private FloatingActionButton favouriteFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,21 +59,31 @@ public class EventActivity extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.event_coordinator_layout);
         headerLayout = (LinearLayout)findViewById(R.id.event_header_layout);
 
-        favouriteLayout = (LinearLayout)findViewById(R.id.event_favourite_layout);
-        favouriteTextView = (TextView)findViewById(R.id.event_fav_text_view);
-        favouriteIcon = (ImageView)findViewById(R.id.event_fav_image_view);
-
         logo = (ImageView)findViewById(R.id.event_cat_logo);
+
+        favouriteFab = (FloatingActionButton)findViewById(R.id.event_favourite_fab);
+
+        /*favouriteLayout = (LinearLayout)findViewById(R.id.event_favourite_layout);
+        favouriteTextView = (TextView)findViewById(R.id.event_fav_text_view);
+        favouriteIcon = (ImageView)findViewById(R.id.event_fav_image_view);*/
 
         isFavourited = getIntent().getBooleanExtra("Favourite", false);
 
         if (isFavourited){
-            favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
-            favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);
+            /*favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
+            favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);*/
+
+            favouriteFab.setImageResource(R.drawable.ic_fav_deselected);
+            favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
+            favouriteFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
         }
         else{
-            favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
-            favouriteIcon.setImageResource(R.drawable.ic_fav_selected);
+            /*favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
+            favouriteIcon.setImageResource(R.drawable.ic_fav_selected);*/
+
+            favouriteFab.setImageResource(R.drawable.ic_fav_selected);
+            favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
+            favouriteFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
         }
 
         title = getIntent().getStringExtra("Event Name");
@@ -144,7 +157,27 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        favouriteLayout.setOnClickListener(new View.OnClickListener(){
+        favouriteFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFavourited){
+                    favouriteFab.setImageResource(R.drawable.ic_fav_selected);
+                    favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(EventActivity.this, R.color.red)));
+                    favouriteFab.setRippleColor(ContextCompat.getColor(EventActivity.this, R.color.red_dark));
+                    isFavourited = false;
+                    if (title!=null) Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+                else{
+                    favouriteFab.setImageResource(R.drawable.ic_fav_deselected);
+                    favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(EventActivity.this, R.color.grey)));
+                    favouriteFab.setRippleColor(ContextCompat.getColor(EventActivity.this, R.color.grey_dark));
+                    isFavourited = true;
+                    if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        /*favouriteLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if (isFavourited){
@@ -160,9 +193,9 @@ public class EventActivity extends AppCompatActivity {
                     if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        /*appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
@@ -177,7 +210,7 @@ public class EventActivity extends AppCompatActivity {
                    favouriteLayout.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        });*/
 
     }
 

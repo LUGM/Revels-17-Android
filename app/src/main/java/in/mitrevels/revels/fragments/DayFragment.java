@@ -1,12 +1,17 @@
 package in.mitrevels.revels.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.SearchManager;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -14,13 +19,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,5 +154,89 @@ public class DayFragment extends Fragment {
         super.onDetach();
         setHasOptionsMenu(false);
         setMenuVisibility(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.menu_filter:{
+                View view = View.inflate(getActivity(), R.layout.dialog_filter, null);
+                final BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
+
+                dialog.setContentView(view);
+
+                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+                dialog.show();
+
+                LinearLayout startTimeLayout = (LinearLayout)view.findViewById(R.id.filter_start_time_layout);
+                final TextView startTimeTextView = (TextView)view.findViewById(R.id.start_time_text_view);
+
+                LinearLayout endTimeLayout = (LinearLayout)view.findViewById(R.id.filter_end_time_layout);
+                final TextView endTimeTextView = (TextView)view.findViewById(R.id.end_time_text_view);
+
+                TextView cancelTextView = (TextView)view.findViewById(R.id.filter_cancel_text_view);
+                TextView applyTextView = (TextView)view.findViewById(R.id.filter_apply_text_view);
+
+                cancelTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.hide();
+                    }
+                });
+
+                applyTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.hide();
+                    }
+                });
+
+                startTimeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TimePickerDialog tpDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                if (hourOfDay < 12)
+                                    startTimeTextView.setText(hourOfDay+":"+minute+" AM");
+                                else if (hourOfDay == 12)
+                                    startTimeTextView.setText(hourOfDay+":"+minute+" PM");
+                                else if (hourOfDay > 12)
+                                    startTimeTextView.setText((hourOfDay-12)+":"+minute+" PM");
+                            }
+                        }, 12, 30, false);
+
+                        tpDialog.show();
+                    }
+                });
+
+                endTimeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TimePickerDialog tpDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                if (hourOfDay < 12)
+                                    endTimeTextView.setText(hourOfDay+":"+minute+" AM");
+                                else if (hourOfDay == 12)
+                                    endTimeTextView.setText(hourOfDay+":"+minute+" PM");
+                                else if (hourOfDay > 12)
+                                    endTimeTextView.setText((hourOfDay-12)+":"+minute+" PM");
+                            }
+                        }, 12, 30, false);
+
+                        tpDialog.show();
+                    }
+                });
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

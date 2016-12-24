@@ -39,4 +39,15 @@
     <string name="ui">UI</string>
     <string name="shubham">Shubham Singhal</string>
     <string name="ui_designer">UI Designer</string>
+    <string name="revels_17_hashtag">#revels17</string>
+    <string name="filter_events">Filter Events</string>
+    <string name="select_start_time">Start Time:</string>
+    <string name="default_start_time">12:30 PM</string>
+    <string name="select_end_time">End Time:</string>
+    <string name="select_event_type">Event Type:</string>
+    <string name="select_event_venue">Venue:</string>
+    <string name="clear_filters">Clear Filters</string>
+    <string name="apply_filter">Apply</string>
+    <string name="about_revels">About Revels</string>
+    <string name="about_revels_text">Revels is one of the most awaited cultural and sports festival in the south circuit amongst the engineering colleges and is widely regarded as the largest event in Karnataka.</string>
 </resources>

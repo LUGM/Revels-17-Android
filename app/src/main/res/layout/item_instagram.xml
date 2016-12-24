@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,13 +12,14 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/padding_default"
         android:paddingRight="@dimen/padding_default"
-        android:paddingTop="@dimen/padding_half"
-        android:paddingBottom="@dimen/padding_half"
+        android:paddingTop="@dimen/padding_default"
+        android:paddingBottom="@dimen/padding_default"
         android:gravity="center_vertical"
         android:elevation="3dp"
-        android:clipToPadding="false">
+        android:background="@color/white">
 
         <ImageView
+            android:id="@+id/insta_feed_dp_image_view"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/tt_aero"
@@ -25,21 +27,34 @@
             android:layout_marginEnd="@dimen/padding_default"/>
 
         <TextView
+            android:id="@+id/insta_feed_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Instagram ID"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/black"
-            android:textSize="@dimen/typography_subheading"/>
+            android:textSize="@dimen/typography_title"/>
 
     </LinearLayout>
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:src="@drawable/tt_insta_img"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/insta_feed_img_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tt_insta_img"
+            android:adjustViewBounds="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/drop_shadow"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,33 +67,35 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_fav_deselected"
             android:layout_marginRight="@dimen/padding_half"
             android:layout_marginEnd="@dimen/padding_half"/>
 
         <TextView
+            android:id="@+id/insta_feed_likes_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="10 likes"
             android:fontFamily="sans-serif-light"
-            android:textSize="@dimen/typography_body"
+            android:textSize="12sp"
             android:layout_marginRight="@dimen/padding_default"
             android:layout_marginEnd="@dimen/padding_default"/>
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_insta_comments"
             android:layout_marginRight="@dimen/padding_half"
             android:layout_marginEnd="@dimen/padding_half"/>
 
         <TextView
+            android:id="@+id/insta_feed_comments_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="10 comments"
-            android:textSize="@dimen/typography_body"
+            android:textSize="12sp"
             android:fontFamily="sans-serif-light"/>
 
     </LinearLayout>
@@ -95,16 +112,22 @@
         android:paddingLeft="@dimen/padding_default"
         android:paddingTop="@dimen/padding_default"
         android:paddingRight="@dimen/padding_default"
-        android:paddingBottom="@dimen/padding_half"
+        android:paddingBottom="@dimen/padding_default"
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/insta_feed_description_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Description"
-            android:textSize="@dimen/typography_body"
+            android:textSize="13sp"
             android:textColor="@color/black"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:drawable/divider_horizontal_bright"/>
 
 </LinearLayout>

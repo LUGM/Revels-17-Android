@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
+            app:statusBarScrim="?attr/colorPrimaryDark"
             app:collapsedTitleGravity="left|start"
             android:fitsSystemWindows="true"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
@@ -95,6 +96,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/event_date_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -333,61 +335,34 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fab_size"
+                android:background="@android:color/transparent"/>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    
+    <!--<android.support.design.widget.FloatingActionButton
+        android:id="@+id/event_favourite_fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:drawable/divider_horizontal_bright"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true"
-            android:background="#E9E9E9">
-
-
-            <LinearLayout
-                android:id="@+id/event_favourite_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:clickable="true"
-                android:padding="@dimen/padding_default"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:id="@+id/event_fav_image_view"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_fav_selected"
-                    android:layout_marginRight="@dimen/padding_default"
-                    android:layout_marginEnd="@dimen/padding_default"/>
-
-                <TextView
-                    android:id="@+id/event_fav_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_to_favourites"
-                    android:textSize="@dimen/typography_body"
-                    android:textAllCaps="true"
-                    android:fontFamily="sans-serif-medium"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:foregroundGravity="center"
+        app:fabSize="normal"
+        android:src="@drawable/ic_fav_selected"
+        app:backgroundTint="@color/red"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

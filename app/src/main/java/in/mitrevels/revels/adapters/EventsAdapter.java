@@ -145,7 +145,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 intent.putExtra("Event Venue", event.getEventVenue());
                 intent.putExtra("Team Of", event.getTeamSize());
                 intent.putExtra("Event Category", event.getCategory());
-                intent.putExtra("Event Contact", event.getContactNumber()+" ("+event.getContactName()+")");
+                intent.putExtra("Contact Number", event.getContactNumber());
+                intent.putExtra("Contact Name", "("+event.getContactName()+")");
                 intent.putExtra("Event Description", event.getDescription());
                 intent.putExtra("Favourite", favouritesMap.get(event.getEventName()));
                 intent.putExtra("Category Logo", getLayoutPosition()%2);

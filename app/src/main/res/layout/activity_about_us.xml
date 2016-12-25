@@ -18,11 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:statusBarScrim="?attr/colorPrimaryDark"
+            app:statusBarScrim="@android:color/transparent"
             app:collapsedTitleGravity="left|start"
-            android:fitsSystemWindows="true"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
             app:expandedTitleMargin="@dimen/padding_default"
+            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -54,8 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about_revels_text"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/black"
             android:textSize="@dimen/typography_body"/>
 
     </android.support.v4.widget.NestedScrollView>

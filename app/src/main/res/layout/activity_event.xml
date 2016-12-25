@@ -2,11 +2,11 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/event_coordinator_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/event_app_bar_layout"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:statusBarScrim="?attr/colorPrimaryDark"
+            app:statusBarScrim="@android:color/transparent"
             app:collapsedTitleGravity="left|start"
             android:fitsSystemWindows="true"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
@@ -96,16 +96,13 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:layout_weight="1"
                     android:id="@+id/event_date_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Date"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/padding_half"
-                    android:layout_marginStart="@dimen/padding_half"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"/>
 
             </LinearLayout>
 
@@ -136,20 +133,18 @@
                     android:id="@+id/event_time_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/typography_body"
-                    tools:text="Event Time"
-                    android:layout_marginLeft="@dimen/padding_half"
-                    android:layout_marginStart="@dimen/padding_half"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    tools:text="Event Time"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_marginBottom="@dimen/padding_half">
 
                 <ImageView
@@ -172,12 +167,10 @@
                     android:id="@+id/event_venue_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Venue"
-                    android:layout_marginLeft="@dimen/padding_half"
-                    android:layout_marginStart="@dimen/padding_half"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"/>
 
             </LinearLayout>
 
@@ -208,12 +201,10 @@
                     android:id="@+id/event_team_of_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Date"
-                    android:layout_marginLeft="@dimen/padding_half"
-                    android:layout_marginStart="@dimen/padding_half"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"/>
 
             </LinearLayout>
 
@@ -244,12 +235,10 @@
                     android:id="@+id/event_category_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Category"
-                    android:layout_marginLeft="@dimen/padding_half"
-                    android:layout_marginStart="@dimen/padding_half"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"/>
 
             </LinearLayout>
 
@@ -267,24 +256,45 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/typography_body"
-                    android:text="@string/contact"
-                    android:textColor="@color/black"
-                    android:fontFamily="sans-serif-medium"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/event_contact_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/typography_body"
-                    tools:text="Contact"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/padding_half"
-                    android:layout_marginStart="@dimen/padding_half"
-                    android:fontFamily="sans-serif-light"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/typography_body"
+                        android:text="@string/contact"
+                        android:textColor="@color/black"
+                        android:fontFamily="sans-serif-medium"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/event_contact_number_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/typography_body"
+                            tools:text="Contact"
+                            android:textColor="@color/light_blue"/>
+
+                        <TextView
+                            android:layout_marginStart="4dp"
+                            android:layout_marginLeft="4dp"
+                            android:id="@+id/event_contact_name_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/typography_body"
+                            tools:text="(Contact Name)"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -327,9 +337,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/typography_body"
-                        tools:text="Event Description"
-                        android:textColor="@color/black"
-                        android:fontFamily="sans-serif-light"/>
+                        tools:text="Event Description"/>
 
                 </LinearLayout>
 
@@ -337,32 +345,48 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/fab_size"
+                android:layout_height="64dp"
                 android:background="@android:color/transparent"/>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/event_fab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|bottom"
+        android:padding="@dimen/padding_default"
+        fab:menu_labels_style="@style/MenuLabelsStyle"
+        fab:menu_labels_margin="24dp"
+        fab:menu_backgroundColor="#DDEEEEEE"
+        fab:menu_shadowColor="#44000000"
+        fab:menu_animationDelayPerItem="40"
+        fab:menu_colorNormal="@color/light_blue"
+        fab:menu_colorPressed="@color/light_blue_medium"
+        fab:menu_colorRipple="@color/light_blue_dark">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
+        <com.github.clans.fab.FloatingActionButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fav_selected"
+            fab:fab_label="@string/add_to_favourites"
+            app:fab_colorNormal="@color/red"
+            app:fab_colorPressed="@color/red_medium"
+            app:fab_colorRipple="@color/red_dark"
+            style="@style/MiniFabStyle"/>
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
-    
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/event_favourite_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:foregroundGravity="center"
-        app:fabSize="normal"
-        android:src="@drawable/ic_fav_selected"
-        app:backgroundTint="@color/red"/>-->
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rate"
+            fab:fab_label="@string/rate_event"
+            app:fab_colorNormal="@color/amber"
+            app:fab_colorPressed="@color/amber_medium"
+            app:fab_colorRipple="@color/amber_dark"
+            style="@style/MiniFabStyle"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>

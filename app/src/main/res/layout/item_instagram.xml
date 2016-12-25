@@ -69,7 +69,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_fav_deselected"
+            android:src="@drawable/ic_insta_liked"
             android:layout_marginRight="@dimen/padding_half"
             android:layout_marginEnd="@dimen/padding_half"/>
 

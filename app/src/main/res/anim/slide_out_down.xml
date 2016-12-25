@@ -3,8 +3,8 @@
     android:fillAfter="true">
 
     <translate xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="@android:integer/config_shortAnimTime"
+        android:duration="300"
         android:fromYDelta="0%p"
-        android:toYDelta="100%p" />
+        android:toYDelta="30%p" />
 
 </set>

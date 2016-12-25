@@ -90,8 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Quadrangle"
-                    android:textSize="@dimen/typography_body"
-                    android:fontFamily="sans-serif-light"/>
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="@dimen/typography_body"/>
 
             </LinearLayout>
 

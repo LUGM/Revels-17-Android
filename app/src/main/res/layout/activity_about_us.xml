@@ -2,15 +2,18 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/about_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -27,9 +30,10 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/collapsible_header_height_normal"
                 android:src="@drawable/header"
                 android:adjustViewBounds="true"
+                android:fitsSystemWindows="true"
                 android:scaleType="centerCrop" />
 
             <android.support.v7.widget.Toolbar
@@ -47,29 +51,198 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:padding="@dimen/padding_default">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_revels_text"
-            android:textSize="@dimen/typography_body"/>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/about_revels_text"
+                android:textSize="@dimen/typography_body"
+                android:paddingLeft="@dimen/padding_default"
+                android:paddingRight="@dimen/padding_default"
+                android:paddingBottom="@dimen/padding_default"
+                android:paddingTop="@dimen/padding_2x"/>
+
+            <TableLayout
+                android:id="@+id/about_links_table_layout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:padding="@dimen/padding_default">
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_fb"
+                            android:layout_margin="@dimen/padding_default"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/revels_fb"
+                            android:textSize="@dimen/typography_subheading"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_instagram"
+                            android:layout_margin="@dimen/padding_default"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/revels_insta"
+                            android:textSize="@dimen/typography_subheading"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_snapchat"
+                            android:layout_margin="@dimen/padding_default"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/revels_insta"
+                            android:textSize="@dimen/typography_subheading"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_youtube"
+                            android:layout_margin="@dimen/padding_default"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/revels_youtube"
+                            android:textSize="@dimen/typography_subheading"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_twitter"
+                            android:layout_margin="@dimen/padding_default"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/revels_insta"
+                            android:textSize="@dimen/typography_subheading"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_return"
+                            android:layout_margin="@dimen/padding_default"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about_return"
+                            android:textSize="@dimen/typography_subheading"
+                            android:textColor="@color/white"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </FrameLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/event_favourite_fab"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/about_fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:cropToPadding="false"
-        android:foregroundGravity="center"
-        app:fabSize="normal"
-        app:rippleColor="@color/red_dark"
-        android:src="@drawable/ic_links"
-        android:scaleX="-1"
-        app:backgroundTint="@color/indigo"/>
+        app:layout_anchor="@id/about_app_bar_layout"
+        app:layout_anchorGravity="end|bottom"
+        android:layout_margin="@dimen/fab_menu_margin"
+        fab:menu_shadowColor="#44000000"
+        fab:menu_colorNormal="@color/amber"
+        fab:menu_colorPressed="@color/amber_medium"
+        fab:menu_colorRipple="@color/amber_dark"
+        app:menu_fab_size="normal" />
 
 </android.support.design.widget.CoordinatorLayout>

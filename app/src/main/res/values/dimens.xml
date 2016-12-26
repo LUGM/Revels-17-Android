@@ -16,4 +16,7 @@
     <dimen name="padding_3x">48dp</dimen>
     <dimen name="padding_4x">64dp</dimen>
     <dimen name="fab_size">56dp</dimen>
+    <dimen name="collapsible_header_height_small">210dp</dimen>
+    <dimen name="collapsible_header_height_normal">250dp</dimen>
+    <dimen name="fab_menu_margin">11dp</dimen>
 </resources>

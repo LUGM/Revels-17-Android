@@ -1,7 +1,9 @@
 package in.mitrevels.revels.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -16,17 +18,30 @@ import android.view.MenuItem;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.fragments.EventsFragment;
+import in.mitrevels.revels.fragments.FavouritesFragment;
+import in.mitrevels.revels.fragments.InstagramFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FragmentManager fm;
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private Toolbar toolbar;
+    private AppBarLayout appBarLayout;
+    private int checkedItem;
+    private static final String EVENTS_TAG = "Events Fragment";
+    private static final String FAVOURITES_TAG = "Favourites Fragment";
+    private static final String INSTAGRAM_TAG = "InstaFeed Fragment";
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.main_app_bar_layout);
+        appBarLayout = (AppBarLayout)findViewById(R.id.main_app_bar_layout);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setElevation(0);
@@ -37,20 +52,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
 
-        if (fm.findFragmentById(R.id.main_container) == null){
-            fm.beginTransaction().add(R.id.main_container, new EventsFragment(), "Events Fragment").commit();
+        if (fm.findFragmentByTag(EVENTS_TAG) == null){
+            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, new EventsFragment(), EVENTS_TAG).commit();
         }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.drawer_menu_events).setChecked(true);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -71,14 +87,101 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
+
+        drawer.closeDrawers();
+        if (item.getItemId() == checkedItem)
+            return false;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (item.getItemId() != R.id.drawer_menu_developers && item.getItemId() != R.id.drawer_menu_about){
+
+                    if (item.getItemId() == R.id.drawer_menu_events) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            toolbar.setElevation(0);
+                            appBarLayout.setElevation(0);
+                            appBarLayout.setTargetElevation(0);
+                        }
+                    }
+                    else {
+                        if (fm.findFragmentByTag(EVENTS_TAG) != null) {
+                            fm.findFragmentByTag(EVENTS_TAG).setMenuVisibility(false);
+                            fm.findFragmentByTag(EVENTS_TAG).setHasOptionsMenu(false);
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            appBarLayout.setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+                            toolbar.setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
+
+                        }
+                    }
+                }
+
+                switch(item.getItemId()){
+                    case R.id.drawer_menu_events:
+
+                        if (fm.findFragmentByTag(EVENTS_TAG) == null) {
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, new EventsFragment(), EVENTS_TAG).commit();
+                        }
+                        else{
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, fm.findFragmentByTag(EVENTS_TAG)).commit();
+                        }
+
+                        setCheckedItem(R.id.drawer_menu_events);
+                        break;
+
+                    case R.id.drawer_menu_favourites:
+
+                        if (fm.findFragmentByTag(FAVOURITES_TAG) == null) {
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, new FavouritesFragment(), FAVOURITES_TAG).commit();
+                        }
+                        else{
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, fm.findFragmentByTag(FAVOURITES_TAG)).commit();
+                        }
+
+                        setCheckedItem(R.id.drawer_menu_favourites);
+                        break;
+
+                    case R.id.drawer_menu_developers:
+                        Intent developersIntent = new Intent(MainActivity.this, DevelopersActivity.class);
+                        startActivity(developersIntent);
+                        break;
+
+                    case R.id.drawer_menu_about:
+                        Intent aboutIntent = new Intent(MainActivity.this, AboutUsActivity.class);
+                        startActivity(aboutIntent);
+                        break;
+
+                    case R.id.drawer_menu_insta:
+                        if (fm.findFragmentByTag(INSTAGRAM_TAG) == null) {
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, new InstagramFragment(), INSTAGRAM_TAG).commit();
+                        }
+                        else{
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, fm.findFragmentByTag(INSTAGRAM_TAG)).commit();
+                        }
+
+                        setCheckedItem(R.id.drawer_menu_insta);
+                        break;
 
 
-        return super.onOptionsItemSelected(item);
+                }
+            }
+        }, 280);
+
+        return false;
     }
+
+    private void setCheckedItem(int id){
+        if (navigationView == null) return;
+        checkedItem = id;
+
+        for (int i=0; i<navigationView.getMenu().size(); i++)
+            navigationView.getMenu().getItem(i).setChecked(false);
+
+        navigationView.getMenu().findItem(id).setChecked(true);
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package in.mitrevels.revels.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -28,11 +28,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     List<EventModel> eventsList;
     List<EventModel> allEvents;
-    Context context;
+    Activity activity;
     Map<String, Boolean> favouritesMap;
 
-    public EventsAdapter(Context context, List<EventModel> eventsList) {
-        this.context = context;
+    public EventsAdapter(Activity activity, List<EventModel> eventsList) {
+        this.activity = activity;
         this.eventsList = eventsList;
         allEvents = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_event, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_event, parent, false);
         return new EventViewHolder(view);
     }
 
@@ -64,11 +64,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         }
 
         if (favouritesMap.get(model.getEventName())) {
-            holder.eventFav.setColorFilter(ContextCompat.getColor(context, R.color.red));
+            holder.eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
             holder.eventFav.setTag("Selected");
         }
         else {
-            holder.eventFav.setColorFilter(ContextCompat.getColor(context, R.color.fav_deselect));
+            holder.eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
             holder.eventFav.setTag("Deselected");
         }
     }
@@ -117,7 +117,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 String name = eventsList.get(getLayoutPosition()).getEventName();
                 if (eventFav.getTag().toString().equals("Deselected")){
                     eventFav.setTag("Selected");
-                    eventFav.setColorFilter(ContextCompat.getColor(context, R.color.red));
+                    eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
                     Snackbar.make(v, eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
 
                     if(favouritesMap.containsKey(name))
@@ -126,7 +126,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 }
                 else{
                     eventFav.setTag("Deselected");
-                    eventFav.setColorFilter(ContextCompat.getColor(context, R.color.fav_deselect));
+                    eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
                     Snackbar.make(v, eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
 
                     if(favouritesMap.containsKey(name))
@@ -137,7 +137,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
             if (v.getId() == itemView.getId()){
                 Log.d("Item", "pressed");
-                Intent intent = new Intent(context, EventActivity.class);
+                Intent intent = new Intent(activity, EventActivity.class);
                 EventModel event = eventsList.get(getLayoutPosition());
                 intent.putExtra("Event Name", event.getEventName());
                 intent.putExtra("Event Date", event.getEventDate());
@@ -145,11 +145,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 intent.putExtra("Event Venue", event.getEventVenue());
                 intent.putExtra("Team Of", event.getTeamSize());
                 intent.putExtra("Event Category", event.getCategory());
-                intent.putExtra("Event Contact", event.getContactNumber()+" ("+event.getContactName()+")");
+                intent.putExtra("Contact Number", event.getContactNumber());
+                intent.putExtra("Contact Name", "("+event.getContactName()+")");
                 intent.putExtra("Event Description", event.getDescription());
                 intent.putExtra("Favourite", favouritesMap.get(event.getEventName()));
                 intent.putExtra("Category Logo", getLayoutPosition()%2);
-                context.startActivity(intent);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
             }
         }
     }

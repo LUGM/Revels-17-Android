@@ -7,21 +7,18 @@ import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.github.clans.fab.FloatingActionMenu;
 
 import in.mitrevels.revels.R;
 
@@ -38,6 +35,8 @@ public class EventActivity extends AppCompatActivity {
     private TextView favouriteTextView;
     private ImageView favouriteIcon;
     private AppBarLayout appBarLayout;
+    private FloatingActionButton favouriteFab;
+    private FloatingActionMenu fabMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +55,36 @@ public class EventActivity extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.event_coordinator_layout);
         headerLayout = (LinearLayout)findViewById(R.id.event_header_layout);
 
-        favouriteLayout = (LinearLayout)findViewById(R.id.event_favourite_layout);
-        favouriteTextView = (TextView)findViewById(R.id.event_fav_text_view);
-        favouriteIcon = (ImageView)findViewById(R.id.event_fav_image_view);
-
         logo = (ImageView)findViewById(R.id.event_cat_logo);
+
+        fabMenu = (FloatingActionMenu)findViewById(R.id.event_fab_menu);
+        fabMenu.setClosedOnTouchOutside(true);
+
+        //favouriteFab = (FloatingActionButton)findViewById(R.id.event_favourite_fab);
+
+        /*favouriteLayout = (LinearLayout)findViewById(R.id.event_favourite_layout);
+        favouriteTextView = (TextView)findViewById(R.id.event_fav_text_view);
+        favouriteIcon = (ImageView)findViewById(R.id.event_fav_image_view);*/
 
         isFavourited = getIntent().getBooleanExtra("Favourite", false);
 
-        if (isFavourited){
+        /*if (isFavourited){
             favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
             favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);
+
+            favouriteFab.setImageResource(R.drawable.ic_fav_deselected);
+            favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
+            favouriteFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
         }
         else{
             favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
             favouriteIcon.setImageResource(R.drawable.ic_fav_selected);
-        }
+
+            favouriteFab.setImageResource(R.drawable.ic_fav_selected);
+            favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
+            favouriteFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
+        }*/
+
 
         title = getIntent().getStringExtra("Event Name");
         String date = getIntent().getStringExtra("Event Date");
@@ -79,7 +92,8 @@ public class EventActivity extends AppCompatActivity {
         String venue = getIntent().getStringExtra("Event Venue");
         String teamOf = getIntent().getStringExtra("Team Of");
         String category = getIntent().getStringExtra("Event Category");
-        String contact = getIntent().getStringExtra("Event Contact");
+        String contactNumber = getIntent().getStringExtra("Contact Number");
+        String contactName = getIntent().getStringExtra("Contact Name");
         String description = getIntent().getStringExtra("Event Description");
 
         if (title!=null && !title.equals(""))
@@ -101,8 +115,11 @@ public class EventActivity extends AppCompatActivity {
         TextView eventCategory = (TextView)findViewById(R.id.event_category_text_view);
         if (category!=null) eventCategory.setText(category);
 
-        TextView eventContact = (TextView)findViewById(R.id.event_contact_text_view);
-        if (contact!=null) eventContact.setText(contact);
+        TextView eventContactNumber = (TextView)findViewById(R.id.event_contact_number_text_view);
+        if (contactNumber!=null) eventContactNumber.setText(contactNumber);
+
+        TextView eventContactName = (TextView)findViewById(R.id.event_contact_name_text_view);
+        if (contactName!=null) eventContactName.setText(contactName);
 
         TextView eventDescription = (TextView)findViewById(R.id.event_description_text_view);
         if (description!=null) eventDescription.setText(description);
@@ -144,7 +161,27 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        favouriteLayout.setOnClickListener(new View.OnClickListener(){
+        /*favouriteFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFavourited){
+                    favouriteFab.setImageResource(R.drawable.ic_fav_selected);
+                    favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(EventActivity.this, R.color.red)));
+                    favouriteFab.setRippleColor(ContextCompat.getColor(EventActivity.this, R.color.red_dark));
+                    isFavourited = false;
+                    if (title!=null) Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+                else{
+                    favouriteFab.setImageResource(R.drawable.ic_fav_deselected);
+                    favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(EventActivity.this, R.color.grey)));
+                    favouriteFab.setRippleColor(ContextCompat.getColor(EventActivity.this, R.color.grey_dark));
+                    isFavourited = true;
+                    if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });*/
+
+        /*favouriteLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if (isFavourited){
@@ -160,9 +197,9 @@ public class EventActivity extends AppCompatActivity {
                     if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        /*appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
@@ -177,7 +214,7 @@ public class EventActivity extends AppCompatActivity {
                    favouriteLayout.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        });*/
 
     }
 

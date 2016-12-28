@@ -48,11 +48,12 @@
     <string name="select_event_venue">Venue:</string>
     <string name="clear_filters">Clear Filters</string>
     <string name="apply_filter">Apply</string>
-    <string name="about_revels">About Revels</string>
-    <string name="about_revels_text">Revels is one of the most awaited cultural and sports festival in the south circuit amongst the engineering colleges and is widely regarded as the largest event in Karnataka.</string>
+    <string name="about_us">About Us</string>
+    <string name="about_revels_text">Revels is one of the most awaited cultural and sports festival in the south circuit amongst the engineering colleges and is widely regarded as the largest event in Karnataka.\n\nThis year, we plan to stop at nothing, and make this fest not just a success, but an enduring part of every participant\'s life. We attempt to provide the participants a platform where they can pursue their passion, perceive it, believe in it and achieve their goals.\n\nRevels\'17 presents the theme of the fest - \"Dastaan | Everybody has a story\"\n\nEveryone you meet has a part to play in your story. When you look at a person, any person, remember that everyone has a story, everyone has gone through something, something that might inspire you. While some may take a chapter, others a paragraph and most will be no more than scribbled notes in the margins and you\'ll reach somewhere which will become so integral to your life that you\'ll put that name in the title - \"Revels\'17\"\n\nLive your sorrow, live your pain, Live your laughter, live Revels\'17 because in the end, what we will be left with is a \"Dastaan\", a story created at Manipal, a story that would make all the difference.</string>
     <string name="rate_event">Rate Event</string>
     <string name="revels_fb">fb.com/mitrevels</string>
     <string name="revels_insta">\@revelsmit</string>
     <string name="revels_youtube">Revels, MIT Manipal</string>
     <string name="about_return">Return</string>
+    <string name="revels17">Revels\'17</string>
 </resources>

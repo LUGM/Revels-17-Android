@@ -347,7 +347,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="@dimen/fab_size_normal"
                 android:background="@android:color/transparent"/>
 
         </LinearLayout>
@@ -362,7 +362,7 @@
         android:padding="@dimen/fab_menu_margin"
         fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_labels_margin="24dp"
-        fab:menu_backgroundColor="#DDEEEEEE"
+        fab:menu_backgroundColor="#DDECECEC"
         fab:menu_shadowColor="#44000000"
         fab:menu_animationDelayPerItem="40"
         fab:menu_colorNormal="@color/light_blue"

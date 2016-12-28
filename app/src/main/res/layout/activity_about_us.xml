@@ -24,11 +24,15 @@
             app:statusBarScrim="@android:color/transparent"
             app:collapsedTitleGravity="left|start"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
-            app:expandedTitleMargin="@dimen/padding_default"
+            app:expandedTitleMarginStart="@dimen/padding_default"
+            app:expandedTitleMarginBottom="@dimen/padding_default"
+            app:expandedTitleMarginEnd="@dimen/padding_default"
+            app:expandedTitleMarginTop="@dimen/padding_default"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+                android:id="@+id/about_header"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/collapsible_header_height_normal"
                 android:src="@drawable/header"
@@ -49,200 +53,128 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/about_revels_nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
+        
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/about_revels_text"
-                android:textSize="@dimen/typography_body"
-                android:paddingLeft="@dimen/padding_default"
-                android:paddingRight="@dimen/padding_default"
-                android:paddingBottom="@dimen/padding_default"
-                android:paddingTop="@dimen/padding_2x"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TableLayout
-                android:id="@+id/about_links_table_layout"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:padding="@dimen/padding_default">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/revels17"
+                    android:textColor="?attr/colorPrimary"
+                    android:padding="@dimen/padding_default"
+                    android:textSize="@dimen/typography_title"
+                    android:fontFamily="sans-serif-light"/>
 
-                <TableRow>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/padding_default"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:background="@android:drawable/divider_horizontal_bright"/>
 
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/about_revels_text"
+                    android:textSize="@dimen/typography_body"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"/>
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_fb"
-                            android:layout_margin="@dimen/padding_default"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/revels_fb"
-                            android:textSize="@dimen/typography_subheading"
-                            android:textColor="@color/white"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_instagram"
-                            android:layout_margin="@dimen/padding_default"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/revels_insta"
-                            android:textSize="@dimen/typography_subheading"
-                            android:textColor="@color/white"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                    </LinearLayout>
-
-                </TableRow>
-
-                <TableRow>
-
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_snapchat"
-                            android:layout_margin="@dimen/padding_default"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/revels_insta"
-                            android:textSize="@dimen/typography_subheading"
-                            android:textColor="@color/white"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_youtube"
-                            android:layout_margin="@dimen/padding_default"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/revels_youtube"
-                            android:textSize="@dimen/typography_subheading"
-                            android:textColor="@color/white"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                    </LinearLayout>
-
-                </TableRow>
-
-                <TableRow>
-
-
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_twitter"
-                            android:layout_margin="@dimen/padding_default"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/revels_insta"
-                            android:textSize="@dimen/typography_subheading"
-                            android:textColor="@color/white"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_return"
-                            android:layout_margin="@dimen/padding_default"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/about_return"
-                            android:textSize="@dimen/typography_subheading"
-                            android:textColor="@color/white"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                    </LinearLayout>
-
-                </TableRow>
-
-            </TableLayout>
-
-        </FrameLayout>
+            </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:id="@+id/about_links_linear_layout">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/drop_shadow"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="?attr/colorPrimary">
+
+            <ImageView
+                android:id="@+id/fb_link_image_view"
+                android:layout_weight="1"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_fb"
+                android:layout_margin="@dimen/padding_half"
+                android:background="?attr/selectableItemBackground"/>
+
+            <ImageView
+                android:id="@+id/insta_link_image_view"
+                android:layout_weight="1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:tint="@color/white"
+                android:src="@drawable/drawer_instagram"
+                android:layout_margin="@dimen/padding_half"
+                android:background="?attr/selectableItemBackground"/>
+
+            <ImageView
+                android:id="@+id/snapchat_link_image_view"
+                android:layout_weight="1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_snapchat"
+                android:layout_margin="@dimen/padding_half"
+                android:background="?attr/selectableItemBackground"/>
+
+            <ImageView
+                android:id="@+id/youtube_link_image_view"
+                android:layout_weight="1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_youtube"
+                android:layout_margin="@dimen/padding_half"
+                android:background="?attr/selectableItemBackground"/>
+
+            <ImageView
+                android:id="@+id/twitter_link_image_view"
+                android:layout_weight="1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_twitter"
+                android:layout_margin="@dimen/padding_half"
+                android:background="?attr/selectableItemBackground"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/about_fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/about_app_bar_layout"
-        app:layout_anchorGravity="end|bottom"
+        app:layout_anchorGravity="end|right|bottom"
         android:layout_margin="@dimen/fab_menu_margin"
         fab:menu_shadowColor="#44000000"
         fab:menu_colorNormal="@color/amber"
         fab:menu_colorPressed="@color/amber_medium"
         fab:menu_colorRipple="@color/amber_dark"
-        app:menu_fab_size="normal" />
+        app:menu_fab_size="normal"/>
 
 </android.support.design.widget.CoordinatorLayout>

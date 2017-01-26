@@ -121,7 +121,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_fb"
                 android:layout_margin="@dimen/padding_half"
-                android:background="?attr/selectableItemBackground"/>
+                android:background="?android:attr/selectableItemBackground"/>
 
             <ImageView
                 android:id="@+id/insta_link_image_view"
@@ -131,7 +131,7 @@
                 android:tint="@color/white"
                 android:src="@drawable/drawer_instagram"
                 android:layout_margin="@dimen/padding_half"
-                android:background="?attr/selectableItemBackground"/>
+                android:background="?android:attr/selectableItemBackground"/>
 
             <ImageView
                 android:id="@+id/snapchat_link_image_view"
@@ -140,7 +140,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_snapchat"
                 android:layout_margin="@dimen/padding_half"
-                android:background="?attr/selectableItemBackground"/>
+                android:background="?android:attr/selectableItemBackground"/>
 
             <ImageView
                 android:id="@+id/youtube_link_image_view"
@@ -149,7 +149,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_youtube"
                 android:layout_margin="@dimen/padding_half"
-                android:background="?attr/selectableItemBackground"/>
+                android:background="?android:attr/selectableItemBackground"/>
 
             <ImageView
                 android:id="@+id/twitter_link_image_view"
@@ -158,7 +158,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_twitter"
                 android:layout_margin="@dimen/padding_half"
-                android:background="?attr/selectableItemBackground"/>
+                android:background="?android:attr/selectableItemBackground"/>
 
         </LinearLayout>
 

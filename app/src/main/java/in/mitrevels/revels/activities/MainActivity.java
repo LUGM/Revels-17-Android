@@ -1,11 +1,13 @@
 package in.mitrevels.revels.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.fragments.EventsFragment;
@@ -32,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String EVENTS_TAG = "Events Fragment";
     private static final String FAVOURITES_TAG = "Favourites Fragment";
     private static final String INSTAGRAM_TAG = "InstaFeed Fragment";
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,28 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                if (item.getItemId() != R.id.drawer_menu_developers && item.getItemId() != R.id.drawer_menu_about){
-
-                    if (item.getItemId() == R.id.drawer_menu_events) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            toolbar.setElevation(0);
-                            appBarLayout.setElevation(0);
-                            appBarLayout.setTargetElevation(0);
-                        }
-                    }
-                    else {
-                        if (fm.findFragmentByTag(EVENTS_TAG) != null) {
-                            fm.findFragmentByTag(EVENTS_TAG).setMenuVisibility(false);
-                            fm.findFragmentByTag(EVENTS_TAG).setHasOptionsMenu(false);
-                        }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            appBarLayout.setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
-                            toolbar.setElevation((4 * getResources().getDisplayMetrics().density + 0.5f));
-
-                        }
-                    }
-                }
 
                 switch(item.getItemId()){
                     case R.id.drawer_menu_events:

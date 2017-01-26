@@ -22,7 +22,13 @@ public class DayPagerAdapter extends FragmentPagerAdapter {
 
     public void add (Fragment fragment, String title){
         Bundle bundle = new Bundle();
-        bundle.putString("Title", title);
+
+        switch(title){
+            case "Day 1": bundle.putInt("day", 1); break;
+            case "Day 2": bundle.putInt("day", 2); break;
+            case "Day 3": bundle.putInt("day", 3); break;
+            case "Day 4": bundle.putInt("day", 4); break;
+        }
         fragment.setArguments(bundle);
         fragmentList.add(fragment);
         titleList.add(title);

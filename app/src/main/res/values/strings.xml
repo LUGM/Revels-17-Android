@@ -56,4 +56,19 @@
     <string name="revels_youtube">Revels, MIT Manipal</string>
     <string name="about_return">Return</string>
     <string name="revels17">Revels\'17</string>
+    <string name="select_category">Category:</string>
+    <string name="fab_transition">fabTransition</string>
+    <string name="trending">Trending</string>
+    <string name="cat_logo_transition">categoryLogoTransition</string>
+    <string name="no_1">#1</string>
+    <string name="no_2">#2</string>
+    <string name="no_3">#3</string>
+    <string name="day_1">Day 1</string>
+    <string name="day_4">Day 4</string>
+    <string name="day_2">Day 2</string>
+    <string name="day_3">Day 3</string>
+    <string name="remove_all">Remove All</string>
+    <string name="no_favourites_found">No Favourites Found</string>
+    <string name="delete_all">Delete All</string>
+    <string name="categories">Categories</string>
 </resources>

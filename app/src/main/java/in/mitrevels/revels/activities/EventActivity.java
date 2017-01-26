@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,11 +32,7 @@ public class EventActivity extends AppCompatActivity {
     private int primaryColor, darkColor;
     private LinearLayout headerLayout;
     private ImageView logo;
-    private LinearLayout favouriteLayout;
-    private TextView favouriteTextView;
-    private ImageView favouriteIcon;
     private AppBarLayout appBarLayout;
-    private FloatingActionButton favouriteFab;
     private FloatingActionMenu fabMenu;
 
     @Override
@@ -161,61 +158,26 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        /*favouriteFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isFavourited){
-                    favouriteFab.setImageResource(R.drawable.ic_fav_selected);
-                    favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(EventActivity.this, R.color.red)));
-                    favouriteFab.setRippleColor(ContextCompat.getColor(EventActivity.this, R.color.red_dark));
-                    isFavourited = false;
-                    if (title!=null) Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
-                }
-                else{
-                    favouriteFab.setImageResource(R.drawable.ic_fav_deselected);
-                    favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(EventActivity.this, R.color.grey)));
-                    favouriteFab.setRippleColor(ContextCompat.getColor(EventActivity.this, R.color.grey_dark));
-                    isFavourited = true;
-                    if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });*/
-
-        /*favouriteLayout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (isFavourited){
-                    favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
-                    favouriteIcon.setImageResource(R.drawable.ic_fav_selected);
-                    isFavourited = false;
-                    if (title!=null) Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
-                }
-                else{
-                    favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
-                    favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);
-                    isFavourited = true;
-                    if (title!=null) Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });*/
-
-        /*appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
-                {
-                    //Collapsed
-                    favouriteLayout.setVisibility(View.GONE);
-                }
-                else
-                {
-                    //Expanded
-                   favouriteLayout.setVisibility(View.VISIBLE);
-                }
-            }
-        });*/
-
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                //This enables shared element transition on Up Navigation
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            super.onBackPressed();
+        else{
+            finish();
+            overridePendingTransition(R.anim.scale_up, R.anim.slide_out_right);
+        }
+    }
 }

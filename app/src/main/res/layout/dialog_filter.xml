@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/padding_default"
-    android:paddingRight="@dimen/padding_default"
     android:paddingTop="@dimen/padding_default"
     android:paddingBottom="@dimen/padding_half"
     android:background="?android:attr/colorBackground">
@@ -12,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default">
 
         <TextView
             android:layout_weight="1"
@@ -21,11 +21,12 @@
             android:text="@string/filter_events"
             android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorPrimary"
-            android:textSize="18sp"
+            android:textSize="@dimen/typography_title"
             android:paddingTop="@dimen/padding_half"
             android:paddingBottom="@dimen/padding_half"/>
 
         <LinearLayout
+            android:id="@+id/clear_filters_layout"
             android:layout_weight="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:drawable/divider_horizontal_bright"
-        android:layout_marginTop="@dimen/padding_default"/>
+        android:layout_marginTop="@dimen/padding_default"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginRight="@dimen/padding_default"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,6 +76,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/padding_default"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_weight="0"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_event_type"
+                    android:alpha="0.54"
+                    android:layout_marginRight="@dimen/padding_2x"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_category"
+                    android:textSize="@dimen/typography_body"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginRight="@dimen/padding_half"/>
+
+                <Spinner
+                    android:layout_weight="0"
+                    android:id="@+id/event_type_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/filter_start_time_layout"
@@ -80,10 +117,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingTop="@dimen/padding_default"
-                android:paddingBottom="@dimen/padding_default"
+                android:padding="@dimen/padding_default"
                 android:clickable="true"
-                android:background="?attr/selectableItemBackground">
+                android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_weight="0"
@@ -98,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_start_time"
-                    android:textSize="@dimen/typography_subheading"
+                    android:textSize="@dimen/typography_body"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginRight="@dimen/padding_half"/>
@@ -114,7 +150,7 @@
                         android:id="@+id/start_time_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_subheading"
+                        android:textSize="@dimen/typography_body"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/default_start_time"/>
 
@@ -134,10 +170,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingTop="@dimen/padding_default"
-                android:paddingBottom="@dimen/padding_default"
+                android:padding="@dimen/padding_default"
                 android:clickable="true"
-                android:background="?attr/selectableItemBackground">
+                android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_weight="0"
@@ -153,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_end_time"
-                    android:textSize="@dimen/typography_subheading"
+                    android:textSize="@dimen/typography_body"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginRight="@dimen/padding_half"/>
@@ -169,7 +204,7 @@
                         android:id="@+id/end_time_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_subheading"
+                        android:textSize="@dimen/typography_body"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/default_start_time"/>
 
@@ -188,46 +223,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingTop="@dimen/padding_default"
-                android:paddingBottom="@dimen/padding_default"
+                android:padding="@dimen/padding_default"
                 android:clickable="true"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_weight="0"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_event_type"
-                    android:alpha="0.54"
-                    android:layout_marginRight="@dimen/padding_2x"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select_event_type"
-                    android:textSize="@dimen/typography_subheading"
-                    android:textColor="@color/black"
-                    android:fontFamily="sans-serif-medium"
-                    android:layout_marginRight="@dimen/padding_half"/>
-
-                <Spinner
-                    android:layout_weight="0"
-                    android:id="@+id/event_type_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="@dimen/padding_default"
-                android:paddingBottom="@dimen/padding_half"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackground">
+                android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_weight="0"
@@ -242,7 +240,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select_event_venue"
-                    android:textSize="@dimen/typography_subheading"
+                    android:textSize="@dimen/typography_body"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginRight="@dimen/padding_half"/>
@@ -251,7 +249,7 @@
                     android:layout_weight="0"
                     android:id="@+id/event_venue_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="15dp"/>
+                    android:layout_height="14dp"/>
 
             </LinearLayout>
 
@@ -274,9 +272,10 @@
             android:textSize="@dimen/typography_body"
             android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorPrimary"
-            android:padding="@dimen/padding_half"
-            android:layout_marginRight="@dimen/padding_default"
-            android:layout_marginEnd="@dimen/padding_default"/>
+            android:paddingTop="@dimen/padding_half"
+            android:paddingBottom="@dimen/padding_half"
+            android:paddingRight="@dimen/padding_default"
+            android:paddingLeft="@dimen/padding_default"/>
 
         <TextView
             android:id="@+id/filter_apply_text_view"
@@ -287,7 +286,12 @@
             android:textSize="@dimen/typography_body"
             android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorPrimary"
-            android:padding="@dimen/padding_half"/>
+            android:paddingTop="@dimen/padding_half"
+            android:paddingBottom="@dimen/padding_half"
+            android:paddingRight="24dp"
+            android:paddingEnd="24dp"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingStart="@dimen/padding_default"/>
 
 
     </LinearLayout>

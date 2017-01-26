@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/padding_default"
     android:paddingRight="@dimen/padding_default"
-    android:paddingTop="@dimen/padding_default"
+    android:paddingTop="14dp"
     android:clickable="true"
-    android:background="?attr/selectableItemBackground">
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/event_logo_image_view"
@@ -71,7 +71,7 @@
 
             <LinearLayout
                 android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
@@ -96,21 +96,20 @@
             </LinearLayout>
 
             <ImageView
+                android:layout_weight="0"
                 android:id="@+id/event_fav_image_view"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/ic_favorite"
                 android:tint="@color/fav_deselect"
-                android:tag="Deselected"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"/>
+                android:tag="Deselected"/>
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginTop="14dp"
             android:background="@android:drawable/divider_horizontal_bright"/>
 
     </LinearLayout>

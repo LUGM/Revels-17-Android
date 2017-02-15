@@ -105,9 +105,10 @@
 
                 <Spinner
                     android:layout_weight="0"
-                    android:id="@+id/event_type_spinner"
+                    android:id="@+id/category_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="14dp"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="end|right"/>
 
             </LinearLayout>
 
@@ -249,7 +250,8 @@
                     android:layout_weight="0"
                     android:id="@+id/event_venue_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="14dp"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="end|right"/>
 
             </LinearLayout>
 

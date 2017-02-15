@@ -26,10 +26,6 @@ import in.mitrevels.revels.models.events.EventModel;
  */
 public class FavouritesFragment extends Fragment {
 
-    private LinearLayout day1TitleLayout;
-    private LinearLayout day2TitleLayout;
-    private LinearLayout day3TitleLayout;
-    private LinearLayout day4TitleLayout;
     private TextView day1RemoveAll;
     private TextView day2RemoveAll;
     private TextView day3RemoveAll;
@@ -60,11 +56,6 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_favourites, container, false);
 
-        day1TitleLayout = (LinearLayout)rootView.findViewById(R.id.day_1_title_layout);
-        day2TitleLayout = (LinearLayout)rootView.findViewById(R.id.day_2_title_layout);
-        day3TitleLayout = (LinearLayout)rootView.findViewById(R.id.day_3_title_layout);
-        day4TitleLayout = (LinearLayout)rootView.findViewById(R.id.day_4_title_layout);
-
         day1RemoveAll = (TextView)rootView.findViewById(R.id.day_1_remove_all_text_view);
         day2RemoveAll = (TextView)rootView.findViewById(R.id.day_2_remove_all_text_view);
         day3RemoveAll = (TextView)rootView.findViewById(R.id.day_3_remove_all_text_view);
@@ -76,26 +67,22 @@ public class FavouritesFragment extends Fragment {
         RecyclerView day4RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_4_recycler_view);
 
         FavouritesAdapter adapter = new FavouritesAdapter(getActivity(), createList());
-        RecyclerView.LayoutManager day1LayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView.LayoutManager day2LayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView.LayoutManager day3LayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView.LayoutManager day4LayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         day1RecyclerView.setAdapter(adapter);
         day1RecyclerView.setNestedScrollingEnabled(false);
-        day1RecyclerView.setLayoutManager(day1LayoutManager);
+        day1RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         day2RecyclerView.setAdapter(adapter);
         day2RecyclerView.setNestedScrollingEnabled(false);
-        day2RecyclerView.setLayoutManager(day2LayoutManager);
+        day2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         day3RecyclerView.setAdapter(adapter);
         day3RecyclerView.setNestedScrollingEnabled(false);
-        day3RecyclerView.setLayoutManager(day3LayoutManager);
+        day3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         day4RecyclerView.setAdapter(adapter);
         day4RecyclerView.setNestedScrollingEnabled(false);
-        day4RecyclerView.setLayoutManager(day4LayoutManager);
+        day4RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         return rootView;
     }

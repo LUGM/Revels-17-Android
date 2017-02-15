@@ -18,7 +18,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.DevelopersTheme">
+    <style name="AppTheme.SecondaryActivityTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

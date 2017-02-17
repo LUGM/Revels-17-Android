@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
@@ -12,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +24,10 @@ import java.util.List;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.EventActivity;
+import in.mitrevels.revels.fragments.FavouritesFragment;
+import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventModel;
+import io.realm.Realm;
 
 /**
  * Created by anurag on 5/1/17.
@@ -28,12 +35,16 @@ import in.mitrevels.revels.models.events.EventModel;
 public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.FavouriteViewHolder>{
 
     private Activity activity;
-    private List<EventModel> eventsList;
+    private List<FavouritesModel> favouritesList;
     boolean flag = false;
+    private FavouritesFragment parentFragment;
+    private Realm mRealm;
 
-    public FavouritesAdapter(Activity activity, List<EventModel> eventsList) {
+    public FavouritesAdapter(Activity activity, List<FavouritesModel> favouritesList, FavouritesFragment parentFragment, Realm mRealm) {
         this.activity = activity;
-        this.eventsList = eventsList;
+        this.favouritesList = favouritesList;
+        this.parentFragment = parentFragment;
+        this.mRealm = mRealm;
     }
 
     @Override
@@ -43,10 +54,10 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
 
     @Override
     public void onBindViewHolder(final FavouriteViewHolder holder, int position) {
-        EventModel event = eventsList.get(position);
+        FavouritesModel favourite = favouritesList.get(position);
 
-        holder.favouriteName.setText(event.getEventName());
-        holder.favouriteTime.setText(event.getStartTime());
+        holder.favouriteName.setText(favourite.getEventName());
+        holder.favouriteTime.setText(favourite.getStartTime());
         holder.favouriteLogo.setImageResource(flag ? R.drawable.tt_kraftwagen : R.drawable.tt_aero);
 
         Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), flag ? R.drawable.tt_kraftwagen : R.drawable.tt_aero);
@@ -64,7 +75,13 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
 
     @Override
     public int getItemCount() {
-        return eventsList.size();
+        return favouritesList.size();
+    }
+
+    private void removeFavourite(FavouritesModel favourite){
+        mRealm.beginTransaction();
+        mRealm.where(FavouritesModel.class).equalTo("id", favourite.getId()).findAll().deleteAllFromRealm();
+        mRealm.commitTransaction();
     }
 
     class FavouriteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -92,21 +109,59 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         public void onClick(View view) {
 
             if (view.getId() == deleteFavourite.getId()){
-                eventsList.remove(getLayoutPosition());
-                notifyItemRemoved(getLayoutPosition());
+                if (favouritesList.size() == 1){
+                    if (parentFragment != null) parentFragment.removeAllFavourites(favouritesList.get(getLayoutPosition()).getDay());
+                }
+                else{
+                    View alertView = View.inflate(activity, R.layout.dialog_alert, null);
+                    final BottomSheetDialog dialog = new BottomSheetDialog(activity);
+
+                    dialog.setContentView(alertView);
+
+                    BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) alertView.getParent());
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+                    TextView alertText = (TextView)alertView.findViewById(R.id.alert_text_view);
+                    TextView cancel = (TextView)alertView.findViewById(R.id.alert_cancel_text_view);
+                    TextView confirm = (TextView)alertView.findViewById(R.id.alert_ok_button);
+
+                    alertText.setText(R.string.favourite_alert_message);
+                    dialog.show();
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.hide();
+                        }
+                    });
+
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.hide();
+                            removeFavourite(favouritesList.get(getLayoutPosition()));
+                            Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), favouritesList.get(getLayoutPosition()).getEventName()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                            favouritesList.remove(getLayoutPosition());
+                            notifyItemRemoved(getLayoutPosition());
+                        }
+                    });
+                }
             }
             else{
                 Intent intent = new Intent(activity, EventActivity.class);
-                EventModel event = eventsList.get(getLayoutPosition());
-                intent.putExtra("Event Name", event.getEventName());
-                intent.putExtra("Event Date", event.getDate());
-                intent.putExtra("Event Time", event.getStartTime()+" - "+event.getEndTime());
-                intent.putExtra("Event Venue", event.getVenue());
-                intent.putExtra("Team Of", event.getEventMaxTeamNumber());
-                intent.putExtra("Event Category", event.getCatName());
-                intent.putExtra("Contact Number", event.getContactNumber());
-                intent.putExtra("Contact Name", "("+event.getContactName()+")");
-                intent.putExtra("Event Description", event.getDescription());
+                FavouritesModel favourite = favouritesList.get(getLayoutPosition());
+                intent.putExtra("Event Name", favourite.getEventName());
+                intent.putExtra("Event Date", favourite.getDate());
+                intent.putExtra("Event Time", favourite.getStartTime()+" - "+favourite.getEndTime());
+                intent.putExtra("Event Venue", favourite.getVenue());
+                intent.putExtra("Team Of", favourite.getParticipants());
+                intent.putExtra("Event Category", favourite.getCatName());
+                intent.putExtra("Contact Number", favourite.getContactNumber());
+                intent.putExtra("Contact Name", "("+favourite.getContactName()+")");
+                intent.putExtra("Event Description", favourite.getDescription());
                 intent.putExtra("Favourite", true);
                 intent.putExtra("Category Logo", getLayoutPosition()%2);
 

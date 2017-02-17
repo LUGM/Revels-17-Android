@@ -63,6 +63,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             Intent intent = new Intent(activity, CategoryActivity.class);
             intent.putExtra("catName", categoriesList.get(getLayoutPosition()).getCategoryName());
             intent.putExtra("catID", categoriesList.get(getLayoutPosition()).getCategoryID());
+            intent.putExtra("catDesc", categoriesList.get(getLayoutPosition()).getCategoryDescription());
             activity.startActivity(intent);
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
         }

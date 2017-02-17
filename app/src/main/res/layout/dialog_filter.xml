@@ -263,7 +263,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end|right|center_vertical">
+        android:gravity="end|right|center_vertical"
+        android:layout_marginBottom="@dimen/padding_half">
 
         <TextView
             android:id="@+id/filter_cancel_text_view"
@@ -277,9 +278,12 @@
             android:paddingTop="@dimen/padding_half"
             android:paddingBottom="@dimen/padding_half"
             android:paddingRight="@dimen/padding_default"
-            android:paddingLeft="@dimen/padding_default"/>
+            android:paddingLeft="@dimen/padding_default"
+            android:layout_marginRight="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"/>
 
         <TextView
+            android:gravity="center"
             android:id="@+id/filter_apply_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -287,13 +291,16 @@
             android:textAllCaps="true"
             android:textSize="@dimen/typography_body"
             android:fontFamily="sans-serif-medium"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/white"
             android:paddingTop="@dimen/padding_half"
             android:paddingBottom="@dimen/padding_half"
-            android:paddingRight="24dp"
-            android:paddingEnd="24dp"
+            android:paddingRight="@dimen/padding_default"
+            android:paddingEnd="@dimen/padding_default"
             android:paddingLeft="@dimen/padding_default"
-            android:paddingStart="@dimen/padding_default"/>
+            android:paddingStart="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"
+            android:layout_marginRight="@dimen/padding_default"
+            android:background="@drawable/rounded_primary_bg"/>
 
 
     </LinearLayout>

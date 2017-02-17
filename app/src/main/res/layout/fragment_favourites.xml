@@ -46,6 +46,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/fav_day_1_no_events"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_events"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:textSize="@dimen/typography_subheading"
+            android:layout_marginTop="-6dp"
+            android:layout_marginBottom="@dimen/padding_default"
+            />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/favourites_day_1_recycler_view"
             android:layout_width="match_parent"
@@ -90,6 +103,19 @@
                 android:textColor="?attr/colorPrimary"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/fav_day_2_no_events"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_events"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:textSize="@dimen/typography_subheading"
+            android:layout_marginTop="-6dp"
+            android:layout_marginBottom="@dimen/padding_default"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/favourites_day_2_recycler_view"
@@ -137,6 +163,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/fav_day_3_no_events"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_events"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:textSize="@dimen/typography_subheading"
+            android:layout_marginTop="-6dp"
+            android:layout_marginBottom="@dimen/padding_default"
+            />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/favourites_day_3_recycler_view"
             android:layout_width="match_parent"
@@ -180,6 +219,19 @@
                 android:layout_gravity="bottom"
                 android:textColor="?attr/colorPrimary"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/fav_day_4_no_events"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_events"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:textSize="@dimen/typography_subheading"
+            android:layout_marginTop="-6dp"
+            android:layout_marginBottom="@dimen/padding_default"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/favourites_day_4_recycler_view"

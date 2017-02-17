@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="12dp"
+            android:paddingTop="@dimen/padding_default"
             android:paddingLeft="@dimen/padding_default"
             android:paddingRight="@dimen/padding_default"
             android:gravity="center_vertical">
@@ -46,7 +46,7 @@
     <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="@dimen/padding_default"
     android:background="@android:drawable/divider_horizontal_bright"/>
 
 </LinearLayout>

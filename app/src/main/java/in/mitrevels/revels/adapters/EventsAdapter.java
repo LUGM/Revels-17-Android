@@ -149,26 +149,26 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         public void onClick(View v) {
 
             if (v.getId() == eventFav.getId()){
-                String name = eventsList.get(getLayoutPosition()).getEventName();
+                String name = eventsList.get(getAdapterPosition()).getEventName();
                 if (eventFav.getTag().toString().equals("Deselected")){
                     eventFav.setTag("Selected");
                     eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
                     Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
                     
-                    addOrRemoveFavourites(eventsList.get(getLayoutPosition()), ADD_FAVOURITE);
+                    addOrRemoveFavourites(eventsList.get(getAdapterPosition()), ADD_FAVOURITE);
                 }
                 else{
                     eventFav.setTag("Deselected");
                     eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
                     Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
                     
-                    addOrRemoveFavourites(eventsList.get(getLayoutPosition()), REMOVE_FAVOURITE);
+                    addOrRemoveFavourites(eventsList.get(getAdapterPosition()), REMOVE_FAVOURITE);
                 }
             }
 
             if (v.getId() == itemView.getId()){
                 Intent intent = new Intent(activity, EventActivity.class);
-                EventModel event = eventsList.get(getLayoutPosition());
+                EventModel event = eventsList.get(getAdapterPosition());
                 intent.putExtra("Event Name", event.getEventName());
                 intent.putExtra("Event Date", event.getDate());
                 intent.putExtra("Event Time", event.getStartTime()+" - "+event.getEndTime());
@@ -178,7 +178,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 intent.putExtra("Contact Number", event.getContactNumber());
                 intent.putExtra("Contact Name", "("+event.getContactName()+")");
                 intent.putExtra("Event Description", event.getDescription());
-                intent.putExtra("Category Logo", getLayoutPosition()%2);
+                intent.putExtra("Category Logo", getAdapterPosition()%2);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptionsCompat options = ActivityOptionsCompat.

@@ -38,23 +38,14 @@ import io.realm.RealmResults;
  */
 public class FavouritesFragment extends Fragment {
 
-    private TextView day1RemoveAll;
-    private TextView day2RemoveAll;
-    private TextView day3RemoveAll;
-    private TextView day4RemoveAll;
-    private TextView day1NoEvents;
-    private TextView day2NoEvents;
-    private TextView day3NoEvents;
-    private TextView day4NoEvents;
+    private TextView[] removeAll = new TextView[4];
+    private TextView[] noEvents = new TextView[4];
     private Realm mRealm;
     private List<FavouritesModel> day1List;
     private List<FavouritesModel> day2List;
     private List<FavouritesModel> day3List;
     private List<FavouritesModel> day4List;
-    private FavouritesAdapter day1Adapter;
-    private FavouritesAdapter day2Adapter;
-    private FavouritesAdapter day3Adapter;
-    private FavouritesAdapter day4Adapter;
+    private FavouritesAdapter[] dayAdapter = new FavouritesAdapter[4];
 
     public FavouritesFragment() {
     }
@@ -82,15 +73,15 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_favourites, container, false);
 
-        day1RemoveAll = (TextView)rootView.findViewById(R.id.day_1_remove_all_text_view);
-        day2RemoveAll = (TextView)rootView.findViewById(R.id.day_2_remove_all_text_view);
-        day3RemoveAll = (TextView)rootView.findViewById(R.id.day_3_remove_all_text_view);
-        day4RemoveAll = (TextView)rootView.findViewById(R.id.day_4_remove_all_text_view);
+        removeAll[0] = (TextView)rootView.findViewById(R.id.day_1_remove_all_text_view);
+        removeAll[1] = (TextView)rootView.findViewById(R.id.day_2_remove_all_text_view);
+        removeAll[2] = (TextView)rootView.findViewById(R.id.day_3_remove_all_text_view);
+        removeAll[3] = (TextView)rootView.findViewById(R.id.day_4_remove_all_text_view);
 
-        day1NoEvents = (TextView)rootView.findViewById(R.id.fav_day_1_no_events);
-        day2NoEvents = (TextView)rootView.findViewById(R.id.fav_day_2_no_events);
-        day3NoEvents = (TextView)rootView.findViewById(R.id.fav_day_3_no_events);
-        day4NoEvents = (TextView)rootView.findViewById(R.id.fav_day_4_no_events);
+        noEvents[0] = (TextView)rootView.findViewById(R.id.fav_day_1_no_events);
+        noEvents[1] = (TextView)rootView.findViewById(R.id.fav_day_2_no_events);
+        noEvents[2] = (TextView)rootView.findViewById(R.id.fav_day_3_no_events);
+        noEvents[3] = (TextView)rootView.findViewById(R.id.fav_day_4_no_events);
 
         day1List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "1").findAll());
         day2List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "2").findAll());
@@ -98,52 +89,52 @@ public class FavouritesFragment extends Fragment {
         day4List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "4").findAll());
 
         RecyclerView day1RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_1_recycler_view);
-        day1Adapter = new FavouritesAdapter(getActivity(), day1List, this, mRealm);
-        day1RecyclerView.setAdapter(day1Adapter);
+        dayAdapter[0] = new FavouritesAdapter(getActivity(), day1List, this, mRealm);
+        day1RecyclerView.setAdapter(dayAdapter[0]);
         day1RecyclerView.setNestedScrollingEnabled(false);
         day1RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         if (day1List.isEmpty()) {
-            day1RemoveAll.setVisibility(View.GONE);
+            removeAll[0].setVisibility(View.GONE);
             day1RecyclerView.setVisibility(View.GONE);
-            day1NoEvents.setVisibility(View.VISIBLE);
+            noEvents[0].setVisibility(View.VISIBLE);
         }
 
         RecyclerView day2RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_2_recycler_view);
-        day2Adapter = new FavouritesAdapter(getActivity(), day2List, this, mRealm);
-        day2RecyclerView.setAdapter(day2Adapter);
+        dayAdapter[1] = new FavouritesAdapter(getActivity(), day2List, this, mRealm);
+        day2RecyclerView.setAdapter(dayAdapter[1]);
         day2RecyclerView.setNestedScrollingEnabled(false);
         day2RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         if (day2List.isEmpty()){
-            day2RemoveAll.setVisibility(View.GONE);
+            removeAll[1].setVisibility(View.GONE);
             day2RecyclerView.setVisibility(View.GONE);
-            day2NoEvents.setVisibility(View.VISIBLE);
+            noEvents[1].setVisibility(View.VISIBLE);
         }
 
         RecyclerView day3RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_3_recycler_view);
-        day3Adapter = new FavouritesAdapter(getActivity(), day3List, this, mRealm);
-        day3RecyclerView.setAdapter(day3Adapter);
+        dayAdapter[2] = new FavouritesAdapter(getActivity(), day3List, this, mRealm);
+        day3RecyclerView.setAdapter(dayAdapter[2]);
         day3RecyclerView.setNestedScrollingEnabled(false);
         day3RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         if (day3List.isEmpty()){
-            day3RemoveAll.setVisibility(View.GONE);
+            removeAll[2].setVisibility(View.GONE);
             day3RecyclerView.setVisibility(View.GONE);
-            day3NoEvents.setVisibility(View.VISIBLE);
+            noEvents[2].setVisibility(View.VISIBLE);
         }
 
         RecyclerView day4RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_4_recycler_view);
-        day4Adapter = new FavouritesAdapter(getActivity(), day4List, this, mRealm);
-        day4RecyclerView.setAdapter(day4Adapter);
+        dayAdapter[3] = new FavouritesAdapter(getActivity(), day4List, this, mRealm);
+        day4RecyclerView.setAdapter(dayAdapter[3]);
         day4RecyclerView.setNestedScrollingEnabled(false);
         day4RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
 
         if (day4List.isEmpty()){
-            day4RemoveAll.setVisibility(View.GONE);
+            removeAll[3].setVisibility(View.GONE);
             day4RecyclerView.setVisibility(View.GONE);
-            day4NoEvents.setVisibility(View.VISIBLE);
+            noEvents[3].setVisibility(View.VISIBLE);
         }
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -153,10 +144,10 @@ public class FavouritesFragment extends Fragment {
             }
         };
 
-        day1RemoveAll.setOnClickListener(onClickListener);
-        day2RemoveAll.setOnClickListener(onClickListener);
-        day3RemoveAll.setOnClickListener(onClickListener);
-        day4RemoveAll.setOnClickListener(onClickListener);
+        removeAll[0].setOnClickListener(onClickListener);
+        removeAll[1].setOnClickListener(onClickListener);
+        removeAll[2].setOnClickListener(onClickListener);
+        removeAll[3].setOnClickListener(onClickListener);
 
         return rootView;
     }
@@ -197,7 +188,7 @@ public class FavouritesFragment extends Fragment {
         removeAllFavourites(id, false);
     }
 
-    private void removeAllFavourites(final int id, final boolean removeAll){
+    private void removeAllFavourites(final int id, final boolean removeAllEvents){
 
         final CoordinatorLayout mainLayout  = (CoordinatorLayout)getActivity().findViewById(R.id.main_activity_coordinator_layout);
 
@@ -233,48 +224,48 @@ public class FavouritesFragment extends Fragment {
                 String day = "";
 
                 try{
-                    if (removeAll || id == day1RemoveAll.getId()){
-                        day1RemoveAll.setVisibility(View.GONE);
-                        if (!removeAll) Snackbar.make(mainLayout, "Day 1 favourites removed!", Snackbar.LENGTH_SHORT).show();
+                    if (removeAllEvents || id == removeAll[0].getId()){
+                        removeAll[0].setVisibility(View.GONE);
+                        if (!removeAllEvents) Snackbar.make(mainLayout, "Day 1 favourites removed!", Snackbar.LENGTH_SHORT).show();
                         day = "1";
                         day1List.clear();
-                        day1Adapter.notifyDataSetChanged();
-                        day1NoEvents.setVisibility(View.VISIBLE);
+                        dayAdapter[0].notifyDataSetChanged();
+                        noEvents[0].setVisibility(View.VISIBLE);
                     }
-                    if (removeAll || id == day2RemoveAll.getId()){
-                        day2RemoveAll.setVisibility(View.GONE);
-                        if (!removeAll) Snackbar.make(mainLayout, "Day 2 favourites removed!", Snackbar.LENGTH_SHORT).show();
+                    if (removeAllEvents || id == removeAll[1].getId()){
+                        removeAll[1].setVisibility(View.GONE);
+                        if (!removeAllEvents) Snackbar.make(mainLayout, "Day 2 favourites removed!", Snackbar.LENGTH_SHORT).show();
                         day = "2";
                         day2List.clear();
-                        day2Adapter.notifyDataSetChanged();
-                        day2NoEvents.setVisibility(View.VISIBLE);
+                        dayAdapter[1].notifyDataSetChanged();
+                        noEvents[1].setVisibility(View.VISIBLE);
                     }
-                    if (removeAll || id == day3RemoveAll.getId()){
-                        day3RemoveAll.setVisibility(View.GONE);
-                        if (!removeAll) Snackbar.make(mainLayout, "Day 3 favourites removed!", Snackbar.LENGTH_SHORT).show();
+                    if (removeAllEvents || id == removeAll[2].getId()){
+                        removeAll[2].setVisibility(View.GONE);
+                        if (!removeAllEvents) Snackbar.make(mainLayout, "Day 3 favourites removed!", Snackbar.LENGTH_SHORT).show();
                         day = "3";
                         day3List.clear();
-                        day3Adapter.notifyDataSetChanged();
-                        day3NoEvents.setVisibility(View.VISIBLE);
+                        dayAdapter[2].notifyDataSetChanged();
+                        noEvents[2].setVisibility(View.VISIBLE);
                     }
-                    if (removeAll || id == day4RemoveAll.getId()){
-                        day4RemoveAll.setVisibility(View.GONE);
-                        if (!removeAll) Snackbar.make(mainLayout, "Day 4 favourites removed!", Snackbar.LENGTH_SHORT).show();
+                    if (removeAllEvents || id == removeAll[3].getId()){
+                        removeAll[3].setVisibility(View.GONE);
+                        if (!removeAllEvents) Snackbar.make(mainLayout, "Day 4 favourites removed!", Snackbar.LENGTH_SHORT).show();
                         day = "4";
                         day4List.clear();
-                        day4Adapter.notifyDataSetChanged();
-                        day4NoEvents.setVisibility(View.VISIBLE);
+                        dayAdapter[3].notifyDataSetChanged();
+                        noEvents[3].setVisibility(View.VISIBLE);
                     }
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
 
                 mRealm.beginTransaction();
-                if (!removeAll) mRealm.where(FavouritesModel.class).equalTo("day", day).findAll().deleteAllFromRealm();
+                if (!removeAllEvents) mRealm.where(FavouritesModel.class).equalTo("day", day).findAll().deleteAllFromRealm();
                 else mRealm.where(FavouritesModel.class).findAll().deleteAllFromRealm();
                 mRealm.commitTransaction();
 
-                if (removeAll) Snackbar.make(mainLayout, "Favourites removed!", Snackbar.LENGTH_SHORT).show();
+                if (removeAllEvents) Snackbar.make(mainLayout, "Favourites removed!", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -301,5 +292,6 @@ public class FavouritesFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mRealm.close();
+        mRealm = null;
     }
 }

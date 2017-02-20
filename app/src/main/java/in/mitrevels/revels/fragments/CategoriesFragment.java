@@ -60,6 +60,14 @@ public class CategoriesFragment extends Fragment {
         categoriesRecyclerView.setAdapter(adapter);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
+            displayData();
+            prepareData();
+        }
+        else{
+            prepareData();
+        }
+
         prepareData();
         return view;
     }
@@ -70,7 +78,7 @@ public class CategoriesFragment extends Fragment {
         categoriesCall.enqueue(new Callback<CategoriesListModel>() {
             @Override
             public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
-                if (response.body() != null){
+                if (response.body() != null && mDatabase != null){
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getCategoriesList());
@@ -84,16 +92,19 @@ public class CategoriesFragment extends Fragment {
                 displayData();
             }
         });
+
     }
 
     private void displayData(){
 
-        RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAll();
+        if (mDatabase != null){
+            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAll();
 
-        if (!categoryResults.isEmpty()){
-            categoriesList.clear();
-            categoriesList.addAll(categoryResults);
-            adapter.notifyDataSetChanged();
+            if (!categoryResults.isEmpty()){
+                categoriesList.clear();
+                categoriesList.addAll(categoryResults);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -101,5 +112,7 @@ public class CategoriesFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mDatabase.close();
+        mDatabase = null;
     }
+
 }

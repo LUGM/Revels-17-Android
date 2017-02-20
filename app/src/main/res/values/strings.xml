@@ -77,4 +77,5 @@
     <string name="about_category">About Category</string>
     <string name="no_events">No Events</string>
     <string name="favourite_alert_message">Are you sure you want to remove favourite(s)?</string>
+    <string name="qualified_teams">Qualified Teams</string>
 </resources>

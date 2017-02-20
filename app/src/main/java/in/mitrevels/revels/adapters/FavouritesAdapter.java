@@ -110,7 +110,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
 
             if (view.getId() == deleteFavourite.getId()){
                 if (favouritesList.size() == 1){
-                    if (parentFragment != null) parentFragment.removeAllFavourites(favouritesList.get(getLayoutPosition()).getDay());
+                    if (parentFragment != null) parentFragment.removeAllFavourites(favouritesList.get(getAdapterPosition()).getDay());
                 }
                 else{
                     View alertView = View.inflate(activity, R.layout.dialog_alert, null);
@@ -142,17 +142,17 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
                         @Override
                         public void onClick(View view) {
                             dialog.hide();
-                            removeFavourite(favouritesList.get(getLayoutPosition()));
-                            Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), favouritesList.get(getLayoutPosition()).getEventName()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
-                            favouritesList.remove(getLayoutPosition());
-                            notifyItemRemoved(getLayoutPosition());
+                            removeFavourite(favouritesList.get(getAdapterPosition()));
+                            Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), favouritesList.get(getAdapterPosition()).getEventName()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                            favouritesList.remove(getAdapterPosition());
+                            notifyItemRemoved(getAdapterPosition());
                         }
                     });
                 }
             }
             else{
                 Intent intent = new Intent(activity, EventActivity.class);
-                FavouritesModel favourite = favouritesList.get(getLayoutPosition());
+                FavouritesModel favourite = favouritesList.get(getAdapterPosition());
                 intent.putExtra("Event Name", favourite.getEventName());
                 intent.putExtra("Event Date", favourite.getDate());
                 intent.putExtra("Event Time", favourite.getStartTime()+" - "+favourite.getEndTime());
@@ -163,7 +163,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
                 intent.putExtra("Contact Name", "("+favourite.getContactName()+")");
                 intent.putExtra("Event Description", favourite.getDescription());
                 intent.putExtra("Favourite", true);
-                intent.putExtra("Category Logo", getLayoutPosition()%2);
+                intent.putExtra("Category Logo", getAdapterPosition()%2);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptionsCompat options = ActivityOptionsCompat.

@@ -86,7 +86,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(activity, EventActivity.class);
-            EventModel event = eventsList.get(getLayoutPosition());
+            EventModel event = eventsList.get(getAdapterPosition());
             intent.putExtra("Event Name", event.getEventName());
             intent.putExtra("Event Date", event.getDate());
             intent.putExtra("Event Time", event.getStartTime()+" - "+event.getEndTime());
@@ -96,7 +96,7 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             intent.putExtra("Contact Number", event.getContactNumber());
             intent.putExtra("Contact Name", "("+event.getContactName()+")");
             intent.putExtra("Event Description", event.getDescription());
-            intent.putExtra("Category Logo", getLayoutPosition()%2);
+            intent.putExtra("Category Logo", getAdapterPosition()%2);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.

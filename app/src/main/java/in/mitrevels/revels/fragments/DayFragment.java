@@ -99,7 +99,13 @@ public class DayFragment extends Fragment {
         eventsRecyclerView.setAdapter(adapter);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        prepareData();
+        if (mDatabase.where(ScheduleModel.class).findAll().size() != 0){
+            displayData();
+            prepareData();
+        }
+        else{
+            prepareData();
+        }
 
         return rootView;
     }
@@ -111,7 +117,7 @@ public class DayFragment extends Fragment {
         eventsCall.enqueue(new Callback<EventsListModel>() {
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
-                if (response.body() != null){
+                if (response.body() != null && mDatabase != null){
                     mDatabase.beginTransaction();
                     mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getEvents());
@@ -127,7 +133,7 @@ public class DayFragment extends Fragment {
         scheduleCall.enqueue(new Callback<ScheduleListModel>() {
             @Override
             public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
-                if (response.body() != null){
+                if (response.body() != null && mDatabase != null){
                     mDatabase.beginTransaction();
                     mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getData());
@@ -137,13 +143,15 @@ public class DayFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ScheduleListModel> call, Throwable t) {
+            public void onFailure(Call<ScheduleListModel> call, Throwable t){
                 displayData();
             }
         });
     }
 
     private void displayData(){
+        if (mDatabase == null) return;
+
         eventsList.clear();
         RealmResults<ScheduleModel> scheduleResult = mDatabase.where(ScheduleModel.class).equalTo("day", getArguments().getInt("day", 1)+"").findAll();
 
@@ -482,5 +490,7 @@ public class DayFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mDatabase.close();
+        mDatabase = null;
     }
+
 }

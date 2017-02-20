@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/padding_default"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_weight="0"
+            android:id="@+id/result_cat_logo_image_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/tt_aero"/>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/padding_default"
+            android:layout_marginStart="@dimen/padding_default">
+
+            <TextView
+                android:id="@+id/result_event_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/typography_subheading"
+                android:textColor="@color/black"
+                tools:text="Event Name"
+                android:fontFamily="sans-serif-medium"/>
+
+            <TextView
+                android:id="@+id/result_cat_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Category"
+                android:textSize="@dimen/typography_body"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/result_expand_image_view"
+            android:layout_weight="0"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_plus"
+            android:tint="?attr/colorPrimaryDark"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/padding_default"
+        android:background="@android:drawable/divider_horizontal_bright"/>
+
+</LinearLayout>

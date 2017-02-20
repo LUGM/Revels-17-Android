@@ -34,7 +34,7 @@
                 android:id="@+id/event_name_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/typography_title"
+                android:textSize="@dimen/typography_subheading"
                 android:textColor="@color/black"
                 tools:text="Event Name"
                 android:fontFamily="sans-serif-medium" />
@@ -48,14 +48,14 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
             android:gravity="center_vertical"
             android:id="@+id/event_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1 pm - 2 pm"
             android:fontFamily="sans-serif-light"
-            android:textSize="13sp"
+            android:textSize="@dimen/typography_body"
             android:paddingTop="0.5dp"
             android:paddingBottom="0.5dp"
             android:paddingLeft="3.5dp"
@@ -66,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="2dp"
             android:gravity="center_vertical">
 
             <LinearLayout

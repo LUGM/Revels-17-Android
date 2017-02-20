@@ -45,7 +45,8 @@
                     android:elevation="5dp"
                     android:background="@drawable/circular_bg"
                     android:layout_margin="@dimen/padding_3x"
-                    android:layout_marginTop="@dimen/padding_default"/>
+                    android:layout_marginTop="@dimen/padding_default"
+                    android:transitionName="@string/cat_logo_transition"/>
 
             </LinearLayout>
 
@@ -103,8 +104,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Date"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"/>
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_half"/>
 
             </LinearLayout>
 
@@ -136,8 +137,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_body"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_half"
                     tools:text="Event Time"/>
 
             </LinearLayout>
@@ -171,8 +172,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Venue"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginStart="4dp"/>
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_half"/>
 
             </LinearLayout>
 
@@ -205,8 +206,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Date"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"/>
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_half"/>
 
             </LinearLayout>
 
@@ -239,8 +240,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_body"
                     tools:text="Event Category"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"/>
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_half"/>
 
             </LinearLayout>
 
@@ -347,7 +348,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="@dimen/fab_size_normal"
                 android:background="@android:color/transparent"/>
 
         </LinearLayout>
@@ -360,14 +361,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="end|bottom"
         android:padding="@dimen/fab_menu_margin"
-        fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_labels_margin="24dp"
-        fab:menu_backgroundColor="#DDEEEEEE"
+        fab:menu_backgroundColor="#DDECECEC"
         fab:menu_shadowColor="#44000000"
         fab:menu_animationDelayPerItem="40"
-        fab:menu_colorNormal="@color/light_blue"
-        fab:menu_colorPressed="@color/light_blue_medium"
-        fab:menu_colorRipple="@color/light_blue_dark">
+        fab:menu_colorNormal="@color/blue"
+        fab:menu_colorPressed="@color/blue_medium"
+        fab:menu_colorRipple="@color/blue_dark">
 
         <com.github.clans.fab.FloatingActionButton
             android:layout_width="wrap_content"

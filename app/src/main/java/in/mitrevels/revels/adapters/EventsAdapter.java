@@ -2,10 +2,12 @@ package in.mitrevels.revels.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,29 +21,28 @@ import java.util.Map;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.EventActivity;
-import in.mitrevels.revels.models.EventModel;
+import in.mitrevels.revels.models.FavouritesModel;
+import in.mitrevels.revels.models.events.EventModel;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by anurag on 6/12/16.
  */
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
 
-    List<EventModel> eventsList;
-    List<EventModel> allEvents;
-    Activity activity;
-    Map<String, Boolean> favouritesMap;
+    private List<EventModel> eventsList;
+    private List<EventModel> allEvents;
+    private Activity activity;
+    private Realm mDatabase;
+    private static final int ADD_FAVOURITE = 0;
+    private static final int REMOVE_FAVOURITE = 1;
 
-    public EventsAdapter(Activity activity, List<EventModel> eventsList) {
+    public EventsAdapter(Activity activity, List<EventModel> eventsList, List<EventModel> allEvents, Realm mDatabase) {
         this.activity = activity;
         this.eventsList = eventsList;
-        allEvents = new ArrayList<>();
-
-        for (EventModel event : this.eventsList)
-            allEvents.add(event);
-
-        favouritesMap = new HashMap<>();
-        for (EventModel event : this.eventsList)
-            favouritesMap.put(event.getEventName(), false);
+        this.allEvents = allEvents;
+        this.mDatabase = mDatabase;
     }
 
     @Override
@@ -52,10 +53,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        EventModel model = eventsList.get(position);
-        holder.eventName.setText(model.getEventName());
-        holder.eventVenue.setText(model.getEventVenue());
-        holder.eventTime.setText(model.getStartTime()+" - "+model.getEndTime());
+        EventModel event = eventsList.get(position);
+        holder.eventName.setText(event.getEventName());
+        holder.eventVenue.setText(event.getVenue());
+        holder.eventTime.setText(event.getStartTime()+" - "+event.getEndTime());
         if (position%2==0){
             holder.eventLogo.setImageResource(R.drawable.tt_aero);
         }
@@ -63,14 +64,48 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             holder.eventLogo.setImageResource(R.drawable.tt_kraftwagen);
         }
 
-        if (favouritesMap.get(model.getEventName())) {
+        FavouritesModel favourite = mDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("date", event.getDate()).findFirst();
+
+        if(favourite != null) {
             holder.eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
             holder.eventFav.setTag("Selected");
         }
-        else {
+        else{
             holder.eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
             holder.eventFav.setTag("Deselected");
         }
+
+    }
+
+    public void addOrRemoveFavourites(EventModel event, int operation){
+
+        if(operation == ADD_FAVOURITE) {
+            FavouritesModel favourite = new FavouritesModel();
+
+            favourite.setId(event.getEventId());
+            favourite.setCatID(event.getCatId());
+            favourite.setEventName(event.getEventName());
+            favourite.setVenue(event.getVenue());
+            favourite.setDate(event.getDate());
+            favourite.setDay(event.getDay());
+            favourite.setStartTime(event.getStartTime());
+            favourite.setEndTime(event.getEndTime());
+            favourite.setParticipants(event.getEventMaxTeamNumber());
+            favourite.setContactName(event.getContactName());
+            favourite.setContactNumber(event.getContactNumber());
+            favourite.setCatName(event.getCatName());
+            favourite.setDescription(event.getDescription());
+
+            mDatabase.beginTransaction();
+            mDatabase.copyToRealm(favourite);
+            mDatabase.commitTransaction();
+        }
+        else if (operation == REMOVE_FAVOURITE){
+            mDatabase.beginTransaction();
+            mDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("day", event.getDay()).findAll().deleteAllFromRealm();
+            mDatabase.commitTransaction();
+        }
+
     }
 
     @Override
@@ -114,44 +149,46 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         public void onClick(View v) {
 
             if (v.getId() == eventFav.getId()){
-                String name = eventsList.get(getLayoutPosition()).getEventName();
+                String name = eventsList.get(getAdapterPosition()).getEventName();
                 if (eventFav.getTag().toString().equals("Deselected")){
                     eventFav.setTag("Selected");
                     eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
-                    Snackbar.make(v, eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
-
-                    if(favouritesMap.containsKey(name))
-                        favouritesMap.remove(name);
-                    favouritesMap.put(name, true);
+                    Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+                    
+                    addOrRemoveFavourites(eventsList.get(getAdapterPosition()), ADD_FAVOURITE);
                 }
                 else{
                     eventFav.setTag("Deselected");
                     eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
-                    Snackbar.make(v, eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
-
-                    if(favouritesMap.containsKey(name))
-                        favouritesMap.remove(name);
-                    favouritesMap.put(name, false);
+                    Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                    
+                    addOrRemoveFavourites(eventsList.get(getAdapterPosition()), REMOVE_FAVOURITE);
                 }
             }
 
             if (v.getId() == itemView.getId()){
-                Log.d("Item", "pressed");
                 Intent intent = new Intent(activity, EventActivity.class);
-                EventModel event = eventsList.get(getLayoutPosition());
+                EventModel event = eventsList.get(getAdapterPosition());
                 intent.putExtra("Event Name", event.getEventName());
-                intent.putExtra("Event Date", event.getEventDate());
+                intent.putExtra("Event Date", event.getDate());
                 intent.putExtra("Event Time", event.getStartTime()+" - "+event.getEndTime());
-                intent.putExtra("Event Venue", event.getEventVenue());
-                intent.putExtra("Team Of", event.getTeamSize());
-                intent.putExtra("Event Category", event.getCategory());
+                intent.putExtra("Event Venue", event.getVenue());
+                intent.putExtra("Team Of", event.getEventMaxTeamNumber());
+                intent.putExtra("Event Category", event.getCatName());
                 intent.putExtra("Contact Number", event.getContactNumber());
                 intent.putExtra("Contact Name", "("+event.getContactName()+")");
                 intent.putExtra("Event Description", event.getDescription());
-                intent.putExtra("Favourite", favouritesMap.get(event.getEventName()));
-                intent.putExtra("Category Logo", getLayoutPosition()%2);
-                activity.startActivity(intent);
-                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
+                intent.putExtra("Category Logo", getAdapterPosition()%2);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(activity, eventLogo, activity.getString(R.string.cat_logo_transition));
+                    activity.startActivity(intent, options.toBundle());
+                }
+                else {
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
+                }
             }
         }
     }

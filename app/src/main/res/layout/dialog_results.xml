@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/result_dialog_event_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Event Name"
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="@dimen/typography_title"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/qualified_teams"
+        android:textSize="@dimen/typography_subheading"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/padding_default"
+        android:layout_marginBottom="@dimen/padding_default"
+        android:background="@android:drawable/divider_horizontal_bright"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/result_dialog_teams_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

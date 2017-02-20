@@ -1,20 +1,23 @@
 package in.mitrevels.revels.fragments;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
 
 import in.mitrevels.revels.R;
+import in.mitrevels.revels.activities.TrendingActivity;
 import in.mitrevels.revels.adapters.DayPagerAdapter;
 
 /**
@@ -29,6 +32,18 @@ public class EventsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.app_name);
+        setHasOptionsMenu(true);
+
+        try{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().findViewById(R.id.toolbar).setElevation(0);
+                AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.main_app_bar_layout);
+                appBarLayout.setElevation(0);
+                appBarLayout.setTargetElevation(0);
+            }
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Nullable
@@ -56,8 +71,8 @@ public class EventsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d("Events Fragment", "OnDetach() called");
         setHasOptionsMenu(false);
         setMenuVisibility(false);
     }
-
 }

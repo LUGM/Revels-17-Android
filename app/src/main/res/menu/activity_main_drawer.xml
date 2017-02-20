@@ -11,6 +11,12 @@
             app:showAsAction="always"/>
 
         <item
+            android:id="@+id/drawer_menu_categories"
+            android:title="@string/categories"
+            android:icon="@drawable/ic_categories"
+            app:showAsAction="always"/>
+
+        <item
             android:id="@+id/drawer_menu_favourites"
             android:title="@string/drawer_favourites"
             android:icon="@drawable/ic_favorite"

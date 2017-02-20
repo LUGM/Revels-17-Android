@@ -31,7 +31,6 @@ public class DevelopersActivity extends AppCompatActivity {
         if (getSupportActionBar()!=null){
             getSupportActionBar().setTitle(getResources().getString(R.string.drawer_developers));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_cross);
         }
     }
 }

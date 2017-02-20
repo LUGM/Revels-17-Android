@@ -19,4 +19,8 @@
     <dimen name="collapsible_header_height_small">210dp</dimen>
     <dimen name="collapsible_header_height_normal">250dp</dimen>
     <dimen name="fab_menu_margin">11dp</dimen>
+    <dimen name="padding_5x">80dp</dimen>
+    <dimen name="recycler_view_extra_padding">88dp</dimen>
+    <dimen name="typography_large_title">20sp</dimen>
+    <dimen name="typography_medium_title">18sp</dimen>
 </resources>

@@ -7,7 +7,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.DevelopersTheme">
+    <style name="AppTheme.SecondaryActivityTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -19,6 +19,7 @@
         <item name="colorPrimaryDark">@color/teal_dark</item>
         <item name="colorAccent">@color/blue_grey</item>
         <item name="android:navigationBarColor">?android:attr/colorPrimaryDark</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="MenuLabelsStyle">

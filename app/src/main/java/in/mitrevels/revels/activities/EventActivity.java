@@ -1,5 +1,6 @@
 package in.mitrevels.revels.activities;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -7,26 +8,29 @@ import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionMenu;
+import com.github.clans.fab.FloatingActionButton;
 
 import in.mitrevels.revels.R;
+import in.mitrevels.revels.models.FavouritesModel;
+import io.realm.Realm;
 
 public class EventActivity extends AppCompatActivity {
 
     private boolean isFavourited;
-    private String title;
     private CoordinatorLayout coordinatorLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private int primaryColor, darkColor;
@@ -34,6 +38,21 @@ public class EventActivity extends AppCompatActivity {
     private ImageView logo;
     private AppBarLayout appBarLayout;
     private FloatingActionMenu fabMenu;
+    private FloatingActionButton favFab;
+    private Realm mRealm;
+    private String title;
+    private String id;
+    private String catID;
+    private String venue;
+    private String date;
+    private String day;
+    private String startTime;
+    private String endTime;
+    private String teamOf;
+    private String contactName;
+    private String contactNumber;
+    private String category;
+    private String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,41 +76,28 @@ public class EventActivity extends AppCompatActivity {
         fabMenu = (FloatingActionMenu)findViewById(R.id.event_fab_menu);
         fabMenu.setClosedOnTouchOutside(true);
 
-        //favouriteFab = (FloatingActionButton)findViewById(R.id.event_favourite_fab);
+        favFab = (FloatingActionButton)findViewById(R.id.fav_fab);
 
-        /*favouriteLayout = (LinearLayout)findViewById(R.id.event_favourite_layout);
-        favouriteTextView = (TextView)findViewById(R.id.event_fav_text_view);
-        favouriteIcon = (ImageView)findViewById(R.id.event_fav_image_view);*/
+        mRealm = Realm.getDefaultInstance();
 
         isFavourited = getIntent().getBooleanExtra("Favourite", false);
 
-        /*if (isFavourited){
-            favouriteTextView.setText(getResources().getString(R.string.remove_from_favourites));
-            favouriteIcon.setImageResource(R.drawable.ic_fav_deselected);
-
-            favouriteFab.setImageResource(R.drawable.ic_fav_deselected);
-            favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
-            favouriteFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
-        }
-        else{
-            favouriteTextView.setText(getResources().getString(R.string.add_to_favourites));
-            favouriteIcon.setImageResource(R.drawable.ic_fav_selected);
-
-            favouriteFab.setImageResource(R.drawable.ic_fav_selected);
-            favouriteFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
-            favouriteFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
-        }*/
-
-
+        id = getIntent().getStringExtra("Event ID");
         title = getIntent().getStringExtra("Event Name");
-        String date = getIntent().getStringExtra("Event Date");
-        String time = getIntent().getStringExtra("Event Time");
-        String venue = getIntent().getStringExtra("Event Venue");
-        String teamOf = getIntent().getStringExtra("Team Of");
-        String category = getIntent().getStringExtra("Event Category");
-        String contactNumber = getIntent().getStringExtra("Contact Number");
-        String contactName = getIntent().getStringExtra("Contact Name");
-        String description = getIntent().getStringExtra("Event Description");
+        date = getIntent().getStringExtra("Event Date");
+        day = getIntent().getStringExtra("Event Day");
+        startTime = getIntent().getStringExtra("Event Start Time");
+        endTime = getIntent().getStringExtra("Event End Time");
+        venue = getIntent().getStringExtra("Event Venue");
+        teamOf = getIntent().getStringExtra("Team Of");
+        category = getIntent().getStringExtra("Event Category");
+        catID = getIntent().getStringExtra("Category ID");
+        contactNumber = getIntent().getStringExtra("Contact Number");
+        contactName = getIntent().getStringExtra("Contact Name");
+        description = getIntent().getStringExtra("Event Description");
+
+        Boolean enableFavourite = getIntent().getBooleanExtra("enableFavourite", true);
+        if (!enableFavourite) fabMenu.setVisibility(View.GONE);
 
         if (title!=null && !title.equals(""))
             collapsingToolbarLayout.setTitle(title);
@@ -101,7 +107,7 @@ public class EventActivity extends AppCompatActivity {
         if (date!=null) eventDate.setText(date);
 
         TextView eventTime = (TextView)findViewById(R.id.event_time_text_view);
-        if (time!=null) eventTime.setText(time);
+        if (startTime!=null && endTime!=null) eventTime.setText(startTime+" - "+endTime);
 
         TextView eventVenue = (TextView)findViewById(R.id.event_venue_text_view);
         if (venue!=null) eventVenue.setText(venue);
@@ -158,6 +164,72 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
+        if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() != 0){
+            favFab.setImageResource(R.drawable.ic_fav_deselected);
+            favFab.setColorNormal(ContextCompat.getColor(this, R.color.grey));
+            favFab.setColorPressed(ContextCompat.getColor(this, R.color.grey_medium));
+            favFab.setColorRipple(ContextCompat.getColor(this, R.color.grey_dark));
+            favFab.setLabelText(getString(R.string.remove_from_favourites));
+        }
+        else{
+            favFab.setImageResource(R.drawable.ic_fav_selected);
+            favFab.setColorNormal(ContextCompat.getColor(this, R.color.red));
+            favFab.setColorPressed(ContextCompat.getColor(this, R.color.red_medium));
+            favFab.setColorRipple(ContextCompat.getColor(this, R.color.red_dark));
+            favFab.setLabelText(getString(R.string.add_to_favourites));
+        }
+
+        favFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addOrRemoveFavourite();
+            }
+        });
+
+    }
+
+    private void addOrRemoveFavourite(){
+        if (mRealm == null) return;
+
+        mRealm.beginTransaction();
+        if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() == 0){
+            favFab.setImageResource(R.drawable.ic_fav_deselected);
+            favFab.setLabelText(getString(R.string.remove_from_favourites));
+            favFab.setColorNormal(ContextCompat.getColor(this, R.color.grey));
+            favFab.setColorPressed(ContextCompat.getColor(this, R.color.grey_medium));
+            favFab.setColorRipple(ContextCompat.getColor(this, R.color.grey_dark));
+
+            FavouritesModel favourite = new FavouritesModel();
+            favourite.setId(id);
+            favourite.setEventName(title);
+            favourite.setCatID(catID);
+            favourite.setCatName(category);
+            favourite.setDate(date);
+            favourite.setDay(day);
+            favourite.setVenue(venue);
+            favourite.setStartTime(startTime);
+            favourite.setEndTime(endTime);
+            favourite.setDescription(description);
+            favourite.setParticipants(teamOf);
+            favourite.setContactName(contactName);
+            favourite.setContactNumber(contactNumber);
+            mRealm.copyToRealm(favourite);
+
+            Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
+
+        }
+        else{
+            favFab.setImageResource(R.drawable.ic_fav_selected);
+            favFab.setColorNormal(ContextCompat.getColor(this, R.color.red));
+            favFab.setColorPressed(ContextCompat.getColor(this, R.color.red_medium));
+            favFab.setColorRipple(ContextCompat.getColor(this, R.color.red_dark));
+            favFab.setLabelText(getString(R.string.add_to_favourites));
+
+            mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().deleteAllFromRealm();
+
+            Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+        }
+        mRealm.commitTransaction();
     }
 
     @Override
@@ -173,11 +245,19 @@ public class EventActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (fabMenu.isOpened()) fabMenu.close(true);
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             super.onBackPressed();
         else{
             finish();
             overridePendingTransition(R.anim.scale_up, R.anim.slide_out_right);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
+        mRealm = null;
     }
 }

@@ -153,17 +153,22 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
             else{
                 Intent intent = new Intent(activity, EventActivity.class);
                 FavouritesModel favourite = favouritesList.get(getAdapterPosition());
+                intent.putExtra("Event ID", favourite.getId());
                 intent.putExtra("Event Name", favourite.getEventName());
                 intent.putExtra("Event Date", favourite.getDate());
-                intent.putExtra("Event Time", favourite.getStartTime()+" - "+favourite.getEndTime());
+                intent.putExtra("Event Start Time", favourite.getStartTime());
+                intent.putExtra("Event End Time", favourite.getEndTime());
                 intent.putExtra("Event Venue", favourite.getVenue());
                 intent.putExtra("Team Of", favourite.getParticipants());
                 intent.putExtra("Event Category", favourite.getCatName());
+                intent.putExtra("Category ID", favourite.getCatID());
+                intent.putExtra("Event Day", favourite.getDay());
                 intent.putExtra("Contact Number", favourite.getContactNumber());
                 intent.putExtra("Contact Name", "("+favourite.getContactName()+")");
                 intent.putExtra("Event Description", favourite.getDescription());
                 intent.putExtra("Favourite", true);
                 intent.putExtra("Category Logo", getAdapterPosition()%2);
+                intent.putExtra("enableFavourite", false);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptionsCompat options = ActivityOptionsCompat.

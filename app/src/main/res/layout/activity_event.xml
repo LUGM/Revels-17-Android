@@ -371,6 +371,7 @@
 
         <com.github.clans.fab.FloatingActionButton
             android:layout_width="wrap_content"
+            android:id="@+id/fav_fab"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_fav_selected"
             fab:fab_label="@string/add_to_favourites"

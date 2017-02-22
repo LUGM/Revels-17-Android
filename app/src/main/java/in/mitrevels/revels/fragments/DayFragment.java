@@ -74,6 +74,7 @@ public class DayFragment extends Fragment {
     private int filterEndMinute = 30;
     private String filterCategory = "All";
     private String filterVenue = "All";
+    private int count = 0;
 
     public DayFragment() {
     }
@@ -493,4 +494,11 @@ public class DayFragment extends Fragment {
         mDatabase = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        count++;
+        Log.d("Count", count+"");
+        if (mDatabase != null && count > 1) displayData();
+    }
 }

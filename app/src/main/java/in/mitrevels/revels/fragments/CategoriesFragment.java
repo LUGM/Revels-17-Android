@@ -68,7 +68,6 @@ public class CategoriesFragment extends Fragment {
             prepareData();
         }
 
-        prepareData();
         return view;
     }
 

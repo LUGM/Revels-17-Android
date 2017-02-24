@@ -77,6 +77,8 @@ public class DayFragment extends Fragment {
     private int count = 0;
     private static final int LOAD_EVENTS = 0;
     private static final int UPDATE_EVENTS = 1;
+    private boolean eventsLoaded = false;
+    private boolean scheduleLoaded = false;
 
     public DayFragment() {
     }
@@ -118,17 +120,12 @@ public class DayFragment extends Fragment {
         eventsRecyclerView.setAdapter(adapter);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if (mDatabase.where(ScheduleModel.class).findAll().size() != 0){
-            displayData();
-            prepareData(UPDATE_EVENTS);
+        if (mDatabase.where(ScheduleModel.class).equalTo("day", getArguments().getInt("day", 1)+"").findAll().size() == 0){
+            noConnectionLayout.setVisibility(View.VISIBLE);
         }
         else{
-            if (HandyMan.help().isInternetConnected(getActivity())){
-                prepareData(LOAD_EVENTS);
-            }
-            else{
-                noConnectionLayout.setVisibility(View.VISIBLE);
-            }
+            displayData();
+            prepareData(UPDATE_EVENTS);
         }
 
         return rootView;
@@ -155,7 +152,16 @@ public class DayFragment extends Fragment {
                     mDatabase.copyToRealm(response.body().getEvents());
                     mDatabase.commitTransaction();
                 }
-                displayData();
+                eventsLoaded = true;
+
+                if (scheduleLoaded){
+                    displayData();
+
+                    if (operation == LOAD_EVENTS && dialog != null){
+                        if (dialog.isShowing())
+                            dialog.hide();
+                    }
+                }
             }
 
             @Override
@@ -176,10 +182,15 @@ public class DayFragment extends Fragment {
                     mDatabase.copyToRealm(response.body().getData());
                     mDatabase.commitTransaction();
                 }
-                displayData();
-                if (operation == LOAD_EVENTS && dialog != null){
-                    if (dialog.isShowing())
-                        dialog.hide();
+                scheduleLoaded = true;
+
+                if (eventsLoaded){
+                    displayData();
+
+                    if (operation == LOAD_EVENTS && dialog != null){
+                        if (dialog.isShowing())
+                            dialog.hide();
+                    }
                 }
             }
 

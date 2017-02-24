@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import in.mitrevels.revels.R;
-import in.mitrevels.revels.activities.TrendingActivity;
 import in.mitrevels.revels.adapters.DayPagerAdapter;
 
 /**

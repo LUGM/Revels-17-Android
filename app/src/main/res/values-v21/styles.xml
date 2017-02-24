@@ -7,6 +7,13 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.SplashTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/revels_grey_dark</item>
+    </style>
+
     <style name="AppTheme.SecondaryActivityTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

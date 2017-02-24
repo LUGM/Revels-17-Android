@@ -45,7 +45,7 @@
             android:id="@+id/insta_feed_img_image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/tt_insta_img"
+            android:src="@drawable/revels_header"
             android:adjustViewBounds="true"/>
 
         <View

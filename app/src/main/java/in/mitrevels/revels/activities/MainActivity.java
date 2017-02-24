@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
 
                     case R.id.drawer_menu_about:
-                        Intent aboutIntent = new Intent(MainActivity.this, AboutUsActivity.class);
+                        Intent aboutIntent = new Intent(MainActivity.this, SplashActivity.class);
                         startActivity(aboutIntent);
                         break;
                 }

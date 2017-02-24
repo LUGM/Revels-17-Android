@@ -1,8 +1,5 @@
 package in.mitrevels.revels.models.events;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by Naman on 6/3/2016.
  */
@@ -38,8 +35,8 @@ public class EventModel {
             catId = eventDetails.getCatID();
             contactName = eventDetails.getContactName();
             contactNumber = eventDetails.getContactNo();
-            hashtag1 = eventDetails.getHs1();
-            hashtag2 = eventDetails.getHs2();
+            hashtag1 = eventDetails.getType();
+            hashtag2 = eventDetails.getHash();
         }
 
         if (schedule != null){

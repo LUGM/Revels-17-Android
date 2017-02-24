@@ -1,15 +1,21 @@
 package in.mitrevels.revels.fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +24,8 @@ import in.mitrevels.revels.R;
 import in.mitrevels.revels.adapters.CategoriesAdapter;
 import in.mitrevels.revels.models.categories.CategoriesListModel;
 import in.mitrevels.revels.models.categories.CategoryModel;
-import in.mitrevels.revels.network.CategoriesAPIClient;
+import in.mitrevels.revels.network.APIClient;
+import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Call;
@@ -27,9 +34,13 @@ import retrofit2.Response;
 
 public class CategoriesFragment extends Fragment {
 
+    private LinearLayout noConnectionLayout;
     private List<CategoryModel> categoriesList = new ArrayList<>();
     private Realm mDatabase;
     private CategoriesAdapter adapter;
+    private ProgressDialog dialog;
+    private static final int LOAD_CATEGORIES = 0;
+    private static final int UPDATE_CATEGORIES = 1;
 
     public CategoriesFragment() {
     }
@@ -55,6 +66,23 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
+        final CoordinatorLayout rootLayout = (CoordinatorLayout)getActivity().findViewById(R.id.main_activity_coordinator_layout);
+        noConnectionLayout = (LinearLayout)view.findViewById(R.id.cat_no_connection_layout);
+
+        TextView retry = (TextView)noConnectionLayout.findViewById(R.id.no_connection_retry_button);
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (HandyMan.help().isInternetConnected(getActivity())){
+                    prepareData(LOAD_CATEGORIES);
+                    noConnectionLayout.setVisibility(View.GONE);
+                }
+                else{
+                    Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         RecyclerView categoriesRecyclerView = (RecyclerView)view.findViewById(R.id.categories_recycler_view);
         adapter = new CategoriesAdapter(categoriesList, getActivity());
         categoriesRecyclerView.setAdapter(adapter);
@@ -62,17 +90,29 @@ public class CategoriesFragment extends Fragment {
 
         if (mDatabase.where(CategoryModel.class).findAll().size() != 0){
             displayData();
-            prepareData();
+            prepareData(UPDATE_CATEGORIES);
         }
         else{
-            prepareData();
+            if (HandyMan.help().isInternetConnected(getActivity())){
+                prepareData(LOAD_CATEGORIES);
+            }
+            else{
+                noConnectionLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         return view;
     }
 
-    private void prepareData(){
-        Call<CategoriesListModel> categoriesCall = CategoriesAPIClient.getAPIInterface().getCategoriesList();
+    private void prepareData(final int operation){
+        Call<CategoriesListModel> categoriesCall = APIClient.getAPIInterface().getCategoriesList();
+
+        if (operation == LOAD_CATEGORIES){
+            dialog = new ProgressDialog(getActivity());
+            dialog.setMessage(getResources().getString(R.string.loading_categories));
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
 
         categoriesCall.enqueue(new Callback<CategoriesListModel>() {
             @Override
@@ -84,11 +124,20 @@ public class CategoriesFragment extends Fragment {
                     mDatabase.commitTransaction();
                 }
                 displayData();
+
+                if (operation == LOAD_CATEGORIES && dialog != null){
+                    if (dialog.isShowing())
+                        dialog.hide();
+                }
             }
 
             @Override
             public void onFailure(Call<CategoriesListModel> call, Throwable t) {
-                displayData();
+                if (operation == LOAD_CATEGORIES && dialog != null){
+                    if (dialog.isShowing())
+                        dialog.hide();
+                    noConnectionLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
 

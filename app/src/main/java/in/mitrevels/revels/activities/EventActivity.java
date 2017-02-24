@@ -1,5 +1,9 @@
 package in.mitrevels.revels.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -24,8 +29,16 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionMenu;
 import com.github.clans.fab.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.models.FavouritesModel;
+import in.mitrevels.revels.models.events.EventModel;
+import in.mitrevels.revels.receivers.NotificationReceiver;
 import io.realm.Realm;
 
 public class EventActivity extends AppCompatActivity {
@@ -40,6 +53,8 @@ public class EventActivity extends AppCompatActivity {
     private FloatingActionMenu fabMenu;
     private FloatingActionButton favFab;
     private Realm mRealm;
+    private final int CREATE_NOTIFICATION = 0;
+    private final int CANCEL_NOTIFICATION = 1;
     private String title;
     private String id;
     private String catID;
@@ -216,7 +231,7 @@ public class EventActivity extends AppCompatActivity {
             mRealm.copyToRealm(favourite);
 
             Snackbar.make(coordinatorLayout, title+" added to favourites!", Snackbar.LENGTH_SHORT).show();
-
+            editNotification(CREATE_NOTIFICATION);
         }
         else{
             favFab.setImageResource(R.drawable.ic_fav_selected);
@@ -228,9 +243,70 @@ public class EventActivity extends AppCompatActivity {
             mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().deleteAllFromRealm();
 
             Snackbar.make(coordinatorLayout, title+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
+            editNotification(CANCEL_NOTIFICATION);
         }
         mRealm.commitTransaction();
     }
+
+    public void editNotification(int operation){
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("eventName", title);
+        intent.putExtra("startTime", startTime);
+        intent.putExtra("eventVenue", venue);
+        intent.putExtra("eventID", id);
+
+        AlarmManager alarmManager = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, Integer.parseInt(catID+id+"0"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, Integer.parseInt(catID+id+"1"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (operation==CREATE_NOTIFICATION){
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+            Date d = null;
+
+            try {
+                d = sdf.parse(startTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int eventDate = 7 + Integer.parseInt(day);   //event dates start from 8th March
+
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(d);
+
+            calendar1.set(Calendar.MONTH, Calendar.MARCH);
+            calendar1.set(Calendar.YEAR, 2017);
+            calendar1.set(Calendar.DATE, eventDate);
+            calendar1.set(Calendar.SECOND, 0);
+
+            long eventTimeInMillis = calendar1.getTimeInMillis();
+            calendar1.set(Calendar.HOUR_OF_DAY, calendar1.get(Calendar.HOUR_OF_DAY)-1);
+
+            Calendar calendar2 = Calendar.getInstance();
+
+            if(calendar2.getTimeInMillis() <= eventTimeInMillis)
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
+
+            if (calendar2.get(Calendar.MONTH) == calendar1.get(Calendar.MONTH) && calendar2.get(Calendar.DATE) < calendar1.get(Calendar.DATE)){
+                calendar2.set(Calendar.SECOND, 0);
+                calendar2.set(Calendar.MINUTE, 0);
+                calendar2.set(Calendar.HOUR, 0);
+                calendar2.set(Calendar.AM_PM, Calendar.AM);
+                calendar2.set(Calendar.MONTH, Calendar.MARCH);
+                calendar2.set(Calendar.YEAR, 2017);
+                calendar2.set(Calendar.DATE, eventDate);
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent2);
+            }
+
+        }
+        else if (operation==CANCEL_NOTIFICATION){
+            alarmManager.cancel(pendingIntent1);
+            alarmManager.cancel(pendingIntent2);
+        }
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -3,6 +3,7 @@
     package="in.mitrevels.revels">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".application.Revels"
@@ -48,6 +49,8 @@
         <activity android:name=".activities.CategoryActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme"/>
+        <receiver android:name=".receivers.NotificationReceiver" android:exported="false" android:enabled="true" android:label="@string/notification_receiver">
+        </receiver>
     </application>
 
 </manifest>

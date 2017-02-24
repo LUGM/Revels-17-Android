@@ -284,6 +284,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/typography_body"
                             tools:text="Contact"
+                            android:autoLink="phone"
+                            android:linksClickable="true"
                             android:textColor="@color/light_blue"/>
 
                         <TextView

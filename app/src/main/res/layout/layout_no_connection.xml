@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryDark"
+    android:gravity="center"
+    android:padding="@dimen/padding_default">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/no_connection"
+        android:fontFamily="sans-serif-light"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/padding_2x"/>
+
+    <ImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@drawable/error"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error"
+        android:textColor="@color/white"
+        android:textSize="@dimen/typography_title"
+        android:layout_marginTop="@dimen/padding_default"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/no_connection_retry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/retry"
+        android:background="@drawable/rounded_white_grey_bg"
+        android:textSize="@dimen/typography_title"
+        android:textAllCaps="true"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="?attr/colorPrimary"
+        android:layout_marginTop="@dimen/padding_2x"
+        android:gravity="center"
+        android:padding="@dimen/padding_half"/>
+
+</LinearLayout>

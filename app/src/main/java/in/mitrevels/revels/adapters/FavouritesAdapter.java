@@ -1,6 +1,9 @@
 package in.mitrevels.revels.adapters;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +30,7 @@ import in.mitrevels.revels.activities.EventActivity;
 import in.mitrevels.revels.fragments.FavouritesFragment;
 import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventModel;
+import in.mitrevels.revels.receivers.NotificationReceiver;
 import io.realm.Realm;
 
 /**
@@ -82,6 +86,21 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         mRealm.beginTransaction();
         mRealm.where(FavouritesModel.class).equalTo("id", favourite.getId()).findAll().deleteAllFromRealm();
         mRealm.commitTransaction();
+    }
+
+    public void removeNotification(FavouritesModel favourite){
+        Intent intent = new Intent(activity, NotificationReceiver.class);
+        intent.putExtra("eventName", favourite.getEventName());
+        intent.putExtra("startTime", favourite.getStartTime());
+        intent.putExtra("eventVenue", favourite.getVenue());
+        intent.putExtra("eventID", favourite.getId());
+
+        AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(activity, Integer.parseInt(favourite.getCatID()+favourite.getId()+"0"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(activity, Integer.parseInt(favourite.getCatID()+favourite.getId()+"1"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.cancel(pendingIntent1);
+        alarmManager.cancel(pendingIntent2);
     }
 
     class FavouriteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -142,6 +161,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
                         @Override
                         public void onClick(View view) {
                             dialog.hide();
+                            removeNotification(favouritesList.get(getAdapterPosition()));
                             removeFavourite(favouritesList.get(getAdapterPosition()));
                             Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), favouritesList.get(getAdapterPosition()).getEventName()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
                             favouritesList.remove(getAdapterPosition());

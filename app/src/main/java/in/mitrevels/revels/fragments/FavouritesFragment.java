@@ -1,5 +1,9 @@
 package in.mitrevels.revels.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,8 +25,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.adapters.FavouritesAdapter;
@@ -30,6 +39,7 @@ import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventDetailsModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.models.events.ScheduleModel;
+import in.mitrevels.revels.receivers.NotificationReceiver;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -261,13 +271,37 @@ public class FavouritesFragment extends Fragment {
                 }
 
                 mRealm.beginTransaction();
-                if (!removeAllEvents) mRealm.where(FavouritesModel.class).equalTo("day", day).findAll().deleteAllFromRealm();
-                else mRealm.where(FavouritesModel.class).findAll().deleteAllFromRealm();
+                if (!removeAllEvents){
+                    removeNotification(mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", day).findAll()));
+                    mRealm.where(FavouritesModel.class).equalTo("day", day).findAll().deleteAllFromRealm();
+                }
+                else{
+                    removeNotification(mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).findAll()));
+                    mRealm.where(FavouritesModel.class).findAll().deleteAllFromRealm();
+                }
                 mRealm.commitTransaction();
 
                 if (removeAllEvents) Snackbar.make(mainLayout, "Favourites removed!", Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void removeNotification(List<FavouritesModel> removalList){
+
+        for (FavouritesModel favourite : removalList){
+            Intent intent = new Intent(getActivity(), NotificationReceiver.class);
+            intent.putExtra("eventName", favourite.getEventName());
+            intent.putExtra("startTime", favourite.getStartTime());
+            intent.putExtra("eventVenue", favourite.getVenue());
+            intent.putExtra("eventID", favourite.getId());
+
+            AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(getActivity(), Integer.parseInt(favourite.getCatID()+favourite.getId()+"0"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getActivity(), Integer.parseInt(favourite.getCatID()+favourite.getId()+"1"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.cancel(pendingIntent1);
+            alarmManager.cancel(pendingIntent2);
+        }
     }
 
     @Override

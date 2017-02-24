@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.TrendingActivity;
 import in.mitrevels.revels.adapters.DayPagerAdapter;
@@ -64,6 +67,33 @@ public class EventsFragment extends Fragment {
         viewPager.setOffscreenPageLimit(4);
 
         tabLayout.setupWithViewPager(viewPager);
+
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+        switch(formattedDate){
+
+            case "08-03-2017":{
+                viewPager.setCurrentItem(0);
+                break;
+            }
+            case "09-03-2017":{
+                viewPager.setCurrentItem(1);
+                break;
+            }
+            case "10-03-2017":{
+                viewPager.setCurrentItem(2);
+                break;
+            }
+            case "11-03-2017":{
+                viewPager.setCurrentItem(3);
+                break;
+            }
+            default: viewPager.setCurrentItem(0);
+
+        }
 
         return rootView;
     }

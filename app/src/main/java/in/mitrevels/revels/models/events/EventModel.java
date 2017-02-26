@@ -11,6 +11,7 @@ public class EventModel {
     private String eventMaxTeamNumber;
     private String catName;
     private String catId;
+    private String round;
     private String venue;
     private String startTime;
     private String endTime;
@@ -18,8 +19,8 @@ public class EventModel {
     private String date;
     private String contactName;
     private String contactNumber;
-    private String hashtag1;
-    private String hashtag2;
+    private String eventType;
+    private String hashtag;
 
     public EventModel() {
     }
@@ -35,33 +36,47 @@ public class EventModel {
             catId = eventDetails.getCatID();
             contactName = eventDetails.getContactName();
             contactNumber = eventDetails.getContactNo();
-            hashtag1 = eventDetails.getType();
-            hashtag2 = eventDetails.getHash();
+            eventType = eventDetails.getType();
+            hashtag = eventDetails.getHash();
         }
 
         if (schedule != null){
             venue = schedule.getVenue();
-            startTime = schedule.getStartTime();
-            endTime = schedule.getEndTime();
+
+            if (schedule.getStartTime().contains(".")){
+                startTime = schedule.getStartTime().replace('.', ':');
+            }
+            else{
+                startTime = schedule.getStartTime();
+            }
+
+            if (schedule.getEndTime().contains(".")){
+                endTime = schedule.getEndTime().replace('.', ':');
+            }
+            else{
+                endTime = schedule.getEndTime();
+            }
+
             day = schedule.getDay();
             date = schedule.getDate();
+            round = schedule.getRound();
         }
     }
 
-    public String getHashtag1() {
-        return hashtag1;
+    public String getEventType() {
+        return eventType;
     }
 
-    public void setHashtag1(String hashtag1) {
-        this.hashtag1 = hashtag1;
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 
-    public String getHashtag2() {
-        return hashtag2;
+    public String getHashtag() {
+        return hashtag;
     }
 
-    public void setHashtag2(String hashtag2) {
-        this.hashtag2 = hashtag2;
+    public void setHashtag(String hashtag) {
+        this.hashtag = hashtag;
     }
 
     public String getContactNumber() {
@@ -142,6 +157,14 @@ public class EventModel {
 
     public void setEventMaxTeamNumber(String eventMaxTeamNumber) {
         this.eventMaxTeamNumber = eventMaxTeamNumber;
+    }
+
+    public String getRound() {
+        return round;
+    }
+
+    public void setRound(String round) {
+        this.round = round;
     }
 
     public String getDescription() {

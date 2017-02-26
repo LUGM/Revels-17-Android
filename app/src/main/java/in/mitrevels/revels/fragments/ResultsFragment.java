@@ -31,6 +31,7 @@ import in.mitrevels.revels.network.APIClient;
 import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,7 +93,7 @@ public class ResultsFragment extends Fragment {
         });
 
         swipeRefresh = (SwipeRefreshLayout)rootView.findViewById(R.id.result_swipe_refresh);
-        swipeRefresh.setColorSchemeResources(R.color.teal);
+        swipeRefresh.setColorSchemeResources(R.color.amber);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -176,7 +177,7 @@ public class ResultsFragment extends Fragment {
     private void displayData(){
         if (mRealm == null) return;
 
-        RealmResults<ResultModel> results = mRealm.where(ResultModel.class).findAll();
+        RealmResults<ResultModel> results = mRealm.where(ResultModel.class).findAllSorted("eventName", Sort.ASCENDING, "position", Sort.ASCENDING);
 
         if (!results.isEmpty()){
             resultsList.clear();
@@ -184,13 +185,14 @@ public class ResultsFragment extends Fragment {
             List<String> eventNamesList = new ArrayList<>();
 
             for (ResultModel result : results){
-                String eventName = result.getEventName();
+                String eventName = result.getEventName()+" "+result.getRound();
                 if (eventNamesList.contains(eventName)){
                     resultsList.get(eventNamesList.indexOf(eventName)).eventResultsList.add(result);
                 }
                 else{
                     EventResultModel eventResult = new EventResultModel();
-                    eventResult.eventName = eventName;
+                    eventResult.eventName = result.getEventName();
+                    eventResult.eventRound = result.getRound();
                     eventResult.eventCategory = result.getCatName();
                     eventResult.eventResultsList.add(result);
                     resultsList.add(eventResult);
@@ -200,12 +202,6 @@ public class ResultsFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
 
-    }
-
-    public class EventResultModel {
-        public String eventName;
-        public String eventCategory;
-        public List<ResultModel> eventResultsList = new ArrayList<>();
     }
 
     @Override
@@ -241,4 +237,11 @@ public class ResultsFragment extends Fragment {
         setMenuVisibility(false);
     }
 
+
+    public class EventResultModel {
+        public String eventName;
+        public String eventRound;
+        public String eventCategory;
+        public List<ResultModel> eventResultsList = new ArrayList<>();
+    }
 }

@@ -3,13 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/qualified_teams_pos_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Position"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:textSize="@dimen/typography_body"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/team_id"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:textSize="@dimen/typography_body"/>
 
     <TextView
         android:id="@+id/qualified_teams_id_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         tools:text="Team ID"
         android:textSize="@dimen/typography_body"/>
 

@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/cat_logo_image_view"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:src="@drawable/tt_aero"/>
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_right"
-                android:tint="?attr/colorPrimaryDark"/>
+                android:tint="@color/amber_dark"/>
 
     </LinearLayout>
 

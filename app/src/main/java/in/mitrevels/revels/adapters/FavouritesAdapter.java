@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import in.mitrevels.revels.fragments.FavouritesFragment;
 import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.receivers.NotificationReceiver;
+import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
 
 /**
@@ -62,19 +64,24 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
 
         holder.favouriteName.setText(favourite.getEventName());
         holder.favouriteTime.setText(favourite.getStartTime());
-        holder.favouriteLogo.setImageResource(flag ? R.drawable.tt_kraftwagen : R.drawable.tt_aero);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), flag ? R.drawable.tt_kraftwagen : R.drawable.tt_aero);
+        int logoID = HandyMan.help().getCategoryLogo(favourite.getCatID());
+        holder.favouriteLogo.setImageResource(logoID);
 
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-
-            @Override
-            public void onGenerated(Palette palette) {
-                holder.bgLayout.setBackgroundColor(palette.getDominantColor(ContextCompat.getColor(activity, R.color.teal)));
+        if (!favourite.getRound().equals("-")){
+            if (favourite.getRound().toLowerCase().equals("finals") || favourite.getRound().toLowerCase().equals("f") || favourite.getRound().toLowerCase().equals("final")){
+                holder.eventRound.setText("RF");
             }
-        });
-
-        flag = !flag;
+            else if(favourite.getRound().toLowerCase().equals("prelims")) {
+                holder.eventRound.setText("RP");
+            }
+            else{
+                holder.eventRound.setText("R"+favourite.getRound());
+            }
+        }
+        else{
+            holder.eventRound.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -108,8 +115,9 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         ImageView favouriteLogo;
         TextView favouriteName;
         TextView favouriteTime;
-        LinearLayout bgLayout;
         ImageView deleteFavourite;
+        FrameLayout logoFrame;
+        TextView eventRound;
 
         public FavouriteViewHolder(View itemView) {
             super(itemView);
@@ -117,8 +125,9 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
             favouriteLogo = (ImageView)itemView.findViewById(R.id.fav_logo_image_view);
             favouriteName = (TextView)itemView.findViewById(R.id.fav_name_text_view);
             favouriteTime = (TextView)itemView.findViewById(R.id.fav_time_text_view);
-            bgLayout = (LinearLayout)itemView.findViewById(R.id.fav_card_bg_layout);
             deleteFavourite = (ImageView)itemView.findViewById(R.id.favourite_item_delete);
+            logoFrame = (FrameLayout)itemView.findViewById(R.id.fav_event_logo_frame);
+            eventRound = (TextView)itemView.findViewById(R.id.fav_event_round_text_view);
 
             itemView.setOnClickListener(this);
             deleteFavourite.setOnClickListener(this);
@@ -192,7 +201,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(activity, favouriteLogo, activity.getString(R.string.cat_logo_transition));
+                            makeSceneTransitionAnimation(activity, logoFrame, activity.getString(R.string.cat_logo_transition));
                     activity.startActivity(intent, options.toBundle());
                 }
                 else {

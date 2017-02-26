@@ -101,7 +101,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/head"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -133,7 +133,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/developer"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -165,7 +165,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/developer"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -248,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/head"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -280,7 +280,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/developer"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -363,7 +363,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/head"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -395,7 +395,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/developer"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>
@@ -478,7 +478,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/ui_designer"
                             android:fontFamily="sans-serif-light"
-                            android:textColor="?attr/colorPrimaryDark"
+                            android:textColor="@color/amber_darker"
                             android:textSize="13sp"/>
 
                     </LinearLayout>

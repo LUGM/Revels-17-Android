@@ -20,8 +20,8 @@
         <ImageView
             android:layout_weight="0"
             android:id="@+id/result_cat_logo_image_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/tt_aero"/>
 
         <LinearLayout
@@ -41,12 +41,25 @@
                 tools:text="Event Name"
                 android:fontFamily="sans-serif-medium"/>
 
-            <TextView
-                android:id="@+id/result_cat_text_view"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Category"
-                android:textSize="@dimen/typography_body"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/round"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginEnd="4dp"/>
+                <TextView
+                    android:id="@+id/result_round_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Category"
+                    android:textSize="@dimen/typography_body"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -56,7 +69,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_plus"
-            android:tint="?attr/colorPrimaryDark"/>
+            android:tint="@color/amber_dark"/>
 
     </LinearLayout>
 

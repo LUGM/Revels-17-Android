@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:statusBarScrim="@android:color/transparent"
+            app:statusBarScrim="?attr/colorPrimaryDark"
             app:collapsedTitleGravity="left|start"
             android:fitsSystemWindows="true"
             app:expandedTitleTextAppearance="@style/ExpandedAppBar"
@@ -39,13 +39,10 @@
 
                 <ImageView
                     android:id="@+id/event_cat_logo"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:src="@drawable/tt_aero"
-                    android:elevation="5dp"
-                    android:background="@drawable/circular_bg"
-                    android:layout_margin="@dimen/padding_3x"
-                    android:layout_marginTop="@dimen/padding_default"
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
+                    android:src="@drawable/animania"
+                    android:layout_margin="@dimen/padding_2x"
                     android:transitionName="@string/cat_logo_transition"/>
 
             </LinearLayout>
@@ -74,6 +71,40 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/padding_default">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/padding_half">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
+                    android:src="@drawable/ic_round"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    android:text="@string/round"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/event_round_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/typography_body"
+                    tools:text="Event Round"
+                    android:layout_marginStart="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_half"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

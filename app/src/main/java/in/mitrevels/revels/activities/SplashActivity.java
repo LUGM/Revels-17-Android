@@ -63,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                loadMain();
+                                loadMain(true);
                             }
                         }, 1000);
                     }
@@ -74,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            loadMain();
+                            loadMain(false);
                         }
                     }, 1000);
                 }
@@ -93,7 +93,7 @@ public class SplashActivity extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                loadMain();
+                                loadMain(true);
                             }
                         }, 1000);
                     }
@@ -104,7 +104,7 @@ public class SplashActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            loadMain();
+                            loadMain(false);
                         }
                     }, 1000);
                 }
@@ -114,15 +114,16 @@ public class SplashActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    loadMain();
+                    loadMain(false);
                 }
             }, 2000);
         }
 
     }
 
-    private void loadMain(){
+    private void loadMain(boolean dataLoaded){
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        intent.putExtra("dataLoaded", dataLoaded);
         startActivity(intent);
         finish();
     }

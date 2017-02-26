@@ -33,7 +33,8 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
     @Override
     public void onBindViewHolder(QualifiedTeamViewHolder holder, int position) {
         ResultModel result = resultsList.get(position);
-        holder.teamID.setText(result.getPosition()+". "+result.getTeamID());
+        holder.position.setText(result.getPosition()+".");
+        holder.teamID.setText(result.getTeamID());
     }
 
     @Override
@@ -42,11 +43,13 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
     }
 
     public class QualifiedTeamViewHolder extends RecyclerView.ViewHolder {
+        TextView position;
         TextView teamID;
 
         public QualifiedTeamViewHolder(View itemView) {
             super(itemView);
 
+            position = (TextView)itemView.findViewById(R.id.qualified_teams_pos_text_view);
             teamID = (TextView)itemView.findViewById(R.id.qualified_teams_id_text_view);
         }
     }

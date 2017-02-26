@@ -15,6 +15,7 @@ import java.util.List;
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.CategoryActivity;
 import in.mitrevels.revels.models.categories.CategoryModel;
+import in.mitrevels.revels.utilities.HandyMan;
 
 /**
  * Created by anurag on 3/2/17.
@@ -38,6 +39,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         CategoryModel category = categoriesList.get(position);
         holder.catName.setText(category.getCategoryName());
+        holder.catLogo.setImageResource(HandyMan.help().getCategoryLogo(category.getCategoryID()));
     }
 
     @Override

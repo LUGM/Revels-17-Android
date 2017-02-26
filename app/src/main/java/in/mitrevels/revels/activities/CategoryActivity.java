@@ -73,7 +73,7 @@ public class CategoryActivity extends AppCompatActivity {
         day3NoEvents = (TextView)findViewById(R.id.cat_day_3_no_events);
         day4NoEvents = (TextView)findViewById(R.id.cat_day_4_no_events);
 
-        RealmResults<ScheduleModel> scheduleResults = mRealm.where(ScheduleModel.class).equalTo("catID", catID).findAll();
+        RealmResults<ScheduleModel> scheduleResults = mRealm.where(ScheduleModel.class).equalTo("catID", catID).findAllSorted("startTime");
 
         for (ScheduleModel schedule : scheduleResults){
             EventDetailsModel eventDetails = mRealm.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();

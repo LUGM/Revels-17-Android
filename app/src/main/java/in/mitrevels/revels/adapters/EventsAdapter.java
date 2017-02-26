@@ -33,6 +33,7 @@ import in.mitrevels.revels.activities.EventActivity;
 import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.receivers.NotificationReceiver;
+import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -69,11 +70,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         holder.eventName.setText(event.getEventName());
         holder.eventVenue.setText(event.getVenue());
         holder.eventTime.setText(event.getStartTime()+" - "+event.getEndTime());
-        if (position%2==0){
-            holder.eventLogo.setImageResource(R.drawable.tt_aero);
+        holder.eventLogo.setImageResource(HandyMan.help().getCategoryLogo(event.getCatId()));
+
+        holder.eventRound.setVisibility(View.VISIBLE);
+
+        if (!event.getRound().equals("-")){
+            if (event.getRound().toLowerCase().equals("finals") || event.getRound().toLowerCase().equals("f") || event.getCatId().toLowerCase().equals("final"))
+                holder.eventRound.setText("RF");
+            else if (event.getRound().toLowerCase().equals("prelims"))
+                holder.eventRound.setText("RP");
+            else
+                holder.eventRound.setText("R"+event.getRound());
         }
         else{
-            holder.eventLogo.setImageResource(R.drawable.tt_kraftwagen);
+            holder.eventRound.setVisibility(View.GONE);
         }
 
         FavouritesModel favourite = mDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("date", event.getDate()).findFirst();
@@ -97,6 +107,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             favourite.setId(event.getEventId());
             favourite.setCatID(event.getCatId());
             favourite.setEventName(event.getEventName());
+            favourite.setRound(event.getRound());
             favourite.setVenue(event.getVenue());
             favourite.setDate(event.getDate());
             favourite.setDay(event.getDay());
@@ -143,6 +154,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 d = sdf.parse(event.getStartTime());
             } catch (ParseException e) {
                 e.printStackTrace();
+                return;
             }
 
             int eventDate = 7 + Integer.parseInt(event.getDay());   //event dates start from 8th March
@@ -213,6 +225,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         TextView eventTime;
         TextView eventVenue;
         ImageView eventFav;
+        TextView eventRound;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -222,6 +235,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             eventTime = (TextView)itemView.findViewById(R.id.event_time_text_view);
             eventVenue = (TextView)itemView.findViewById(R.id.event_venue_text_view);
             eventFav = (ImageView)itemView.findViewById(R.id.event_fav_image_view);
+            eventRound = (TextView)itemView.findViewById(R.id.event_round_text_view);
 
             eventFav.setOnClickListener(this);
             itemView.setOnClickListener(this);
@@ -253,6 +267,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 EventModel event = eventsList.get(getAdapterPosition());
                 intent.putExtra("Event ID", event.getEventId());
                 intent.putExtra("Event Name", event.getEventName());
+                intent.putExtra("Event Round", event.getRound());
                 intent.putExtra("Event Date", event.getDate());
                 intent.putExtra("Event Start Time", event.getStartTime());
                 intent.putExtra("Event End Time", event.getEndTime());
@@ -264,7 +279,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 intent.putExtra("Contact Number", event.getContactNumber());
                 intent.putExtra("Contact Name", "("+event.getContactName()+")");
                 intent.putExtra("Event Description", event.getDescription());
-                intent.putExtra("Category Logo", getAdapterPosition()%2);
                 intent.putExtra("enableFavourite", true);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

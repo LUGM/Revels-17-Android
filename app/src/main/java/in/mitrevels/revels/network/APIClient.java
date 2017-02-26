@@ -15,7 +15,7 @@ import retrofit2.http.GET;
 public class APIClient {
 
     private static Retrofit retrofit = null;
-    private static final String BASE_URL = "https://api.myjson.com/";
+    private static final String BASE_URL = "http://api.mitportals.in/";
 
     public static APIInterface getAPIInterface(){
 
@@ -27,16 +27,16 @@ public class APIClient {
     }
 
     public interface APIInterface{
-        @GET("bins/13s847")
+        @GET("events")
         Call<EventsListModel> getEventsList();
 
-        @GET("bins/19hz2h")
+        @GET("categories")
         Call<CategoriesListModel> getCategoriesList();
 
-        @GET("bins/9gno9")
+        @GET("results")
         Call<ResultsListModel> getResults();
 
-        @GET("bins/mpihj")
+        @GET("schedule")
         Call<ScheduleListModel> getScheduleList();
     }
 }

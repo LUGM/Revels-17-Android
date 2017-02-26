@@ -42,6 +42,7 @@ import in.mitrevels.revels.models.events.ScheduleModel;
 import in.mitrevels.revels.receivers.NotificationReceiver;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * Created by anurag on 12/12/16.
@@ -93,10 +94,10 @@ public class FavouritesFragment extends Fragment {
         noEvents[2] = (TextView)rootView.findViewById(R.id.fav_day_3_no_events);
         noEvents[3] = (TextView)rootView.findViewById(R.id.fav_day_4_no_events);
 
-        day1List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "1").findAll());
-        day2List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "2").findAll());
-        day3List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "3").findAll());
-        day4List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "4").findAll());
+        day1List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "1").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        day2List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "2").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        day3List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "3").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        day4List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "4").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
 
         RecyclerView day1RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_1_recycler_view);
         dayAdapter[0] = new FavouritesAdapter(getActivity(), day1List, this, mRealm);

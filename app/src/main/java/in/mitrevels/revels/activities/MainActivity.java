@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
 
                     case R.id.drawer_menu_about:
-                        Intent aboutIntent = new Intent(MainActivity.this, SplashActivity.class);
+                        Intent aboutIntent = new Intent(MainActivity.this, AboutUsActivity.class);
                         startActivity(aboutIntent);
                         break;
                 }
@@ -189,8 +189,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (navigationView == null) return;
         checkedItem = id;
 
-        for (int i=0; i<navigationView.getMenu().size(); i++)
+        for (int i=0; i<navigationView.getMenu().size(); i++) {
             navigationView.getMenu().getItem(i).setChecked(false);
+        }
 
         navigationView.getMenu().findItem(id).setChecked(true);
     }

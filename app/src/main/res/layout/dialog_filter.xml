@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="@string/filter_events"
             android:fontFamily="sans-serif-medium"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/amber_dark"
             android:textSize="@dimen/typography_title"
             android:paddingTop="@dimen/padding_half"
             android:paddingBottom="@dimen/padding_half"/>
@@ -35,7 +35,7 @@
             android:paddingRight="4dp"
             android:paddingTop="1dp"
             android:paddingBottom="1dp"
-            android:background="@drawable/blue_grey_rounded_bg">
+            android:background="@drawable/rounded_grey_bg">
 
             <ImageView
                 android:layout_width="14dp"
@@ -89,7 +89,7 @@
                     android:layout_weight="0"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_event_type"
+                    android:src="@drawable/ic_categories"
                     android:alpha="0.54"
                     android:layout_marginRight="@dimen/padding_2x"/>
 
@@ -274,7 +274,7 @@
             android:textAllCaps="true"
             android:textSize="@dimen/typography_body"
             android:fontFamily="sans-serif-medium"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/amber_dark"
             android:paddingTop="@dimen/padding_half"
             android:paddingBottom="@dimen/padding_half"
             android:paddingRight="@dimen/padding_default"

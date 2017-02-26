@@ -39,6 +39,7 @@ import in.mitrevels.revels.R;
 import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.receivers.NotificationReceiver;
+import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
 
 public class EventActivity extends AppCompatActivity {
@@ -57,6 +58,7 @@ public class EventActivity extends AppCompatActivity {
     private final int CANCEL_NOTIFICATION = 1;
     private String title;
     private String id;
+    private String round;
     private String catID;
     private String venue;
     private String date;
@@ -99,6 +101,7 @@ public class EventActivity extends AppCompatActivity {
 
         id = getIntent().getStringExtra("Event ID");
         title = getIntent().getStringExtra("Event Name");
+        round = getIntent().getStringExtra("Event Round");
         date = getIntent().getStringExtra("Event Date");
         day = getIntent().getStringExtra("Event Day");
         startTime = getIntent().getStringExtra("Event Start Time");
@@ -117,6 +120,9 @@ public class EventActivity extends AppCompatActivity {
         if (title!=null && !title.equals(""))
             collapsingToolbarLayout.setTitle(title);
         else  collapsingToolbarLayout.setTitle("");
+
+        TextView eventRound = (TextView)findViewById(R.id.event_round_text_view);
+        if (round!=null) eventRound.setText(round);
 
         TextView eventDate = (TextView)findViewById(R.id.event_date_text_view);
         if (date!=null) eventDate.setText(date);
@@ -142,42 +148,14 @@ public class EventActivity extends AppCompatActivity {
         TextView eventDescription = (TextView)findViewById(R.id.event_description_text_view);
         if (description!=null) eventDescription.setText(description);
 
-        Bitmap bitmap = null;
+        int logoID = HandyMan.help().getCategoryLogo(catID);
+        logo.setImageResource(logoID);
 
-        if (getIntent().getIntExtra("Category Logo", 0) == 0) {
-            logo.setImageResource(R.drawable.tt_aero);
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tt_aero);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(ContextCompat.getColor(EventActivity.this, R.color.revels_grey_dark));
+            window.setNavigationBarColor(ContextCompat.getColor(EventActivity.this, R.color.revels_grey));
         }
-        else{
-            logo.setImageResource(R.drawable.tt_kraftwagen);
-            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tt_kraftwagen);
-        }
-
-        // Code for dynamic colouring of toolbar, status bar and navigation bar
-
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-
-            @Override
-            public void onGenerated(Palette palette) {
-                primaryColor = palette.getDominantColor(ContextCompat.getColor(EventActivity.this, R.color.teal));
-
-                int a = Color.alpha(primaryColor);
-                int r = Math.round(Color.red(primaryColor) * 0.8f);
-                int g = Math.round(Color.green(primaryColor) * 0.8f);
-                int b = Math.round(Color.blue(primaryColor) * 0.8f);
-                darkColor = Color.argb(a, Math.min(r,255), Math.min(g,255), Math.min(b,255));
-
-                collapsingToolbarLayout.setContentScrimColor(primaryColor);
-                collapsingToolbarLayout.setStatusBarScrimColor(darkColor);
-                headerLayout.setBackgroundColor(primaryColor);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Window window = getWindow();
-                    window.setStatusBarColor(darkColor);
-                    window.setNavigationBarColor(primaryColor);
-                }
-            }
-        });
 
         if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() != 0){
             favFab.setImageResource(R.drawable.ic_fav_deselected);
@@ -217,6 +195,7 @@ public class EventActivity extends AppCompatActivity {
             FavouritesModel favourite = new FavouritesModel();
             favourite.setId(id);
             favourite.setEventName(title);
+            favourite.setRound(round);
             favourite.setCatID(catID);
             favourite.setCatName(category);
             favourite.setDate(date);
@@ -267,6 +246,7 @@ public class EventActivity extends AppCompatActivity {
                 d = sdf.parse(startTime);
             } catch (ParseException e) {
                 e.printStackTrace();
+                return;
             }
 
             int eventDate = 7 + Integer.parseInt(day);   //event dates start from 8th March

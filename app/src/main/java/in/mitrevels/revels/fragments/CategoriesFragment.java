@@ -146,11 +146,14 @@ public class CategoriesFragment extends Fragment {
     private void displayData(){
 
         if (mDatabase != null){
-            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAll();
+            RealmResults<CategoryModel> categoryResults = mDatabase.where(CategoryModel.class).findAllSorted("categoryName");
 
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
+                for (CategoryModel category : categoriesList){
+                    Log.d("Cat ID:"+category.getCategoryID(), "Cat Name: "+category.getCategoryName());
+                }
                 adapter.notifyDataSetChanged();
             }
         }

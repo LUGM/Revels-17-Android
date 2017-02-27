@@ -1,9 +1,11 @@
 package in.mitrevels.revels.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,6 +45,7 @@ import java.util.Locale;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.adapters.EventsAdapter;
+import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventDetailsModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.models.events.EventsListModel;
@@ -606,12 +609,9 @@ public class DayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        count++;
-        if (mDatabase != null && count > 1){
-            displayData();
-            clearFilters();
-            if (searchItem != null)
-                searchItem.collapseActionView();
-        }
+        clearFilters();
+        if (searchItem != null)
+            searchItem.collapseActionView();
+        adapter.notifyDataSetChanged();
     }
 }

@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionMenu;
-import com.github.clans.fab.FloatingActionButton;
+import android.support.design.widget.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,16 +44,12 @@ import io.realm.Realm;
 
 public class EventActivity extends AppCompatActivity {
 
-    private boolean isFavourited;
     private CoordinatorLayout coordinatorLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private int primaryColor, darkColor;
-    private LinearLayout headerLayout;
     private ImageView logo;
-    private AppBarLayout appBarLayout;
-    private FloatingActionMenu fabMenu;
     private FloatingActionButton favFab;
     private Realm mRealm;
+    private LinearLayout eventRoundLayout;
     private final int CREATE_NOTIFICATION = 0;
     private final int CANCEL_NOTIFICATION = 1;
     private String title;
@@ -83,21 +79,18 @@ public class EventActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.event_collapsing_toolbar);
-        appBarLayout = (AppBarLayout)findViewById(R.id.event_app_bar_layout);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.event_app_bar_layout);
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.event_coordinator_layout);
-        headerLayout = (LinearLayout)findViewById(R.id.event_header_layout);
+        LinearLayout headerLayout = (LinearLayout) findViewById(R.id.event_header_layout);
+
+        eventRoundLayout = (LinearLayout)findViewById(R.id.event_round_layout);
 
         logo = (ImageView)findViewById(R.id.event_cat_logo);
-
-        fabMenu = (FloatingActionMenu)findViewById(R.id.event_fab_menu);
-        fabMenu.setClosedOnTouchOutside(true);
 
         favFab = (FloatingActionButton)findViewById(R.id.fav_fab);
 
         mRealm = Realm.getDefaultInstance();
-
-        isFavourited = getIntent().getBooleanExtra("Favourite", false);
 
         id = getIntent().getStringExtra("Event ID");
         title = getIntent().getStringExtra("Event Name");
@@ -115,14 +108,19 @@ public class EventActivity extends AppCompatActivity {
         description = getIntent().getStringExtra("Event Description");
 
         Boolean enableFavourite = getIntent().getBooleanExtra("enableFavourite", true);
-        if (!enableFavourite) fabMenu.setVisibility(View.GONE);
+        if (!enableFavourite) favFab.setVisibility(View.GONE);
 
         if (title!=null && !title.equals(""))
             collapsingToolbarLayout.setTitle(title);
         else  collapsingToolbarLayout.setTitle("");
 
-        TextView eventRound = (TextView)findViewById(R.id.event_round_text_view);
-        if (round!=null) eventRound.setText(round);
+        if (round != null && round.equals("-")){
+            eventRoundLayout.setVisibility(View.GONE);
+        }
+        else {
+            TextView eventRound = (TextView) findViewById(R.id.event_round_text_view);
+            if (round != null) eventRound.setText(round);
+        }
 
         TextView eventDate = (TextView)findViewById(R.id.event_date_text_view);
         if (date!=null) eventDate.setText(date);
@@ -159,17 +157,14 @@ public class EventActivity extends AppCompatActivity {
 
         if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() != 0){
             favFab.setImageResource(R.drawable.ic_fav_deselected);
-            favFab.setColorNormal(ContextCompat.getColor(this, R.color.grey));
-            favFab.setColorPressed(ContextCompat.getColor(this, R.color.grey_medium));
-            favFab.setColorRipple(ContextCompat.getColor(this, R.color.grey_dark));
-            favFab.setLabelText(getString(R.string.remove_from_favourites));
+            favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
+            favFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
+
         }
         else{
             favFab.setImageResource(R.drawable.ic_fav_selected);
-            favFab.setColorNormal(ContextCompat.getColor(this, R.color.red));
-            favFab.setColorPressed(ContextCompat.getColor(this, R.color.red_medium));
-            favFab.setColorRipple(ContextCompat.getColor(this, R.color.red_dark));
-            favFab.setLabelText(getString(R.string.add_to_favourites));
+            favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
+            favFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
         }
 
         favFab.setOnClickListener(new View.OnClickListener() {
@@ -187,10 +182,8 @@ public class EventActivity extends AppCompatActivity {
         mRealm.beginTransaction();
         if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() == 0){
             favFab.setImageResource(R.drawable.ic_fav_deselected);
-            favFab.setLabelText(getString(R.string.remove_from_favourites));
-            favFab.setColorNormal(ContextCompat.getColor(this, R.color.grey));
-            favFab.setColorPressed(ContextCompat.getColor(this, R.color.grey_medium));
-            favFab.setColorRipple(ContextCompat.getColor(this, R.color.grey_dark));
+            favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
+            favFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
 
             FavouritesModel favourite = new FavouritesModel();
             favourite.setId(id);
@@ -214,10 +207,8 @@ public class EventActivity extends AppCompatActivity {
         }
         else{
             favFab.setImageResource(R.drawable.ic_fav_selected);
-            favFab.setColorNormal(ContextCompat.getColor(this, R.color.red));
-            favFab.setColorPressed(ContextCompat.getColor(this, R.color.red_medium));
-            favFab.setColorRipple(ContextCompat.getColor(this, R.color.red_dark));
-            favFab.setLabelText(getString(R.string.add_to_favourites));
+            favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
+            favFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
 
             mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().deleteAllFromRealm();
 
@@ -301,8 +292,7 @@ public class EventActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (fabMenu.isOpened()) fabMenu.close(true);
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             super.onBackPressed();
         else{
             finish();

@@ -71,8 +71,8 @@
             android:textSize="@dimen/typography_body"
             android:paddingTop="0.25dp"
             android:paddingBottom="0.25dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
+            android:paddingLeft="2.5dp"
+            android:paddingRight="2.5dp"
             android:background="@drawable/rounded_background"/>
 
         <LinearLayout

@@ -184,6 +184,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
                 FavouritesModel favourite = favouritesList.get(getAdapterPosition());
                 intent.putExtra("Event ID", favourite.getId());
                 intent.putExtra("Event Name", favourite.getEventName());
+                intent.putExtra("Event Round", favourite.getRound());
                 intent.putExtra("Event Date", favourite.getDate());
                 intent.putExtra("Event Start Time", favourite.getStartTime());
                 intent.putExtra("Event End Time", favourite.getEndTime());

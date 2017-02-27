@@ -88,4 +88,5 @@
     <string name="refresh">Refresh</string>
     <string name="round">Round:</string>
     <string name="team_id">Team ID:</string>
+    <string name="loading_insta">Loading InstaFeed&#8230; Please wait</string>
 </resources>

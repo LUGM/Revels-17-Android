@@ -73,6 +73,7 @@
             android:padding="@dimen/padding_default">
 
             <LinearLayout
+                android:id="@+id/event_round_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -388,41 +389,15 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/event_fab_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="end|bottom"
-        android:padding="@dimen/fab_menu_margin"
-        fab:menu_labels_margin="24dp"
-        fab:menu_backgroundColor="#DDECECEC"
-        fab:menu_shadowColor="#44000000"
-        fab:menu_animationDelayPerItem="40"
-        fab:menu_colorNormal="@color/blue"
-        fab:menu_colorPressed="@color/blue_medium"
-        fab:menu_colorRipple="@color/blue_dark">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:id="@+id/fav_fab"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_fav_selected"
-            fab:fab_label="@string/add_to_favourites"
-            app:fab_colorNormal="@color/red"
-            app:fab_colorPressed="@color/red_medium"
-            app:fab_colorRipple="@color/red_dark"
-            style="@style/MiniFabStyle"/>
-
-        <com.github.clans.fab.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_rate"
-            fab:fab_label="@string/rate_event"
-            app:fab_colorNormal="@color/amber"
-            app:fab_colorPressed="@color/amber_medium"
-            app:fab_colorRipple="@color/amber_dark"
-            style="@style/MiniFabStyle"/>
-
-    </com.github.clans.fab.FloatingActionMenu>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/fav_fab"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_fav_selected"
+        app:fabSize="normal"
+        app:backgroundTint="@color/red"
+        app:rippleColor="@color/red_dark"
+        android:layout_gravity="end|right|bottom"
+        android:layout_margin="@dimen/fab_margin"/>
 
 </android.support.design.widget.CoordinatorLayout>

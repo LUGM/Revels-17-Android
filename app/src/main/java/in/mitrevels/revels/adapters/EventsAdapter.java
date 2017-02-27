@@ -243,53 +243,56 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         @Override
         public void onClick(View v) {
+            try {
+                if (v.getId() == eventFav.getId()){
+                    String name = eventsList.get(getAdapterPosition()).getEventName();
+                    if (eventFav.getTag().toString().equals("Deselected")){
+                        eventFav.setTag("Selected");
+                        eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
+                        Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
 
-            if (v.getId() == eventFav.getId()){
-                String name = eventsList.get(getAdapterPosition()).getEventName();
-                if (eventFav.getTag().toString().equals("Deselected")){
-                    eventFav.setTag("Selected");
-                    eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
-                    Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" added to favourites!", Snackbar.LENGTH_SHORT).show();
-                    
-                    addOrRemoveFavourites(eventsList.get(getAdapterPosition()), ADD_FAVOURITE);
-                }
-                else{
-                    eventFav.setTag("Deselected");
-                    eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
-                    Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
-                    
-                    addOrRemoveFavourites(eventsList.get(getAdapterPosition()), REMOVE_FAVOURITE);
-                }
-            }
+                        addOrRemoveFavourites(eventsList.get(getAdapterPosition()), ADD_FAVOURITE);
+                    }
+                    else{
+                        eventFav.setTag("Deselected");
+                        eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.fav_deselect));
+                        Snackbar.make(activity.findViewById(R.id.main_activity_coordinator_layout), eventName.getText()+" removed from favourites!", Snackbar.LENGTH_SHORT).show();
 
-            if (v.getId() == itemView.getId()){
-                Intent intent = new Intent(activity, EventActivity.class);
-                EventModel event = eventsList.get(getAdapterPosition());
-                intent.putExtra("Event ID", event.getEventId());
-                intent.putExtra("Event Name", event.getEventName());
-                intent.putExtra("Event Round", event.getRound());
-                intent.putExtra("Event Date", event.getDate());
-                intent.putExtra("Event Start Time", event.getStartTime());
-                intent.putExtra("Event End Time", event.getEndTime());
-                intent.putExtra("Event Venue", event.getVenue());
-                intent.putExtra("Team Of", event.getEventMaxTeamNumber());
-                intent.putExtra("Event Category", event.getCatName());
-                intent.putExtra("Category ID", event.getCatId());
-                intent.putExtra("Event Day", event.getDay());
-                intent.putExtra("Contact Number", event.getContactNumber());
-                intent.putExtra("Contact Name", "("+event.getContactName()+")");
-                intent.putExtra("Event Description", event.getDescription());
-                intent.putExtra("enableFavourite", true);
+                        addOrRemoveFavourites(eventsList.get(getAdapterPosition()), REMOVE_FAVOURITE);
+                    }
+                }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(activity, eventLogo, activity.getString(R.string.cat_logo_transition));
-                    activity.startActivity(intent, options.toBundle());
+                if (v.getId() == itemView.getId()){
+                    Intent intent = new Intent(activity, EventActivity.class);
+                    EventModel event = eventsList.get(getAdapterPosition());
+                    intent.putExtra("Event ID", event.getEventId());
+                    intent.putExtra("Event Name", event.getEventName());
+                    intent.putExtra("Event Round", event.getRound());
+                    intent.putExtra("Event Date", event.getDate());
+                    intent.putExtra("Event Start Time", event.getStartTime());
+                    intent.putExtra("Event End Time", event.getEndTime());
+                    intent.putExtra("Event Venue", event.getVenue());
+                    intent.putExtra("Team Of", event.getEventMaxTeamNumber());
+                    intent.putExtra("Event Category", event.getCatName());
+                    intent.putExtra("Category ID", event.getCatId());
+                    intent.putExtra("Event Day", event.getDay());
+                    intent.putExtra("Contact Number", event.getContactNumber());
+                    intent.putExtra("Contact Name", "("+event.getContactName()+")");
+                    intent.putExtra("Event Description", event.getDescription());
+                    intent.putExtra("enableFavourite", true);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation(activity, eventLogo, activity.getString(R.string.cat_logo_transition));
+                        activity.startActivity(intent, options.toBundle());
+                    }
+                    else {
+                        activity.startActivity(intent);
+                        activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
+                    }
                 }
-                else {
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
-                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
             }
         }
     }

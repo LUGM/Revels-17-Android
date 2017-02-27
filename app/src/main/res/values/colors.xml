@@ -5,6 +5,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="red">#f44336</color>
+    <color name="red_light">#64f44336</color>
     <color name="red_medium">#c62828</color>
     <color name="red_dark">#b71c1c</color>
     <color name="pink">#ff4081</color>
@@ -32,16 +33,23 @@
     <color name="yellow_medium">#fdd835</color>
     <color name="yellow_dark">#fbc02d</color>
     <color name="amber">#ffc107</color>
+    <color name="amber_light">#64ffc107</color>
     <color name="amber_medium">#ffb300</color>
     <color name="amber_dark">#ffa000</color>
+    <color name="amber_darker">#ff7222</color>
     <color name="orange">#ff9800</color>
     <color name="deep_orange">#ff5722</color>
     <color name="brown">#795548</color>
     <color name="grey">#9e9e9e</color>
+    <color name="grey_medium">#757575</color>
     <color name="grey_dark">#616161</color>
     <color name="blue_grey">#607d8b</color>
     <color name="blue_grey_dark">#405d6b</color>
     <color name="divider_color">#FF0000</color>
     <color name="fav_deselect">#CCCCCC</color>
+    <color name="revels_grey">#232323</color>
+    <color name="revels_grey_dark">#171717</color>
+    <color name="icon_grey">#3e3a37</color>
+    <color name="icon_grey_dark">#2c2825</color>
 
 </resources>

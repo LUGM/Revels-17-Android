@@ -5,10 +5,8 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +14,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.fragments.ResultsFragment;
-import in.mitrevels.revels.models.results.ResultModel;
+import in.mitrevels.revels.utilities.HandyMan;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultViewHolder> {
 
@@ -43,7 +40,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultVi
         ResultsFragment.EventResultModel result = resultsList.get(position);
 
         holder.eventName.setText(result.eventName);
-        holder.eventCategory.setText(result.eventCategory);
+        holder.eventRound.setText(result.eventRound);
+        holder.catLogo.setImageResource(HandyMan.help().getCategoryLogoByName(result.eventCategory.toLowerCase()));
     }
 
     @Override
@@ -55,7 +53,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultVi
 
         TextView eventName;
         ImageView catLogo;
-        TextView eventCategory;
+        TextView eventRound;
         ImageView expandIcon;
 
         public ResultViewHolder(View itemView) {
@@ -63,7 +61,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultVi
 
             eventName = (TextView)itemView.findViewById(R.id.result_event_name_text_view);
             catLogo = (ImageView)itemView.findViewById(R.id.result_cat_logo_image_view);
-            eventCategory = (TextView)itemView.findViewById(R.id.result_cat_text_view);
+            eventRound = (TextView)itemView.findViewById(R.id.result_round_text_view);
             expandIcon = (ImageView)itemView.findViewById(R.id.result_expand_image_view);
             itemView.setOnClickListener(this);
         }
@@ -84,6 +82,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultVi
 
             TextView eventName = (TextView)bottomSheetView.findViewById(R.id.result_dialog_event_name_text_view);
             eventName.setText(resultsList.get(getAdapterPosition()).eventName);
+
+            TextView eventRound = (TextView)bottomSheetView.findViewById(R.id.result_dialog_round_text_view);
+            eventRound.setText(resultsList.get(getAdapterPosition()).eventRound);
 
             RecyclerView teamsRecyclerView = (RecyclerView)bottomSheetView.findViewById(R.id.result_dialog_teams_recycler_view);
             teamsRecyclerView.setAdapter(new QualifiedTeamsAdapter(resultsList.get(getAdapterPosition()).eventResultsList, context));

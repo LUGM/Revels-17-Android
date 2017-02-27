@@ -34,12 +34,15 @@ public class EventDetailsModel extends RealmObject {
     @SerializedName("cntctno")
     @Expose
     private String contactNo;
-    @SerializedName("hs1")
+    @SerializedName("type")
     @Expose
-    private String hs1;
-    @SerializedName("hs2")
+    private String type;
+    @SerializedName("hash")
     @Expose
-    private String hs2;
+    private String hash;
+    @SerializedName("day")
+    @Expose
+    private String day;
 
     public String getEventName() {
         return eventName;
@@ -105,21 +108,28 @@ public class EventDetailsModel extends RealmObject {
         this.contactNo = contactNo;
     }
 
-
-    public String getHs1() {
-        return hs1;
+    public String getType() {
+        return type;
     }
 
-    public void setHs1(String hs1) {
-        this.hs1 = hs1;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getHs2() {
-        return hs2;
+    public String getHash() {
+        return hash;
     }
 
-    public void setHs2(String hs2) {
-        this.hs2 = hs2;
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
 }

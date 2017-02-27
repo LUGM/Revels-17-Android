@@ -8,7 +8,8 @@
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/padding_default">
+        android:paddingBottom="@dimen/padding_default"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:id="@+id/day_1_title_layout"
@@ -19,6 +20,7 @@
             android:paddingRight="@dimen/padding_default"
             android:paddingTop="18dp"
             android:paddingBottom="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:background="?android:attr/selectableItemBackground">
 
             <TextView
@@ -41,7 +43,8 @@
                 android:textSize="@dimen/typography_body"
                 android:fontFamily="sans-serif-medium"
                 android:layout_gravity="bottom"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="@color/black"
+                android:alpha="0.54"/>
 
 
         </LinearLayout>
@@ -56,6 +59,7 @@
             android:paddingRight="@dimen/padding_default"
             android:textSize="@dimen/typography_subheading"
             android:layout_marginTop="-6dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginBottom="@dimen/padding_default"
             />
 
@@ -78,6 +82,7 @@
             android:paddingRight="@dimen/padding_default"
             android:paddingTop="18dp"
             android:paddingBottom="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:background="?android:attr/selectableItemBackground">
 
             <TextView
@@ -100,7 +105,8 @@
                 android:layout_gravity="bottom"
                 android:textSize="@dimen/typography_body"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="@color/black"
+                android:alpha="0.54"/>
 
         </LinearLayout>
 
@@ -114,6 +120,7 @@
             android:paddingRight="@dimen/padding_default"
             android:textSize="@dimen/typography_subheading"
             android:layout_marginTop="-6dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginBottom="@dimen/padding_default"
             />
 
@@ -137,6 +144,7 @@
             android:paddingRight="@dimen/padding_default"
             android:paddingTop="18dp"
             android:paddingBottom="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:background="?android:attr/selectableItemBackground">
 
             <TextView
@@ -159,7 +167,8 @@
                 android:textSize="@dimen/typography_body"
                 android:fontFamily="sans-serif-medium"
                 android:layout_gravity="bottom"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="@color/black"
+                android:alpha="0.54"/>
 
         </LinearLayout>
 
@@ -173,6 +182,7 @@
             android:paddingRight="@dimen/padding_default"
             android:textSize="@dimen/typography_subheading"
             android:layout_marginTop="-6dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginBottom="@dimen/padding_default"
             />
 
@@ -217,7 +227,8 @@
                 android:textSize="@dimen/typography_body"
                 android:fontFamily="sans-serif-medium"
                 android:layout_gravity="bottom"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="@color/black"
+                android:alpha="0.54"/>
         </LinearLayout>
 
         <TextView
@@ -230,6 +241,7 @@
             android:paddingRight="@dimen/padding_default"
             android:textSize="@dimen/typography_subheading"
             android:layout_marginTop="-6dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginBottom="@dimen/padding_default"
             />
 

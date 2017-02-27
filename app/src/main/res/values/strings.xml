@@ -49,7 +49,7 @@
     <string name="clear_filters">Clear Filters</string>
     <string name="apply_filter">Apply</string>
     <string name="about_us">About Us</string>
-    <string name="about_revels_text">Revels is one of the most awaited cultural and sports festival in the south circuit amongst the engineering colleges and is widely regarded as the largest event in Karnataka.\n\nThis year, we plan to stop at nothing, and make this fest not just a success, but an enduring part of every participant\'s life. We attempt to provide the participants a platform where they can pursue their passion, perceive it, believe in it and achieve their goals.\n\nRevels\'17 presents the theme of the fest - \"Dastaan | Everybody has a story\"\n\nEveryone you meet has a part to play in your story. When you look at a person, any person, remember that everyone has a story, everyone has gone through something, something that might inspire you. While some may take a chapter, others a paragraph and most will be no more than scribbled notes in the margins and you\'ll reach somewhere which will become so integral to your life that you\'ll put that name in the title - \"Revels\'17\"\n\nLive your sorrow, live your pain, Live your laughter, live Revels\'17 because in the end, what we will be left with is a \"Dastaan\", a story created at Manipal, a story that would make all the difference.</string>
+    <string name="about_revels_text">Revels is one of the most awaited cultural and sports festivals in the south circuit amongst the engineering colleges and is widely regarded as the largest event in Karnataka.\n\nThis year, we plan to stop at nothing, and make this fest not just a success, but an enduring part of every participant\'s life. We attempt to provide the participants a platform where they can pursue their passion, perceive it, believe in it and achieve their goals.\n\nRevels\'17 presents the theme of the fest - Carnaval: The Rhythm of Life. Life, in its innumerable twists and turns provides us with both opportunities and failures. Yet, it is what we do with them that makes the difference. Life is a Carnaval, one in which we wait in long lines to enjoy short rides, but it\'s those moments of excitement that inspire us to reach our limits. It is those moments which fuel our imaginations, inspire our creativity, and make us feel alive. Forget all your worries for a little while, it\'s time to live a little more. Revels\'17 - the biggest Carnaval is coming your way!</string>
     <string name="rate_event">Rate Event</string>
     <string name="revels_fb">fb.com/mitrevels</string>
     <string name="revels_insta">\@revelsmit</string>
@@ -72,10 +72,21 @@
     <string name="delete_all">Delete All</string>
     <string name="categories">Categories</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_category">About Category</string>
     <string name="no_events">No Events</string>
     <string name="favourite_alert_message">Are you sure you want to remove favourite(s)?</string>
-    <string name="qualified_teams">Qualified Teams</string>
+    <string name="qualified_teams">Qualified Teams • Round:</string>
+    <string name="notification_receiver">Notification Receiver</string>
+    <string name="no_connection">No Connection</string>
+    <string name="error">An error occurred while connecting to the server\nPlease check your connection or try again later</string>
+    <string name="oops">Oops!</string>
+    <string name="retry">Retry</string>
+    <string name="loading_events">Loading Events&#8230; Please wait</string>
+    <string name="loading_categories">Loading Categories&#8230; Please wait</string>
+    <string name="loading_results">Loading Results&#8230; Please wait</string>
+    <string name="refresh">Refresh</string>
+    <string name="round">Round:</string>
+    <string name="team_id">Team ID:</string>
+    <string name="loading_insta">Loading InstaFeed&#8230; Please wait</string>
 </resources>

@@ -10,6 +10,7 @@ public class FavouritesModel extends RealmObject {
     private String id;
     private String catID;
     private String eventName;
+    private String round;
     private String venue;
     private String date;
     private String day;
@@ -46,6 +47,14 @@ public class FavouritesModel extends RealmObject {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public String getRound() {
+        return round;
+    }
+
+    public void setRound(String round) {
+        this.round = round;
     }
 
     public String getVenue() {

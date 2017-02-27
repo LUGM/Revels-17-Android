@@ -17,11 +17,4 @@
         app:showAsAction="always"
         android:orderInCategory="2"/>
 
-    <item
-        android:id="@+id/menu_trending"
-        android:title="@string/trending"
-        android:icon="@drawable/ic_trending"
-        app:showAsAction="always"
-        android:orderInCategory="3"/>
-
 </menu>

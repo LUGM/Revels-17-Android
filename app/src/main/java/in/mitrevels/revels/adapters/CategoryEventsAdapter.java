@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import in.mitrevels.revels.activities.EventActivity;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.models.events.ScheduleModel;
 import in.mitrevels.revels.models.instagram.image.Image;
+import in.mitrevels.revels.utilities.HandyMan;
 
 /**
  * Created by anurag on 15/2/17.
@@ -49,16 +51,25 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         holder.eventName.setText(event.getEventName());
         holder.eventTime.setText(event.getStartTime());
 
-        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.tt_kraftwagen);
+        int logoID = HandyMan.help().getCategoryLogo(event.getCatId());
+        holder.eventLogo.setImageResource(logoID);
 
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+        holder.eventRound.setVisibility(View.VISIBLE);
 
-            @Override
-            public void onGenerated(Palette palette) {
-                holder.bgLayout.setBackgroundColor(palette.getDominantColor(ContextCompat.getColor(activity, R.color.teal)));
+        if (!event.getRound().equals("-")){
+            if (event.getRound().toLowerCase().equals("finals") || event.getRound().toLowerCase().equals("f") || event.getRound().toLowerCase().equals("final")){
+                holder.eventRound.setText("RF");
             }
-        });
-
+            else if(event.getRound().toLowerCase().equals("prelims")) {
+                holder.eventRound.setText("RP");
+            }
+            else{
+                holder.eventRound.setText("R"+event.getRound());
+            }
+        }
+        else{
+            holder.eventRound.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -70,7 +81,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         ImageView eventLogo;
         TextView eventName;
         TextView eventTime;
-        LinearLayout bgLayout;
+        FrameLayout logoFrame;
+        TextView eventRound;
 
         public CategoryEventViewHolder(View itemView) {
             super(itemView);
@@ -78,7 +90,8 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
             eventLogo = (ImageView)itemView.findViewById(R.id.cat_event_logo_image_view);
             eventName = (TextView)itemView.findViewById(R.id.cat_event_name_text_view);
             eventTime = (TextView)itemView.findViewById(R.id.cat_event_time_text_view);
-            bgLayout = (LinearLayout)itemView.findViewById(R.id.cat_event_card_bg_layout);
+            logoFrame = (FrameLayout)itemView.findViewById(R.id.fav_event_logo_frame);
+            eventRound = (TextView)itemView.findViewById(R.id.cat_event_round_text_view);
 
             itemView.setOnClickListener(this);
         }
@@ -87,20 +100,25 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
         public void onClick(View view) {
             Intent intent = new Intent(activity, EventActivity.class);
             EventModel event = eventsList.get(getAdapterPosition());
+            intent.putExtra("Event ID", event.getEventId());
             intent.putExtra("Event Name", event.getEventName());
+            intent.putExtra("Event Round", event.getRound());
             intent.putExtra("Event Date", event.getDate());
-            intent.putExtra("Event Time", event.getStartTime()+" - "+event.getEndTime());
+            intent.putExtra("Event Start Time", event.getStartTime());
+            intent.putExtra("Event End Time", event.getEndTime());
             intent.putExtra("Event Venue", event.getVenue());
             intent.putExtra("Team Of", event.getEventMaxTeamNumber());
             intent.putExtra("Event Category", event.getCatName());
+            intent.putExtra("Category ID", event.getCatId());
+            intent.putExtra("Event Day", event.getDay());
             intent.putExtra("Contact Number", event.getContactNumber());
             intent.putExtra("Contact Name", "("+event.getContactName()+")");
             intent.putExtra("Event Description", event.getDescription());
-            intent.putExtra("Category Logo", getAdapterPosition()%2);
+            intent.putExtra("enableFavourite", true);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity, eventLogo, activity.getString(R.string.cat_logo_transition));
+                        makeSceneTransitionAnimation(activity, logoFrame, activity.getString(R.string.cat_logo_transition));
                 activity.startActivity(intent, options.toBundle());
             }
             else {

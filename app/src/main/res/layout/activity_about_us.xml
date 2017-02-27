@@ -29,16 +29,15 @@
             app:expandedTitleMarginEnd="@dimen/padding_default"
             app:expandedTitleMarginTop="@dimen/padding_default"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="@color/revels_grey">
 
             <ImageView
                 android:id="@+id/about_header"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/collapsible_header_height_normal"
-                android:src="@drawable/header"
-                android:adjustViewBounds="true"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop" />
+                android:src="@drawable/revels_header"
+                android:fitsSystemWindows="true" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/about_toolbar"
@@ -62,13 +61,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_default">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/revels17"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="@color/amber_darker"
                     android:padding="@dimen/padding_default"
                     android:textSize="@dimen/typography_title"
                     android:fontFamily="sans-serif-light"/>

@@ -16,15 +16,31 @@
         tools:text="Event Name"
         android:gravity="center"
         android:fontFamily="sans-serif-medium"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/amber_dark"
         android:textSize="@dimen/typography_title"/>
 
-    <TextView
-        android:gravity="center"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/qualified_teams"
-        android:textSize="@dimen/typography_subheading"/>
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/qualified_teams"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:textSize="@dimen/typography_subheading" />
+
+        <TextView
+            android:id="@+id/result_dialog_round_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Round"
+            android:textSize="@dimen/typography_subheading"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

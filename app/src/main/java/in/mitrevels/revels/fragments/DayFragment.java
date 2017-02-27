@@ -1,8 +1,11 @@
 package in.mitrevels.revels.fragments;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,27 +33,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.adapters.EventsAdapter;
+import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventDetailsModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.models.events.EventsListModel;
 import in.mitrevels.revels.models.events.ScheduleListModel;
 import in.mitrevels.revels.models.events.ScheduleModel;
-import in.mitrevels.revels.network.EventsAPIClient;
-import in.mitrevels.revels.network.ScheduleAPIClient;
+import in.mitrevels.revels.network.APIClient;
+import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,8 +66,11 @@ import retrofit2.Response;
 public class DayFragment extends Fragment {
 
     private RecyclerView eventsRecyclerView;
+    private LinearLayout noConnectionLayout;
     private EventsAdapter adapter;
     private Realm mDatabase;
+    private ProgressDialog dialog;
+    private MenuItem searchItem;
     private List<EventModel> eventsList = new ArrayList<>();
     private List<EventModel> allEvents = new ArrayList<>();
     private List<String> categoriesList = new ArrayList<>();
@@ -74,6 +82,11 @@ public class DayFragment extends Fragment {
     private int filterEndMinute = 30;
     private String filterCategory = "All";
     private String filterVenue = "All";
+    private int count = 0;
+    private static final int LOAD_EVENTS = 0;
+    private static final int UPDATE_EVENTS = 1;
+    private boolean eventsLoaded = false;
+    private boolean scheduleLoaded = false;
 
     public DayFragment() {
     }
@@ -94,25 +107,52 @@ public class DayFragment extends Fragment {
 
         rootLayout = (CoordinatorLayout) getActivity().findViewById(R.id.main_activity_coordinator_layout);
 
+        noConnectionLayout = (LinearLayout)rootView.findViewById(R.id.day_no_connection_layout);
+
+        TextView retry = (TextView)noConnectionLayout.findViewById(R.id.no_connection_retry_button);
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (HandyMan.help().isInternetConnected(getActivity())){
+                    prepareData(LOAD_EVENTS);
+                    noConnectionLayout.setVisibility(View.GONE);
+                }
+                else{
+                    Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         eventsRecyclerView = (RecyclerView)rootView.findViewById(R.id.events_recycler_view);
         adapter = new EventsAdapter(getActivity(), eventsList, allEvents, mDatabase);
         eventsRecyclerView.setAdapter(adapter);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if (mDatabase.where(ScheduleModel.class).findAll().size() != 0){
-            displayData();
-            prepareData();
+        if (mDatabase.where(ScheduleModel.class).equalTo("day", getArguments().getInt("day", 1)+"").findAll().size() == 0){
+            noConnectionLayout.setVisibility(View.VISIBLE);
         }
         else{
-            prepareData();
+            displayData();
+            if (!getActivity().getIntent().getBooleanExtra("dataLoaded", false)){
+                prepareData(UPDATE_EVENTS);
+            }
         }
 
         return rootView;
     }
 
-    private void prepareData(){
-        Call<EventsListModel> eventsCall = EventsAPIClient.getAPIInterface().getEventsList();
-        Call<ScheduleListModel> scheduleCall = ScheduleAPIClient.getAPIInterface().getScheduleList();
+    private void prepareData(final int operation){
+        APIClient.APIInterface apiInterface = APIClient.getAPIInterface();
+        Call<EventsListModel> eventsCall = apiInterface.getEventsList();
+        Call<ScheduleListModel> scheduleCall = apiInterface.getScheduleList();
+
+        if (operation == LOAD_EVENTS){
+            dialog = new ProgressDialog(getActivity());
+
+            dialog.setMessage(getResources().getString(R.string.loading_events));
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
 
         eventsCall.enqueue(new Callback<EventsListModel>() {
             @Override
@@ -123,11 +163,25 @@ public class DayFragment extends Fragment {
                     mDatabase.copyToRealm(response.body().getEvents());
                     mDatabase.commitTransaction();
                 }
+                eventsLoaded = true;
+
+                if (scheduleLoaded){
+                    displayData();
+
+                    if (operation == LOAD_EVENTS && dialog != null){
+                        if (dialog.isShowing())
+                            dialog.hide();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
-
+                if (operation == LOAD_EVENTS && dialog != null){
+                    if (dialog.isShowing())
+                        dialog.hide();
+                    noConnectionLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
         scheduleCall.enqueue(new Callback<ScheduleListModel>() {
@@ -139,12 +193,25 @@ public class DayFragment extends Fragment {
                     mDatabase.copyToRealm(response.body().getData());
                     mDatabase.commitTransaction();
                 }
-                displayData();
+                scheduleLoaded = true;
+
+                if (eventsLoaded){
+                    displayData();
+
+                    if (operation == LOAD_EVENTS && dialog != null){
+                        if (dialog.isShowing())
+                            dialog.hide();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<ScheduleListModel> call, Throwable t){
-                displayData();
+                if (operation == LOAD_EVENTS && dialog != null){
+                    if (dialog.isShowing())
+                        dialog.hide();
+                    noConnectionLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -153,7 +220,10 @@ public class DayFragment extends Fragment {
         if (mDatabase == null) return;
 
         eventsList.clear();
-        RealmResults<ScheduleModel> scheduleResult = mDatabase.where(ScheduleModel.class).equalTo("day", getArguments().getInt("day", 1)+"").findAll();
+        String[] sortCriteria = {"startTime", "catName", "eventName"};
+        Sort[] sortOrder = {Sort.ASCENDING, Sort.ASCENDING, Sort.ASCENDING};
+
+        RealmResults<ScheduleModel> scheduleResult = mDatabase.where(ScheduleModel.class).equalTo("day", getArguments().getInt("day", 1)+"").findAllSorted(sortCriteria, sortOrder);
 
         for (ScheduleModel schedule : scheduleResult){
             EventDetailsModel eventDetails = mDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
@@ -167,6 +237,45 @@ public class DayFragment extends Fragment {
             EventModel event = new EventModel(eventDetails, schedule);
             eventsList.add(event);
         }
+
+        Collections.sort(eventsList, new Comparator<EventModel>() {
+            @Override
+            public int compare(EventModel o1, EventModel o2) {
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+
+                try {
+                    Date d1 = sdf.parse(o1.getStartTime());
+                    Date d2 = sdf.parse(o2.getStartTime());
+
+                    Calendar c1 = Calendar.getInstance();
+                    c1.setTime(d1);
+                    Calendar c2 = Calendar.getInstance();
+                    c2.setTime(d2);
+
+                    long diff = c1.getTimeInMillis() - c2.getTimeInMillis();
+
+                    if (diff>0) return 1;
+                    else if (diff<0) return -1;
+                    else{
+                        int catDiff = o1.getCatName().compareTo(o2.getCatName());
+
+                        if (catDiff>0) return 1;
+                        else if (catDiff<0) return -1;
+                        else {
+                            int eventDiff = o1.getEventName().compareTo(o2.getEventName());
+
+                            if (eventDiff>0) return 1;
+                            else if (eventDiff<0) return -1;
+                            else return 0;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
         adapter.notifyDataSetChanged();
 
         allEvents.clear();
@@ -198,7 +307,7 @@ public class DayFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_day, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        searchItem = menu.findItem(R.id.menu_search);
         SearchView searchView = (SearchView)searchItem.getActionView();
 
         SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -313,6 +422,15 @@ public class DayFragment extends Fragment {
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    private void clearFilters(){
+        filterStartHour = 12;
+        filterStartMinute = 30;
+        filterEndHour = 22;
+        filterEndMinute = 30;
+        filterCategory = "All";
+        filterVenue = "All";
     }
 
     @Override
@@ -467,14 +585,9 @@ public class DayFragment extends Fragment {
                     public void onClick(View view) {
                         eventsList.clear();
                         eventsList.addAll(allEvents);
-                        filterStartHour = 12;
-                        filterStartMinute = 30;
-                        filterEndHour = 22;
-                        filterEndMinute = 30;
-                        filterCategory = "All";
-                        filterVenue = "All";
                         dialog.hide();
                         adapter.notifyDataSetChanged();
+                        clearFilters();
 
                         if(rootLayout != null)
                             Snackbar.make(rootLayout, "Filters cleared!", Snackbar.LENGTH_SHORT).show();
@@ -493,4 +606,12 @@ public class DayFragment extends Fragment {
         mDatabase = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        clearFilters();
+        if (searchItem != null)
+            searchItem.collapseActionView();
+        adapter.notifyDataSetChanged();
+    }
 }

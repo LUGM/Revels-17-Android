@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".application.Revels"
@@ -52,10 +53,15 @@
             android:name=".activities.CategoryActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme" />
-
-        <activity android:name=".activities.ProshowActivity"
+        <activity
+            android:name=".activities.ProshowActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme.SecondaryActivityTheme"/>
+            android:theme="@style/AppTheme.SecondaryActivityTheme" />
+
+        <activity android:name=".activities.EasterEggActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.SecondaryActivityTheme"
+            android:windowSoftInputMode="adjustPan"/>
 
         <receiver
             android:name=".receivers.NotificationReceiver"

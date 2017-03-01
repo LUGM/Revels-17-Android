@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.MainActivity;
@@ -36,10 +35,10 @@ public class NotificationReceiver extends BroadcastReceiver{
             Notification notify = new NotificationCompat.Builder(context)
                     .setContentTitle(NOTIFICATION_TITLE)
                     .setContentText(notificationText)
-                    .setSmallIcon(R.drawable.ic_event_type)
+                    .setSmallIcon(R.drawable.ic_notif)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
-                    .setColor(ContextCompat.getColor(context, R.color.teal))
+                    .setColor(ContextCompat.getColor(context, R.color.revels_grey))
                     .addAction(new android.support.v4.app.NotificationCompat.Action(0, LAUNCH_APPLICATION, pendingIntent))
                     .build();
 

@@ -10,8 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.mitrevels.revels.R;
-import in.mitrevels.revels.fragments.RevelsCupFragment;
-import in.mitrevels.revels.models.results.ResultModel;
 import in.mitrevels.revels.models.sports.SportsModel;
 
 /**
@@ -36,7 +34,6 @@ public class SportsQualifiedTeamsAdapter extends RecyclerView.Adapter<SportsQual
     @Override
     public void onBindViewHolder(QualifiedTeamViewHolder holder, int position) {
         SportsModel result = resultsList.get(position);
-        holder.position.setText(result.getPosition()+".");
         holder.teamID.setText(result.getTeamID());
     }
 
@@ -46,13 +43,11 @@ public class SportsQualifiedTeamsAdapter extends RecyclerView.Adapter<SportsQual
     }
 
     public class QualifiedTeamViewHolder extends RecyclerView.ViewHolder {
-        TextView position;
         TextView teamID;
 
         public QualifiedTeamViewHolder(View itemView) {
             super(itemView);
 
-            position = (TextView)itemView.findViewById(R.id.qualified_teams_pos_text_view);
             teamID = (TextView)itemView.findViewById(R.id.qualified_teams_id_text_view);
         }
     }

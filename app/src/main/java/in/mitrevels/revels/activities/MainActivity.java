@@ -29,26 +29,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager fm;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private Toolbar toolbar;
-    private AppBarLayout appBarLayout;
     private int checkedItem;
     private static final String EVENTS_TAG = "Events Fragment";
     private static final String FAVOURITES_TAG = "Favourites Fragment";
     private static final String INSTAGRAM_TAG = "InstaFeed Fragment";
     private static final String CATEGORIES_TAG = "Categories Fragment";
     private static final String RESULTS_TAG = "Results Fragment";
-    private static final String PROSHOW_TAG = "Proshow Fragment";
     private static final String REVELS_CUP_TAG = "Revels Cup Fragment";
-    private int CALL_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        appBarLayout = (AppBarLayout)findViewById(R.id.main_app_bar_layout);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.main_app_bar_layout);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setElevation(0);

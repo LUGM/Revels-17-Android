@@ -2,12 +2,18 @@ package in.mitrevels.revels.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Vibrator;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +21,7 @@ import java.util.List;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.CategoryActivity;
+import in.mitrevels.revels.activities.EasterEggActivity;
 import in.mitrevels.revels.models.categories.CategoryModel;
 import in.mitrevels.revels.utilities.HandyMan;
 
@@ -25,6 +32,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     private List<CategoryModel> categoriesList;
     private Activity activity;
+    private String mText = "";
+    private static final String CHEAT_CODE = "fannymagnet";
 
     public CategoriesAdapter(List<CategoryModel> categoriesList, Activity activity) {
         this.categoriesList = categoriesList;
@@ -73,10 +82,47 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         }
 
         @Override
-        public boolean onLongClick(View view) {
+        public boolean onLongClick(final View view) {
             if (view.getId() == itemView.getId()){
                 if (categoriesList.get(getAdapterPosition()).getCategoryName().toLowerCase().equals("gaming")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    final View ccView = View.inflate(activity, R.layout.dialog_enter_cheat_code, null);
+                    builder.setView(ccView);
 
+                    // Set up the buttons
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            EditText input = (EditText)ccView.findViewById(R.id.cheat_code_edit_text);
+                            mText = input.getText().toString();
+
+                            CoordinatorLayout rootLayout = (CoordinatorLayout)activity.findViewById(R.id.main_activity_coordinator_layout);
+
+                            if (mText.toLowerCase().equals(CHEAT_CODE)){
+                                Snackbar.make(rootLayout, "Cheat activated!", Snackbar.LENGTH_SHORT).show();
+                                Vibrator v = (Vibrator)activity.getSystemService(Context.VIBRATOR_SERVICE);
+                                v.vibrate(1000);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(activity, EasterEggActivity.class);
+                                        activity.startActivity(intent);
+                                    }
+                                }, 1000);
+                            }
+                            else{
+                                Snackbar.make(rootLayout, "Cheat rejected!", Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
                 }
                 else{
                     onClick(view);

@@ -24,10 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.mitrevels.revels.R;
-import in.mitrevels.revels.adapters.ResultsAdapter;
 import in.mitrevels.revels.adapters.SportsResultsAdapter;
 import in.mitrevels.revels.models.results.ResultModel;
-import in.mitrevels.revels.models.results.ResultsListModel;
 import in.mitrevels.revels.models.sports.SportsListModel;
 import in.mitrevels.revels.models.sports.SportsModel;
 import in.mitrevels.revels.network.APIClient;

@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,6 +120,7 @@ public class CategoriesFragment extends Fragment {
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getCategoriesList());
+                    mDatabase.where(CategoryModel.class).equalTo("categoryName", "Sports").or().equalTo("categoryName", "sports").or().equalTo("categoryName", "SPORTS").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
                 }
                 displayData();

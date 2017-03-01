@@ -5,29 +5,22 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.github.clans.fab.FloatingActionMenu;
-import android.support.design.widget.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +30,6 @@ import java.util.Locale;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.models.FavouritesModel;
-import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.receivers.NotificationReceiver;
 import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
@@ -45,11 +37,8 @@ import io.realm.Realm;
 public class EventActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private ImageView logo;
     private FloatingActionButton favFab;
     private Realm mRealm;
-    private LinearLayout eventRoundLayout;
     private final int CREATE_NOTIFICATION = 0;
     private final int CANCEL_NOTIFICATION = 1;
     private String title;
@@ -78,15 +67,15 @@ public class EventActivity extends AppCompatActivity {
         if (getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.event_collapsing_toolbar);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.event_collapsing_toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.event_app_bar_layout);
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.event_coordinator_layout);
         LinearLayout headerLayout = (LinearLayout) findViewById(R.id.event_header_layout);
 
-        eventRoundLayout = (LinearLayout)findViewById(R.id.event_round_layout);
+        LinearLayout eventRoundLayout = (LinearLayout) findViewById(R.id.event_round_layout);
 
-        logo = (ImageView)findViewById(R.id.event_cat_logo);
+        ImageView logo = (ImageView) findViewById(R.id.event_cat_logo);
 
         favFab = (FloatingActionButton)findViewById(R.id.fav_fab);
 

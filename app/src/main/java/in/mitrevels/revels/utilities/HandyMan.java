@@ -41,7 +41,7 @@ public class HandyMan {
             case "14": return R.drawable.ergo;
             case "15": return R.drawable.psychus;
             case "16": return R.drawable.gaming;
-            default: return  R.drawable.tt_kraftwagen;
+            default: return  R.mipmap.ic_launcher;
         }
     }
 
@@ -63,7 +63,7 @@ public class HandyMan {
             case "ergo": return R.drawable.ergo;
             case "psychus": return R.drawable.psychus;
             case "gaming": return R.drawable.gaming;
-            default: return  R.drawable.tt_kraftwagen;
+            default: return  R.mipmap.ic_launcher;
         }
     }
 }

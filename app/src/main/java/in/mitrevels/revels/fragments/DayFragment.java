@@ -1,12 +1,9 @@
 package in.mitrevels.revels.fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,14 +15,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -33,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,7 +39,6 @@ import java.util.Locale;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.adapters.EventsAdapter;
-import in.mitrevels.revels.models.FavouritesModel;
 import in.mitrevels.revels.models.events.EventDetailsModel;
 import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.models.events.EventsListModel;
@@ -295,27 +288,6 @@ public class DayFragment extends Fragment {
 
         allEvents.clear();
         allEvents.addAll(eventsList);
-    }
-
-    List<EventModel> createList(){
-        List<EventModel> eventsList = new ArrayList<>();
-
-        for (int i=0; i<10; i++){
-            EventModel em = new EventModel();
-            em.setEventName("Battle of the Bands (Round 1)");
-            em.setDate("08/03/2017");
-            em.setStartTime("12:30 PM");
-            em.setEndTime("7:30 PM");
-            em.setCatName("Gaming");
-            em.setContactName("Gaming Category Head");
-            em.setContactNumber("9090909090");
-            em.setVenue("NLH 402, 403, 404, 405");
-            em.setEventMaxTeamNumber("4");
-            em.setDescription("Pretty much everything that happens around us has some sound reason underlying it. The question is are you aware of them?This event pertains to testing your general awareness and how good you are at reasoning. Set aside all your engineering formulae and just stick to basics. Pretty much everything that happens around us has some sound reason underlying it. The question is are you aware of them?This event pertains to testing your general awareness and how good you are at reasoning. Set aside all your engineering formulae and just stick to basics. Pretty much everything that happens around us has some sound reason underlying it. The question is are you aware of them?This event pertains to testing your general awareness and how good you are at reasoning. Set aside all your engineering formulae and just stick to basics. Pretty much everything that happens around us has some sound reason underlying it. The question is are you aware of them?This event pertains to testing your general awareness and how good you are at reasoning. Set aside all your engineering formulae and just stick to basics.");
-            eventsList.add(em);
-        }
-
-        return eventsList;
     }
 
     @Override

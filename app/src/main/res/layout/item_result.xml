@@ -22,15 +22,15 @@
             android:id="@+id/result_cat_logo_image_view"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/tt_aero"/>
+            android:src="@drawable/tt_aero"
+            android:layout_marginRight="@dimen/padding_default"
+            android:layout_marginEnd="@dimen/padding_default"/>
 
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="@dimen/padding_default"
-            android:layout_marginStart="@dimen/padding_default">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/result_event_name_text_view"

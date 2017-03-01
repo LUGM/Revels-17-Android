@@ -4,6 +4,7 @@ import in.mitrevels.revels.models.categories.CategoriesListModel;
 import in.mitrevels.revels.models.events.EventsListModel;
 import in.mitrevels.revels.models.events.ScheduleListModel;
 import in.mitrevels.revels.models.results.ResultsListModel;
+import in.mitrevels.revels.models.sports.SportsListModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,5 +39,8 @@ public class APIClient {
 
         @GET("schedule")
         Call<ScheduleListModel> getScheduleList();
+
+        @GET("sports")
+        Call<SportsListModel> getSportsResults();
     }
 }

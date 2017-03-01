@@ -94,12 +94,18 @@ public class InstagramFragment extends Fragment {
         call.enqueue(new Callback<InstagramFeed>() {
             @Override
             public void onResponse(Call<InstagramFeed> call, Response<InstagramFeed> response) {
-                InstagramFeed feed = response.body();
-                InstaFeedAdapter adapter = new InstaFeedAdapter(getActivity(), feed);
-                instaFeedRecyclerView.setAdapter(adapter);
-                instaFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                dialog.hide();
-                noConnectionLayout.setVisibility(View.GONE);
+                try{
+                    InstagramFeed feed = response.body();
+                    InstaFeedAdapter adapter = new InstaFeedAdapter(getActivity(), feed);
+                    instaFeedRecyclerView.setAdapter(adapter);
+                    instaFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    dialog.hide();
+                    noConnectionLayout.setVisibility(View.GONE);
+                }
+                catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
             }
 
             @Override

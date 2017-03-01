@@ -1,6 +1,5 @@
 package in.mitrevels.revels.fragments;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,11 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,6 +21,8 @@ import in.mitrevels.revels.adapters.DayPagerAdapter;
  * Created by anurag on 6/12/16.
  */
 public class EventsFragment extends Fragment {
+
+    private static final int UPDATE_EVENTS = 1;
 
     public EventsFragment(){
     }
@@ -57,10 +54,14 @@ public class EventsFragment extends Fragment {
         ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.events_view_pager);
 
         DayPagerAdapter pagerAdapter = new DayPagerAdapter(getChildFragmentManager());
-        pagerAdapter.add(new DayFragment(), "Day 1");
-        pagerAdapter.add(new DayFragment(), "Day 2");
-        pagerAdapter.add(new DayFragment(), "Day 3");
-        pagerAdapter.add(new DayFragment(), "Day 4");
+        DayFragment[] fragments = new DayFragment[4];
+        for (int i=0; i<4; i++){
+            fragments[i] = new DayFragment();
+        }
+        pagerAdapter.add(fragments[0], "Day 1");
+        pagerAdapter.add(fragments[1], "Day 2");
+        pagerAdapter.add(fragments[2], "Day 3");
+        pagerAdapter.add(fragments[3], "Day 4");
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
@@ -94,13 +95,23 @@ public class EventsFragment extends Fragment {
 
         }
 
+        if (!getActivity().getIntent().getBooleanExtra("dataLoaded", false)){
+            try{
+                fragments[0].prepareData(UPDATE_EVENTS);
+                fragments[1].displayData();
+                fragments[2].displayData();
+                fragments[3].displayData();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
         return rootView;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d("Events Fragment", "OnDetach() called");
         setHasOptionsMenu(false);
         setMenuVisibility(false);
     }

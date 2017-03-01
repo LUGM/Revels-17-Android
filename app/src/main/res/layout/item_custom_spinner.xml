@@ -2,10 +2,9 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fontFamily="sans-serif-light"
     android:textSize="@dimen/typography_body"
     android:paddingLeft="@dimen/padding_default"
     android:paddingRight="@dimen/padding_default"
     android:paddingTop="6dp"
-    android:paddingBottom="6dp"/>
+    android:paddingBottom="6dp" />

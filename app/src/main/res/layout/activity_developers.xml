@@ -264,6 +264,38 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
+                            android:src="@drawable/avikant"
+                            android:layout_marginBottom="@dimen/padding_half"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/avikant"
+                            android:textColor="@color/black"
+                            android:gravity="center_horizontal"
+                            android:textSize="@dimen/typography_body"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/head"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@color/amber_darker"
+                            android:textSize="13sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:layout_margin="@dimen/padding_half">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:src="@drawable/abhishek"
                             android:layout_marginBottom="@dimen/padding_half"/>
 

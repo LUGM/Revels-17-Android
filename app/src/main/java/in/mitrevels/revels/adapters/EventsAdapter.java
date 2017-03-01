@@ -5,7 +5,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -20,13 +19,10 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.activities.EventActivity;
@@ -35,7 +31,6 @@ import in.mitrevels.revels.models.events.EventModel;
 import in.mitrevels.revels.receivers.NotificationReceiver;
 import in.mitrevels.revels.utilities.HandyMan;
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by anurag on 6/12/16.
@@ -211,7 +206,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         eventsList.clear();
 
         for (EventModel event : allEvents){
-            if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
+            if (event.getEventName().toLowerCase().contains(query.toLowerCase()) || event.getCatName().toLowerCase().equals(query.toLowerCase()) || event.getHashtag().toLowerCase().equals(query.toLowerCase()) || event.getEventType().toLowerCase().equals(query.toLowerCase()))
                 eventsList.add(event);
         }
 

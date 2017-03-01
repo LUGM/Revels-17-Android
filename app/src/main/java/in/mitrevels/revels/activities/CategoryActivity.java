@@ -1,19 +1,22 @@
 package in.mitrevels.revels.activities;
 
-import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import in.mitrevels.revels.R;
@@ -92,6 +95,11 @@ public class CategoryActivity extends AppCompatActivity {
 
         }
 
+        eventSort(day1List);
+        eventSort(day2List);
+        eventSort(day3List);
+        eventSort(day4List);
+
         RecyclerView day1RecyclerView = (RecyclerView)findViewById(R.id.category_day_1_recycler_view);
 
         if (day1List.isEmpty()){
@@ -142,6 +150,47 @@ public class CategoryActivity extends AppCompatActivity {
 
     }
 
+    private void eventSort(List<EventModel> eventsList){
+        Collections.sort(eventsList, new Comparator<EventModel>() {
+            @Override
+            public int compare(EventModel o1, EventModel o2) {
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+
+                try {
+                    Date d1 = sdf.parse(o1.getStartTime());
+                    Date d2 = sdf.parse(o2.getStartTime());
+
+                    Calendar c1 = Calendar.getInstance();
+                    c1.setTime(d1);
+                    Calendar c2 = Calendar.getInstance();
+                    c2.setTime(d2);
+
+                    long diff = c1.getTimeInMillis() - c2.getTimeInMillis();
+
+                    if (diff>0) return 1;
+                    else if (diff<0) return -1;
+                    else{
+                        int catDiff = o1.getCatName().compareTo(o2.getCatName());
+
+                        if (catDiff>0) return 1;
+                        else if (catDiff<0) return -1;
+                        else {
+                            int eventDiff = o1.getEventName().compareTo(o2.getEventName());
+
+                            if (eventDiff>0) return 1;
+                            else if (eventDiff<0) return -1;
+                            else return 0;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_category_activity, menu);
@@ -166,9 +215,6 @@ public class CategoryActivity extends AppCompatActivity {
 
                 catNameTextView.setText(catName);
                 catDescTextView.setText(catDesc);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
                 dialog.show();
                 break;

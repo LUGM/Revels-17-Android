@@ -1,17 +1,13 @@
 package in.mitrevels.revels.activities;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,42 +16,35 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import in.mitrevels.revels.R;
 import in.mitrevels.revels.fragments.CategoriesFragment;
 import in.mitrevels.revels.fragments.EventsFragment;
 import in.mitrevels.revels.fragments.FavouritesFragment;
 import in.mitrevels.revels.fragments.InstagramFragment;
 import in.mitrevels.revels.fragments.ResultsFragment;
-import io.realm.Realm;
+import in.mitrevels.revels.fragments.RevelsCupFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fm;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private Toolbar toolbar;
-    private AppBarLayout appBarLayout;
     private int checkedItem;
     private static final String EVENTS_TAG = "Events Fragment";
     private static final String FAVOURITES_TAG = "Favourites Fragment";
     private static final String INSTAGRAM_TAG = "InstaFeed Fragment";
     private static final String CATEGORIES_TAG = "Categories Fragment";
     private static final String RESULTS_TAG = "Results Fragment";
-    private int CALL_PERMISSION = 1;
+    private static final String REVELS_CUP_TAG = "Revels Cup Fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        appBarLayout = (AppBarLayout)findViewById(R.id.main_app_bar_layout);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.main_app_bar_layout);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setElevation(0);
@@ -75,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fm = getSupportFragmentManager();
 
         if (fm.findFragmentByTag(EVENTS_TAG) == null){
-            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, new EventsFragment(), EVENTS_TAG).commit();
+            fm.beginTransaction().replace(R.id.main_container, new EventsFragment(), EVENTS_TAG).commit();
         }
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -89,7 +78,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (navigationView.getMenu().getItem(0).isChecked()){
+                super.onBackPressed();
+            }
+            else{
+                if (fm.findFragmentByTag(EVENTS_TAG) == null) {
+                    fm.beginTransaction().replace(R.id.main_container, new EventsFragment(), EVENTS_TAG).commit();
+                }
+                else{
+                    fm.beginTransaction().replace(R.id.main_container, fm.findFragmentByTag(EVENTS_TAG)).commit();
+                }
+
+                setCheckedItem(R.id.drawer_menu_events);
+            }
         }
     }
 
@@ -167,6 +168,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
 
                         setCheckedItem(R.id.drawer_menu_results);
+                        break;
+
+                    case R.id.drawer_menu_revels_cup:
+                        if (fm.findFragmentByTag(REVELS_CUP_TAG) == null){
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, new RevelsCupFragment(), REVELS_CUP_TAG).commit();
+                        }
+                        else{
+                            fm.beginTransaction().setCustomAnimations(R.anim.slide_in_from_top, R.anim.blank).replace(R.id.main_container, fm.findFragmentByTag(REVELS_CUP_TAG)).commit();
+                        }
+
+                        setCheckedItem(R.id.drawer_menu_revels_cup);
+                        break;
+
+                    case R.id.drawer_menu_proshow:
+                        Intent proshowIntent = new Intent(MainActivity.this, ProshowActivity.class);
+                        startActivity(proshowIntent);
                         break;
 
                     case R.id.drawer_menu_developers:

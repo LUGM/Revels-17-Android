@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".application.Revels"
@@ -12,10 +13,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SplashActivity"
+        <activity
+            android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -50,12 +53,21 @@
             android:name=".activities.CategoryActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme" />
+        <activity
+            android:name=".activities.ProshowActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.SecondaryActivityTheme" />
+
+        <activity android:name=".activities.EasterEggActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.SecondaryActivityTheme"
+            android:windowSoftInputMode="adjustPan"/>
 
         <receiver
             android:name=".receivers.NotificationReceiver"
             android:enabled="true"
             android:exported="false"
-            android:label="@string/notification_receiver"/>
+            android:label="@string/notification_receiver" />
 
     </application>
 

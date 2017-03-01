@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/revels_grey</item>
         <item name="colorPrimaryDark">@color/revels_grey_dark</item>
         <item name="colorAccent">@color/amber</item>
+        <item name="actionBarSize">?android:attr/actionBarSize</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "869868968463",
+    "firebase_url": "https://revels-17.firebaseio.com",
+    "project_id": "revels-17",
+    "storage_bucket": "revels-17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869868968463:android:249506a4f0fc479c",
+        "android_client_info": {
+          "package_name": "in.mitrevels.revels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869868968463-vh7drgf2sm5vfvjbfb11o3rntghd5nqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mitrevels.revels",
+            "certificate_hash": "8476406740d955f18a4e89397318a37d020419d5"
+          }
+        },
+        {
+          "client_id": "869868968463-o3e7c2mnof39htp4j2fl48a0c9hpd26r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2puebzJCJokCtEoWf-jskXoAjQPbN4pY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869868968463-o3e7c2mnof39htp4j2fl48a0c9hpd26r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

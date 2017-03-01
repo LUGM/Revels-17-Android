@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Revels</string>
+    <string name="app_name">Revels 17</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -20,7 +20,7 @@
     <string name="drawer_about">About Us</string>
     <string name="drawer_insta">Instagram Feed</string>
     <string name="drawer_results">Results</string>
-    <string name="drawer_online">Online Events</string>
+    <string name="drawer_proshow">ProShow Portal</string>
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_events">Events</string>
     <string name="favourites">Favourites</string>
@@ -39,7 +39,7 @@
     <string name="ui">UI</string>
     <string name="shubham">Shubham Singhal</string>
     <string name="ui_designer">UI Designer</string>
-    <string name="revels_17_hashtag">#revels17</string>
+    <string name="revels_17_hashtag">#Revels17</string>
     <string name="filter_events">Filter Events</string>
     <string name="select_start_time">Start Time:</string>
     <string name="default_start_time">12:30 PM</string>
@@ -75,7 +75,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about_category">About Category</string>
     <string name="no_events">No Events</string>
-    <string name="favourite_alert_message">Are you sure you want to remove favourite(s)?</string>
+    <string name="favourite_alert_message">Are you sure you want to remove the selected favourite(s)?</string>
     <string name="qualified_teams">Qualified Teams • Round:</string>
     <string name="notification_receiver">Notification Receiver</string>
     <string name="no_connection">No Connection</string>
@@ -89,4 +89,13 @@
     <string name="round">Round:</string>
     <string name="team_id">Team ID:</string>
     <string name="loading_insta">Loading InstaFeed&#8230; Please wait</string>
+    <string name="revels_snapchat">\@revelsmit</string>
+    <string name="avikant">Avikant Saini</string>
+    <string name="drawer_revels_cup">Revels Cup</string>
+    <string name="enter_cheat_code">Enter cheat code:</string>
+    <string name="qnax">Memes brought to you by Qnax Zrzrf. For more, visit facebook.com/qnaxzrzrf</string>
+    <string name="lug_and_sc">Linux Users\' Group, Manipal and Student Council of MIT present:</string>
+    <string name="lugm_website">lugm.xyz</string>
+    <string name="lug_fb">/LUGManipal</string>
+    <string name="lug_github">/LUGM</string>
 </resources>

@@ -470,18 +470,18 @@ public class DayFragment extends Fragment {
                 String eTime = "";
 
                 if (filterStartHour < 12)
-                    sTime = filterStartHour+":"+(filterStartMinute == 0 ? "00" : filterStartMinute) +" AM";
+                    sTime = filterStartHour+":"+(filterStartMinute < 10 ? "0"+filterStartMinute : filterStartMinute) +" AM";
                 else if (filterStartHour == 12)
-                    sTime = filterStartHour+":"+(filterStartMinute == 0 ? "00" : filterStartMinute)+" PM";
+                    sTime = filterStartHour+":"+(filterStartMinute < 10 ? "0"+filterStartMinute : filterStartMinute)+" PM";
                 else if (filterStartHour > 12)
-                    sTime = (filterStartHour-12)+":"+(filterStartMinute == 0 ? "00" : filterStartMinute)+" PM";
+                    sTime = (filterStartHour-12)+":"+(filterStartMinute < 10 ? "0"+filterStartMinute : filterStartMinute)+" PM";
 
                 if (filterEndHour < 12)
-                    eTime = filterEndHour+":"+(filterEndMinute == 0 ? "00" : filterEndMinute)+" AM";
+                    eTime = filterEndHour+":"+(filterEndMinute < 10 ? "0"+filterEndMinute : filterEndMinute)+" AM";
                 else if (filterEndHour == 12)
-                    eTime = filterEndHour+":"+(filterEndMinute == 0 ? "00" : filterEndMinute)+" PM";
+                    eTime = filterEndHour+":"+(filterEndMinute < 10 ? "0"+filterEndMinute : filterEndMinute)+" PM";
                 else if (filterEndHour > 12)
-                    eTime = (filterEndHour-12)+":"+(filterEndMinute == 0 ? "00" : filterEndMinute)+" PM";
+                    eTime = (filterEndHour-12)+":"+(filterEndMinute < 10 ? "0"+filterEndMinute : filterEndMinute)+" PM";
 
                 startTimeTextView.setText(sTime);
                 endTimeTextView.setText(eTime);
@@ -545,11 +545,11 @@ public class DayFragment extends Fragment {
                                 filterStartHour = hourOfDay;
                                 filterStartMinute = minute;
                                 if (hourOfDay < 12)
-                                    startTime = hourOfDay+":"+(minute == 0 ? "00" : minute)+" AM";
+                                    startTime = hourOfDay+":"+(minute < 10 ? "0"+minute : minute)+" AM";
                                 else if (hourOfDay == 12)
-                                    startTime = hourOfDay+":"+(minute == 0 ? "00" : minute)+" PM";
+                                    startTime = hourOfDay+":"+(minute < 10 ? "0"+minute : minute)+" PM";
                                 else if (hourOfDay > 12)
-                                    startTime = (hourOfDay-12)+":"+(minute == 0 ? "00" : minute)+" PM";
+                                    startTime = (hourOfDay-12)+":"+(minute < 10 ? "0"+minute : minute)+" PM";
 
                                 startTimeTextView.setText(startTime);
                             }
@@ -569,11 +569,11 @@ public class DayFragment extends Fragment {
                                 filterEndHour = hourOfDay;
                                 filterEndMinute = minute;
                                 if (hourOfDay < 12)
-                                    endTime = hourOfDay+":"+(minute == 0 ? "00" : minute)+" AM";
+                                    endTime = hourOfDay+":"+(minute < 10 ? "0"+minute : minute)+" AM";
                                 else if (hourOfDay == 12)
-                                    endTime = hourOfDay+":"+(minute == 0 ? "00" : minute)+" PM";
+                                    endTime = hourOfDay+":"+(minute < 10 ? "0"+minute : minute)+" PM";
                                 else if (hourOfDay > 12)
-                                    endTime = (hourOfDay-12)+":"+(minute == 0 ? "00" : minute)+" PM";
+                                    endTime = (hourOfDay-12)+":"+(minute < 10 ? "0"+minute : minute)+" PM";
 
                                 endTimeTextView.setText(endTime);
                             }

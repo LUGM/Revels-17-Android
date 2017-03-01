@@ -75,13 +75,15 @@ public class DayFragment extends Fragment {
     private List<EventModel> allEvents = new ArrayList<>();
     private List<String> categoriesList = new ArrayList<>();
     private List<String> venueList = new ArrayList<>();
+    private List<String> eventTypeList = new ArrayList<>();
     private CoordinatorLayout rootLayout;
     private int filterStartHour = 12;
     private int filterStartMinute = 30;
-    private int filterEndHour = 22;
-    private int filterEndMinute = 30;
+    private int filterEndHour = 23;
+    private int filterEndMinute = 59;
     private String filterCategory = "All";
     private String filterVenue = "All";
+    private String filterEventType = "All";
     private int count = 0;
     private static final int LOAD_EVENTS = 0;
     private static final int UPDATE_EVENTS = 1;
@@ -98,6 +100,7 @@ public class DayFragment extends Fragment {
         mDatabase = Realm.getDefaultInstance();
         categoriesList.add("All");
         venueList.add("All");
+        eventTypeList.add("All");
     }
 
     @Nullable
@@ -133,15 +136,12 @@ public class DayFragment extends Fragment {
         }
         else{
             displayData();
-            if (!getActivity().getIntent().getBooleanExtra("dataLoaded", false)){
-                prepareData(UPDATE_EVENTS);
-            }
         }
 
         return rootView;
     }
 
-    private void prepareData(final int operation){
+    public void prepareData(final int operation){
         APIClient.APIInterface apiInterface = APIClient.getAPIInterface();
         Call<EventsListModel> eventsCall = apiInterface.getEventsList();
         Call<ScheduleListModel> scheduleCall = apiInterface.getScheduleList();
@@ -216,7 +216,7 @@ public class DayFragment extends Fragment {
         });
     }
 
-    private void displayData(){
+    public void displayData(){
         if (mDatabase == null) return;
 
         eventsList.clear();
@@ -228,11 +228,26 @@ public class DayFragment extends Fragment {
         for (ScheduleModel schedule : scheduleResult){
             EventDetailsModel eventDetails = mDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
 
-            if (eventDetails != null && !categoriesList.contains(eventDetails.getCatName()))
+            if (eventDetails != null && !eventDetails.getCatName().isEmpty() && !categoriesList.contains(eventDetails.getCatName()))
                 categoriesList.add(eventDetails.getCatName());
 
-            if (!venueList.contains(schedule.getVenue()))
-                venueList.add(schedule.getVenue());
+            if (eventDetails != null && !eventDetails.getType().isEmpty() && !eventTypeList.contains(eventDetails.getType()))
+                eventTypeList.add(eventDetails.getType());
+
+            String venue = "";
+            for (int i = 0; i<schedule.getVenue().length(); i++){
+                if (schedule.getVenue().charAt(i) == '-') continue;
+                if (!Character.isDigit(schedule.getVenue().charAt(i))){
+                    venue += schedule.getVenue().charAt(i);
+                }
+                else if (i > 0 && schedule.getVenue().charAt(i-1) != ' ' && schedule.getVenue().charAt(i-1) != '-'){
+                    venue += schedule.getVenue().charAt(i);
+                }
+                else break;
+            }
+
+            if (!venue.isEmpty() && !venueList.contains(venue))
+                venueList.add(venue);
 
             EventModel event = new EventModel(eventDetails, schedule);
             eventsList.add(event);
@@ -385,7 +400,10 @@ public class DayFragment extends Fragment {
                 if (!filterCategory.equals("All") && !filterCategory.toLowerCase().equals(event.getCatName().toLowerCase()))
                     continue;
 
-                if (!filterVenue.equals("All") && !filterVenue.toLowerCase().equals(event.getVenue().toLowerCase()))
+                if (!filterVenue.equals("All") && !event.getVenue().toLowerCase().contains(filterVenue.toLowerCase()))
+                    continue;
+
+                if (!filterEventType.equals("All") && !filterEventType.toLowerCase().equals(event.getEventType().toLowerCase()))
                     continue;
 
                 startDate = sdf.parse(event.getStartTime());
@@ -418,7 +436,7 @@ public class DayFragment extends Fragment {
         }
         else{
             if (rootLayout != null)
-                Snackbar.make(rootLayout, "Filters applied!", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(rootLayout, "Filters applied for Day "+getArguments().getInt("day", 1)+"!", Snackbar.LENGTH_SHORT).show();
         }
 
         adapter.notifyDataSetChanged();
@@ -427,10 +445,11 @@ public class DayFragment extends Fragment {
     private void clearFilters(){
         filterStartHour = 12;
         filterStartMinute = 30;
-        filterEndHour = 22;
-        filterEndMinute = 30;
+        filterEndHour = 23;
+        filterEndMinute = 59;
         filterCategory = "All";
         filterVenue = "All";
+        filterEventType = "All";
     }
 
     @Override
@@ -446,11 +465,6 @@ public class DayFragment extends Fragment {
                 BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-                dialog.show();
-
                 LinearLayout clearFiltersLayout = (LinearLayout)view.findViewById(R.id.clear_filters_layout);
                 LinearLayout startTimeLayout = (LinearLayout)view.findViewById(R.id.filter_start_time_layout);
                 final TextView startTimeTextView = (TextView)view.findViewById(R.id.start_time_text_view);
@@ -463,6 +477,7 @@ public class DayFragment extends Fragment {
 
                 final Spinner categorySpinner = (Spinner)view.findViewById(R.id.category_spinner);
                 final Spinner venueSpinner = (Spinner)view.findViewById(R.id.event_venue_spinner);
+                final Spinner eventTypeSpinner = (Spinner)view.findViewById(R.id.event_type_spinner);
 
                 ArrayAdapter<String> categorySpinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.item_custom_spinner, categoriesList);
                 categorySpinner.setAdapter(categorySpinnerAdapter);
@@ -473,6 +488,11 @@ public class DayFragment extends Fragment {
                 venueSpinner.setAdapter(venueSpinnerAdapter);
 
                 venueSpinner.setSelection(venueList.indexOf(filterVenue));
+
+                ArrayAdapter<String> eventTypeSpinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.item_custom_spinner, eventTypeList);
+                eventTypeSpinner.setAdapter(eventTypeSpinnerAdapter);
+
+                eventTypeSpinner.setSelection(eventTypeList.indexOf(filterEventType));
 
                 String sTime = "";
                 String eTime = "";
@@ -520,7 +540,6 @@ public class DayFragment extends Fragment {
                     }
                 });
 
-
                venueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                    @Override
                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -531,6 +550,18 @@ public class DayFragment extends Fragment {
                    public void onNothingSelected(AdapterView<?> adapterView) {
                    }
                });
+
+                eventTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        filterEventType = eventTypeSpinner.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
                 startTimeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -593,6 +624,8 @@ public class DayFragment extends Fragment {
                             Snackbar.make(rootLayout, "Filters cleared!", Snackbar.LENGTH_SHORT).show();
                     }
                 });
+
+                dialog.show();
             }
         }
 
@@ -609,7 +642,6 @@ public class DayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        clearFilters();
         if (searchItem != null)
             searchItem.collapseActionView();
         adapter.notifyDataSetChanged();

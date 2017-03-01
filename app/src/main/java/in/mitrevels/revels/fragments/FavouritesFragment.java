@@ -29,6 +29,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -95,9 +97,16 @@ public class FavouritesFragment extends Fragment {
         noEvents[3] = (TextView)rootView.findViewById(R.id.fav_day_4_no_events);
 
         day1List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "1").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        favSort(day1List);
+
         day2List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "2").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        favSort(day2List);
+
         day3List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "3").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        favSort(day3List);
+
         day4List = mRealm.copyFromRealm(mRealm.where(FavouritesModel.class).equalTo("day", "4").findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING));
+        favSort(day4List);
 
         RecyclerView day1RecyclerView = (RecyclerView)rootView.findViewById(R.id.favourites_day_1_recycler_view);
         dayAdapter[0] = new FavouritesAdapter(getActivity(), day1List, this, mRealm);
@@ -162,6 +171,47 @@ public class FavouritesFragment extends Fragment {
 
         return rootView;
     }
+    
+    private void favSort(List<FavouritesModel> favouritesList){
+        Collections.sort(favouritesList, new Comparator<FavouritesModel>() {
+            @Override
+            public int compare(FavouritesModel o1, FavouritesModel o2) {
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+
+                try {
+                    Date d1 = sdf.parse(o1.getStartTime());
+                    Date d2 = sdf.parse(o2.getStartTime());
+
+                    Calendar c1 = Calendar.getInstance();
+                    c1.setTime(d1);
+                    Calendar c2 = Calendar.getInstance();
+                    c2.setTime(d2);
+
+                    long diff = c1.getTimeInMillis() - c2.getTimeInMillis();
+
+                    if (diff>0) return 1;
+                    else if (diff<0) return -1;
+                    else{
+                        int catDiff = o1.getCatName().compareTo(o2.getCatName());
+
+                        if (catDiff>0) return 1;
+                        else if (catDiff<0) return -1;
+                        else {
+                            int eventDiff = o1.getEventName().compareTo(o2.getEventName());
+
+                            if (eventDiff>0) return 1;
+                            else if (eventDiff<0) return -1;
+                            else return 0;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+    }
 
     List<EventModel> createList(){
         List<EventModel> eventsList = new ArrayList<>();
@@ -210,9 +260,6 @@ public class FavouritesFragment extends Fragment {
 
         BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         TextView alertText = (TextView)view.findViewById(R.id.alert_text_view);
         TextView cancel = (TextView)view.findViewById(R.id.alert_cancel_text_view);

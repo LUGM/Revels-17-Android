@@ -1,0 +1,27 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sports_swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sports_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="in.mitrevels.revels.fragments.ResultsFragment"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/sports_no_connection_layout"
+        layout="@layout/layout_no_connection"
+        android:visibility="gone"/>
+
+</RelativeLayout>

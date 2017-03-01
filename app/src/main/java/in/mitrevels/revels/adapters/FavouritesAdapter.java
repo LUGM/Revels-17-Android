@@ -149,9 +149,6 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
                     BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) alertView.getParent());
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
                     TextView alertText = (TextView)alertView.findViewById(R.id.alert_text_view);
                     TextView cancel = (TextView)alertView.findViewById(R.id.alert_cancel_text_view);
                     TextView confirm = (TextView)alertView.findViewById(R.id.alert_ok_button);

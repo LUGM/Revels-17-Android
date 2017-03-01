@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         return categoriesList.size();
     }
 
-    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
         ImageView catLogo;
         TextView catName;
@@ -58,6 +59,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             catLogo = (ImageView)itemView.findViewById(R.id.cat_logo_image_view);
             catName = (TextView)itemView.findViewById(R.id.cat_name_text_view);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -68,6 +70,20 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             intent.putExtra("catDesc", categoriesList.get(getAdapterPosition()).getCategoryDescription());
             activity.startActivity(intent);
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_diagonal);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (view.getId() == itemView.getId()){
+                if (categoriesList.get(getAdapterPosition()).getCategoryName().toLowerCase().equals("gaming")){
+
+                }
+                else{
+                    onClick(view);
+                }
+            }
+
+            return true;
         }
     }
 }

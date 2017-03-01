@@ -211,7 +211,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         eventsList.clear();
 
         for (EventModel event : allEvents){
-            if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
+            if (event.getEventName().toLowerCase().contains(query.toLowerCase()) || event.getCatName().toLowerCase().equals(query.toLowerCase()) || event.getHashtag().toLowerCase().equals(query.toLowerCase()) || event.getEventType().toLowerCase().equals(query.toLowerCase()))
                 eventsList.add(event);
         }
 

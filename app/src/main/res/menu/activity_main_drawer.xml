@@ -29,15 +29,21 @@
             app:showAsAction="always"/>
 
         <item
-            android:id="@+id/drawer_menu_online"
-            android:title="@string/drawer_online"
-            android:icon="@drawable/drawer_online"
+            android:id="@+id/drawer_menu_revels_cup"
+            android:title="@string/drawer_revels_cup"
+            android:icon="@drawable/ic_trophy"
             app:showAsAction="always" />
 
         <item
             android:id="@+id/drawer_menu_insta"
             android:title="@string/drawer_insta"
             android:icon="@drawable/drawer_instagram"
+            app:showAsAction="always" />
+
+        <item
+            android:id="@+id/drawer_menu_proshow"
+            android:title="@string/drawer_proshow"
+            android:icon="@drawable/drawer_online"
             app:showAsAction="always" />
     </group>
 

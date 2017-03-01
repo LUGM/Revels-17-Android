@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import com.github.clans.fab.FloatingActionMenu;
 
 import in.mitrevels.revels.R;
+import in.mitrevels.revels.fragments.SnapchatFragment;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -113,6 +115,15 @@ public class AboutUsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openLink(TWITTER_URL);
+            }
+        });
+
+        snapchatLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment fragment =new SnapchatFragment();
+                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                fragment.show(getSupportFragmentManager(),"fragment_snapchat");
             }
         });
 

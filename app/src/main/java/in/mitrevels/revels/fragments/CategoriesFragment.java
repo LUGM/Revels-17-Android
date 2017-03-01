@@ -151,9 +151,6 @@ public class CategoriesFragment extends Fragment {
             if (!categoryResults.isEmpty()){
                 categoriesList.clear();
                 categoriesList.addAll(categoryResults);
-                for (CategoryModel category : categoriesList){
-                    Log.d("Cat ID:"+category.getCategoryID(), "Cat Name: "+category.getCategoryName());
-                }
                 adapter.notifyDataSetChanged();
             }
         }

@@ -20,7 +20,7 @@
     <string name="drawer_about">About Us</string>
     <string name="drawer_insta">Instagram Feed</string>
     <string name="drawer_results">Results</string>
-    <string name="drawer_online">Online Events</string>
+    <string name="drawer_proshow">Proshow Portal</string>
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_events">Events</string>
     <string name="favourites">Favourites</string>
@@ -89,4 +89,7 @@
     <string name="round">Round:</string>
     <string name="team_id">Team ID:</string>
     <string name="loading_insta">Loading InstaFeed&#8230; Please wait</string>
+    <string name="revels_snapchat">\@revelsmit</string>
+    <string name="avikant">Avikant Saini</string>
+    <string name="drawer_revels_cup">Revels Cup</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Revels 17</string>
+    <string name="app_name">Revels, MIT Manipal</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,7 +18,7 @@
     <string name="search">Search</string>
     <string name="drawer_developers">Developers</string>
     <string name="drawer_about">About Us</string>
-    <string name="drawer_insta">Instagram Feed</string>
+    <string name="drawer_insta">Revels InstaFeed</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_proshow">ProShow Portal</string>
     <string name="drawer_favourites">Favourites</string>
@@ -55,7 +55,7 @@
     <string name="revels_insta">\@revelsmit</string>
     <string name="revels_youtube">Revels, MIT Manipal</string>
     <string name="about_return">Return</string>
-    <string name="revels17">Revels\'17</string>
+    <string name="revels17">Revels</string>
     <string name="select_category">Category:</string>
     <string name="fab_transition">fabTransition</string>
     <string name="trending">Trending</string>

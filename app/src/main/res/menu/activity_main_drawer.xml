@@ -37,7 +37,7 @@
         <item
             android:id="@+id/drawer_menu_insta"
             android:title="@string/drawer_insta"
-            android:icon="@drawable/drawer_instagram"
+            android:icon="@drawable/drawer_instafeed"
             app:showAsAction="always" />
 
         <item

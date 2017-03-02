@@ -128,7 +128,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:tint="@color/white"
-                android:src="@drawable/drawer_instagram"
+                android:src="@drawable/ic_insta"
                 android:layout_margin="@dimen/padding_half"
                 android:background="?android:attr/selectableItemBackground"/>
 

@@ -51,18 +51,11 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="center_horizontal">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_android"
-                        android:layout_marginEnd="@dimen/padding_half"
-                        android:layout_marginRight="@dimen/padding_half"/>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/android"
-                        android:textSize="@dimen/typography_title"
+                        android:text="@string/revelsandroid"
+                        android:textSize="@dimen/typography_subheading"
                         android:fontFamily="sans-serif-medium"/>
 
                 </LinearLayout>
@@ -198,18 +191,11 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="center_horizontal">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_ios"
-                        android:layout_marginEnd="@dimen/padding_half"
-                        android:layout_marginRight="@dimen/padding_half"/>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/ios"
-                        android:textSize="@dimen/typography_title"
+                        android:text="@string/revelsios"
+                        android:textSize="@dimen/typography_subheading"
                         android:fontFamily="sans-serif-medium"/>
 
                 </LinearLayout>
@@ -345,18 +331,11 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="center_horizontal">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_windows"
-                        android:layout_marginEnd="@dimen/padding_half"
-                        android:layout_marginRight="@dimen/padding_half"/>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/windows"
-                        android:textSize="@dimen/typography_title"
+                        android:text="@string/revelswindows"
+                        android:textSize="@dimen/typography_subheading"
                         android:fontFamily="sans-serif-medium"/>
 
                 </LinearLayout>
@@ -461,18 +440,11 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="center_horizontal">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ui"
-                        android:layout_marginEnd="@dimen/padding_half"
-                        android:layout_marginRight="@dimen/padding_half"/>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ui"
-                        android:textSize="@dimen/typography_title"
+                        android:textSize="@dimen/typography_subheading"
                         android:fontFamily="sans-serif-medium"/>
 
                 </LinearLayout>

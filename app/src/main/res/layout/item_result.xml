@@ -22,7 +22,7 @@
             android:id="@+id/result_cat_logo_image_view"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/tt_aero"
+            android:src="@drawable/animania"
             android:layout_marginRight="@dimen/padding_default"
             android:layout_marginEnd="@dimen/padding_default"/>
 

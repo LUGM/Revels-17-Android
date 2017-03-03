@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        applicationId "in.mitrevels.revels"
+        applicationId "in.mitrevels.mitrevels"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -31,7 +31,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.github.clans:fab:1.6.4'
     compile 'com.google.firebase:firebase-crash:10.2.0'
     compile 'com.google.firebase:firebase-core:10.2.0'
 }

@@ -13,7 +13,7 @@
             android:id="@+id/results_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context="in.revels.revels.fragments.ResultsFragment"/>
+            tools:context="in.mitrevels.mitrevels.fragments.ResultsFragment"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

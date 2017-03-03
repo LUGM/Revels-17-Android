@@ -28,17 +28,4 @@
         <item name="android:navigationBarColor">?android:attr/colorPrimaryDark</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
-
-    <style name="MenuLabelsStyle">
-        <item name="android:elevation">1.5dp</item>
-        <item name="android:background">@drawable/rounded_white_bg</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
-    </style>
 </resources>

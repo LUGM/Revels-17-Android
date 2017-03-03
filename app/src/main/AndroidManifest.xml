@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.revels.revels">
+    package="in.mitrevels.mitrevels">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:name="in.revels.revels.application.Revels"
+        android:name="in.mitrevels.mitrevels.application.Revels"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="in.revels.revels.activities.SplashActivity"
+            android:name="in.mitrevels.mitrevels.activities.SplashActivity"
             android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="in.revels.revels.activities.MainActivity"
+            android:name="in.mitrevels.mitrevels.activities.MainActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -37,34 +37,34 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="in.revels.revels.activities.EventActivity"
+            android:name="in.mitrevels.mitrevels.activities.EventActivity"
             android:launchMode="singleTask"
-            android:parentActivityName="in.revels.revels.activities.MainActivity"
+            android:parentActivityName="in.mitrevels.mitrevels.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="in.revels.revels.activities.DevelopersActivity"
-            android:parentActivityName="in.revels.revels.activities.MainActivity"
+            android:name="in.mitrevels.mitrevels.activities.DevelopersActivity"
+            android:parentActivityName="in.mitrevels.mitrevels.activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme" />
         <activity
-            android:name="in.revels.revels.activities.AboutUsActivity"
-            android:parentActivityName="in.revels.revels.activities.MainActivity"
+            android:name="in.mitrevels.mitrevels.activities.AboutUsActivity"
+            android:parentActivityName="in.mitrevels.mitrevels.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="in.revels.revels.activities.CategoryActivity"
-            android:parentActivityName="in.revels.revels.activities.MainActivity"
+            android:name="in.mitrevels.mitrevels.activities.CategoryActivity"
+            android:parentActivityName="in.mitrevels.mitrevels.activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme" />
         <activity
-            android:name="in.revels.revels.activities.ProshowActivity"
-            android:parentActivityName="in.revels.revels.activities.MainActivity"
+            android:name="in.mitrevels.mitrevels.activities.ProshowActivity"
+            android:parentActivityName="in.mitrevels.mitrevels.activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme" />
 
-        <activity android:name="in.revels.revels.activities.EasterEggActivity"
-            android:parentActivityName="in.revels.revels.activities.MainActivity"
+        <activity android:name="in.mitrevels.mitrevels.activities.EasterEggActivity"
+            android:parentActivityName="in.mitrevels.mitrevels.activities.MainActivity"
             android:theme="@style/AppTheme.SecondaryActivityTheme"
             android:windowSoftInputMode="adjustPan"/>
 
         <receiver
-            android:name="in.revels.revels.receivers.NotificationReceiver"
+            android:name="in.mitrevels.mitrevels.receivers.NotificationReceiver"
             android:enabled="true"
             android:exported="false"
             android:label="@string/notification_receiver" />

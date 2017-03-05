@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 import in.mitrevels.mitrevels.R;
 import in.mitrevels.mitrevels.fragments.CategoriesFragment;
@@ -52,6 +54,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 appBarLayout.setElevation(0);
                 appBarLayout.setTargetElevation(0);
             }
+        }
+
+        //For status and navigation bar transition
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            postponeEnterTransition();
+            final View decor = getWindow().getDecorView();
+
+            decor.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    decor.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        startPostponedEnterTransition();
+                    }
+                    return true;
+                }
+            });
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

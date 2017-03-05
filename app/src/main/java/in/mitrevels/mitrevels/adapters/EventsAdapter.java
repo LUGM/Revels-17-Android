@@ -9,16 +9,19 @@ import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -280,9 +283,25 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                     intent.putExtra("enableFavourite", true);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        ActivityOptionsCompat options = ActivityOptionsCompat.
-                                makeSceneTransitionAnimation(activity, eventLogo, activity.getString(R.string.cat_logo_transition));
-                        activity.startActivity(intent, options.toBundle());
+                        final View statusBar = activity.findViewById(android.R.id.statusBarBackground);
+                        final View navigationBar = activity.findViewById(android.R.id.navigationBarBackground);
+
+                        final List<Pair<View, String>> pairs = new ArrayList<>();
+
+                        if (statusBar != null)
+                            pairs.add(Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME));
+
+                        if (navigationBar != null)
+                            pairs.add(Pair.create(navigationBar, Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME));
+
+                        pairs.add(Pair.create((View)eventLogo, activity.getString(R.string.cat_logo_transition)));
+
+                        if (pairs.size() > 0){
+                            ActivityOptionsCompat options = ActivityOptionsCompat.
+                                    makeSceneTransitionAnimation(activity, pairs.toArray(new Pair[pairs.size()]));
+                            activity.startActivity(intent, options.toBundle());
+                        }
+
                     }
                     else {
                         activity.startActivity(intent);

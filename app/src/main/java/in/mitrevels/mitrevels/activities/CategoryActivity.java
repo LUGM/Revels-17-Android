@@ -1,5 +1,6 @@
 package in.mitrevels.mitrevels.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -53,6 +55,24 @@ public class CategoryActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(catName);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        //For status and navigation bar transition
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            postponeEnterTransition();
+            final View decor = getWindow().getDecorView();
+
+            decor.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    decor.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        startPostponedEnterTransition();
+                    }
+                    return true;
+                }
+            });
         }
 
         catID = getIntent().getStringExtra("catID");

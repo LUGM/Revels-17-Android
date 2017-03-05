@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,14 +73,30 @@ public class EventActivity extends AppCompatActivity {
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.event_coordinator_layout);
         LinearLayout headerLayout = (LinearLayout) findViewById(R.id.event_header_layout);
-
         LinearLayout eventRoundLayout = (LinearLayout) findViewById(R.id.event_round_layout);
 
         ImageView logo = (ImageView) findViewById(R.id.event_cat_logo);
-
         favFab = (FloatingActionButton)findViewById(R.id.fav_fab);
 
         mRealm = Realm.getDefaultInstance();
+
+        //For status and navigation bar transition
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            postponeEnterTransition();
+            final View decor = getWindow().getDecorView();
+
+            decor.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    decor.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        startPostponedEnterTransition();
+                    }
+                    return true;
+                }
+            });
+        }
 
         id = getIntent().getStringExtra("Event ID");
         title = getIntent().getStringExtra("Event Name");
@@ -162,7 +179,6 @@ public class EventActivity extends AppCompatActivity {
                 addOrRemoveFavourite();
             }
         });
-
     }
 
     private void addOrRemoveFavourite(){

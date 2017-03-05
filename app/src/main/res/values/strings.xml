@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Revels, MIT Manipal</string>
+    <string name="app_name">MIT Revels\'17</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,28 +18,26 @@
     <string name="search">Search</string>
     <string name="drawer_developers">Developers</string>
     <string name="drawer_about">About Us</string>
-    <string name="drawer_insta">Revels InstaFeed</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_proshow">ProShow Portal</string>
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_events">Events</string>
     <string name="favourites">Favourites</string>
-    <string name="android">Android</string>
+    <string name="revelsandroid">Revels\'17 (Android)</string>
     <string name="anurag">Anurag Choudhary</string>
     <string name="naman">Naman Yadav</string>
     <string name="developer">Developer</string>
     <string name="anuraag">Anuraag Baishya</string>
     <string name="head">Head</string>
-    <string name="ios">iOS</string>
+    <string name="revelsios">Revels\'17 (iOS)</string>
     <string name="ykl">Yash Kumar Lal</string>
     <string name="abhishek">Abhishek Vora</string>
-    <string name="windows">Windows</string>
+    <string name="revelswindows">Revels\'17 (Windows)</string>
     <string name="vinayak">Vinayak Agarwal</string>
     <string name="gautham">Gautham Vinod</string>
     <string name="ui">UI</string>
     <string name="shubham">Shubham Singhal</string>
     <string name="ui_designer">UI Designer</string>
-    <string name="revels_17_hashtag">#Revels17</string>
     <string name="filter_events">Filter Events</string>
     <string name="select_start_time">Start Time:</string>
     <string name="default_start_time">12:30 PM</string>
@@ -51,11 +49,8 @@
     <string name="about_us">About Us</string>
     <string name="about_revels_text">Revels is one of the most awaited cultural and sports festivals in the south circuit amongst the engineering colleges and is widely regarded as the largest event in Karnataka.\n\nThis year, we plan to stop at nothing, and make this fest not just a success, but an enduring part of every participant\'s life. We attempt to provide the participants a platform where they can pursue their passion, perceive it, believe in it and achieve their goals.\n\nRevels\'17 presents the theme of the fest - Carnaval: The Rhythm of Life. Life, in its innumerable twists and turns provides us with both opportunities and failures. Yet, it is what we do with them that makes the difference. Life is a Carnaval, one in which we wait in long lines to enjoy short rides, but it\'s those moments of excitement that inspire us to reach our limits. It is those moments which fuel our imaginations, inspire our creativity, and make us feel alive. Forget all your worries for a little while, it\'s time to live a little more. Revels\'17 - the biggest Carnaval is coming your way!</string>
     <string name="rate_event">Rate Event</string>
-    <string name="revels_fb">fb.com/mitrevels</string>
-    <string name="revels_insta">\@revelsmit</string>
-    <string name="revels_youtube">Revels, MIT Manipal</string>
     <string name="about_return">Return</string>
-    <string name="revels17">Revels</string>
+    <string name="revels17">Revels\'17</string>
     <string name="select_category">Category:</string>
     <string name="fab_transition">fabTransition</string>
     <string name="trending">Trending</string>
@@ -88,14 +83,11 @@
     <string name="refresh">Refresh</string>
     <string name="round">Round:</string>
     <string name="team_id">Team ID:</string>
-    <string name="loading_insta">Loading InstaFeed&#8230; Please wait</string>
-    <string name="revels_snapchat">\@revelsmit</string>
     <string name="avikant">Avikant Saini</string>
     <string name="drawer_revels_cup">Revels Cup</string>
     <string name="enter_cheat_code">Enter cheat code:</string>
     <string name="qnax">Memes brought to you by Qnax Zrzrf. For more, visit facebook.com/qnaxzrzrf</string>
     <string name="lug_and_sc">Linux Users\' Group, Manipal and Student Council of MIT present:</string>
     <string name="lugm_website">lugm.xyz</string>
-    <string name="lug_fb">/LUGManipal</string>
-    <string name="lug_github">/LUGM</string>
+    <string name="revels">Revels</string>
 </resources>

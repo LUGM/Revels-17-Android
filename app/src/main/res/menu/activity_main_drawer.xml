@@ -35,12 +35,6 @@
             app:showAsAction="always" />
 
         <item
-            android:id="@+id/drawer_menu_insta"
-            android:title="@string/drawer_insta"
-            android:icon="@drawable/drawer_instafeed"
-            app:showAsAction="always" />
-
-        <item
             android:id="@+id/drawer_menu_proshow"
             android:title="@string/drawer_proshow"
             android:icon="@drawable/drawer_online"

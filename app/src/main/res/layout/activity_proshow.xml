@@ -5,7 +5,7 @@
     android:id="@+id/proshow_coordinator_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context="in.revels.revels.activities.ProshowActivity">
+    tools:context="in.mitrevels.mitrevels.activities.ProshowActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

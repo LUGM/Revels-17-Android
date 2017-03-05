@@ -1,5 +1,6 @@
 package in.mitrevels.mitrevels.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,22 +8,35 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import in.mitrevels.mitrevels.R;
 import in.mitrevels.mitrevels.adapters.DayPagerAdapter;
+import in.mitrevels.mitrevels.models.events.EventDetailsModel;
+import in.mitrevels.mitrevels.models.events.EventsListModel;
+import in.mitrevels.mitrevels.models.events.ScheduleListModel;
+import in.mitrevels.mitrevels.models.events.ScheduleModel;
+import in.mitrevels.mitrevels.network.APIClient;
+import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by anurag on 6/12/16.
  */
 public class EventsFragment extends Fragment {
 
-    private static final int UPDATE_EVENTS = 1;
+    private Realm mDatabase;
+    private boolean eventsLoaded = false;
+    private boolean scheduleLoaded = false;
 
     public EventsFragment(){
     }
@@ -43,6 +57,8 @@ public class EventsFragment extends Fragment {
         }catch(NullPointerException e){
             e.printStackTrace();
         }
+
+        mDatabase = Realm.getDefaultInstance();
     }
 
     @Nullable
@@ -54,7 +70,7 @@ public class EventsFragment extends Fragment {
         ViewPager viewPager = (ViewPager)rootView.findViewById(R.id.events_view_pager);
 
         DayPagerAdapter pagerAdapter = new DayPagerAdapter(getChildFragmentManager());
-        DayFragment[] fragments = new DayFragment[4];
+        final DayFragment[] fragments = new DayFragment[4];
         for (int i=0; i<4; i++){
             fragments[i] = new DayFragment();
         }
@@ -70,7 +86,7 @@ public class EventsFragment extends Fragment {
 
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         String formattedDate = df.format(c.getTime());
 
         switch(formattedDate){
@@ -97,10 +113,57 @@ public class EventsFragment extends Fragment {
 
         if (!getActivity().getIntent().getBooleanExtra("dataLoaded", false)){
             try{
-                fragments[0].prepareData(UPDATE_EVENTS);
-                fragments[1].displayData();
-                fragments[2].displayData();
-                fragments[3].displayData();
+                APIClient.APIInterface apiInterface = APIClient.getAPIInterface();
+                Call<EventsListModel> eventsCall = apiInterface.getEventsList();
+                Call<ScheduleListModel> scheduleCall = apiInterface.getScheduleList();
+
+                eventsCall.enqueue(new Callback<EventsListModel>() {
+                    @Override
+                    public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
+                        if (response.body() != null && mDatabase != null){
+                            mDatabase.beginTransaction();
+                            mDatabase.where(EventDetailsModel.class).findAll().deleteAllFromRealm();
+                            mDatabase.copyToRealm(response.body().getEvents());
+                            mDatabase.commitTransaction();
+                        }
+                        eventsLoaded = true;
+
+                        if (scheduleLoaded){
+                            fragments[0].displayData();
+                            fragments[1].displayData();
+                            fragments[2].displayData();
+                            fragments[3].displayData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<EventsListModel> call, Throwable t) {
+                    }
+
+                });
+                scheduleCall.enqueue(new Callback<ScheduleListModel>() {
+                    @Override
+                    public void onResponse(Call<ScheduleListModel> call, Response<ScheduleListModel> response) {
+                        if (response.body() != null && mDatabase != null){
+                            mDatabase.beginTransaction();
+                            mDatabase.where(ScheduleModel.class).findAll().deleteAllFromRealm();
+                            mDatabase.copyToRealm(response.body().getData());
+                            mDatabase.commitTransaction();
+                        }
+                        scheduleLoaded = true;
+
+                        if (eventsLoaded){
+                            fragments[0].displayData();
+                            fragments[1].displayData();
+                            fragments[2].displayData();
+                            fragments[3].displayData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ScheduleListModel> call, Throwable t){
+                    }
+                });
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -114,5 +177,12 @@ public class EventsFragment extends Fragment {
         super.onDetach();
         setHasOptionsMenu(false);
         setMenuVisibility(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDatabase.close();
+        mDatabase = null;
     }
 }

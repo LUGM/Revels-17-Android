@@ -81,7 +81,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             holder.eventRound.setVisibility(View.GONE);
         }
 
-        FavouritesModel favourite = mDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("date", event.getDate()).findFirst();
+        FavouritesModel favourite = null;
+
+        if (mDatabase != null) favourite = mDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("date", event.getDate()).findFirst();
 
         if(favourite != null) {
             holder.eventFav.setColorFilter(ContextCompat.getColor(activity, R.color.red));
@@ -95,6 +97,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     }
 
     public void addOrRemoveFavourites(EventModel event, int operation){
+        if (mDatabase == null) return;
 
         if(operation == ADD_FAVOURITE) {
             FavouritesModel favourite = new FavouritesModel();
@@ -142,7 +145,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(activity, Integer.parseInt(event.getCatId()+event.getEventId()+"1"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (operation==CREATE_NOTIFICATION){
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
             Date d = null;
 
             try {

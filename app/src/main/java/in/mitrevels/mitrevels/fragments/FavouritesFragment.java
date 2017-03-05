@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import in.mitrevels.mitrevels.R;
 import in.mitrevels.mitrevels.adapters.FavouritesAdapter;
@@ -166,7 +167,7 @@ public class FavouritesFragment extends Fragment {
         Collections.sort(favouritesList, new Comparator<FavouritesModel>() {
             @Override
             public int compare(FavouritesModel o1, FavouritesModel o2) {
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
 
                 try {
                     Date d1 = sdf.parse(o1.getStartTime());

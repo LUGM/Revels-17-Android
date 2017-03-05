@@ -36,6 +36,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import in.mitrevels.mitrevels.R;
 import in.mitrevels.mitrevels.adapters.EventsAdapter;
@@ -246,7 +247,7 @@ public class DayFragment extends Fragment {
         Collections.sort(eventsList, new Comparator<EventModel>() {
             @Override
             public int compare(EventModel o1, EventModel o2) {
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
 
                 try {
                     Date d1 = sdf.parse(o1.getStartTime());
@@ -356,16 +357,15 @@ public class DayFragment extends Fragment {
     }
 
     private void applyFilters(){
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
         Date startDate = null;
         Date endDate = null;
         List<EventModel> tempList = new ArrayList<>();
         tempList.addAll(allEvents);
         eventsList.clear();
 
-        try {
-            for (EventModel event : tempList) {
-
+        for (EventModel event : tempList) {
+            try{
                 if (!filterCategory.equals("All") && !filterCategory.toLowerCase().equals(event.getCatName().toLowerCase()))
                     continue;
 
@@ -394,9 +394,10 @@ public class DayFragment extends Fragment {
                 if ((c1.getTimeInMillis() >= c3.getTimeInMillis()) && (c2.getTimeInMillis() <= c4.getTimeInMillis())){
                     eventsList.add(event);
                 }
+
+            }catch(Exception e){
+                e.printStackTrace();
             }
-        }catch(Exception e){
-            e.printStackTrace();
         }
 
         if (eventsList.isEmpty()){

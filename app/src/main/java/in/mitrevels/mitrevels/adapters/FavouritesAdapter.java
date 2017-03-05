@@ -83,6 +83,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
     }
 
     private void removeFavourite(FavouritesModel favourite){
+        if (mRealm == null) return;
         mRealm.beginTransaction();
         mRealm.where(FavouritesModel.class).equalTo("id", favourite.getId()).findAll().deleteAllFromRealm();
         mRealm.commitTransaction();

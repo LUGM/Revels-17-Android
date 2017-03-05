@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import in.mitrevels.mitrevels.R;
 import in.mitrevels.mitrevels.adapters.CategoryEventsAdapter;
@@ -76,6 +77,7 @@ public class CategoryActivity extends AppCompatActivity {
         day3NoEvents = (TextView)findViewById(R.id.cat_day_3_no_events);
         day4NoEvents = (TextView)findViewById(R.id.cat_day_4_no_events);
 
+        if (mRealm == null) return;
         RealmResults<ScheduleModel> scheduleResults = mRealm.where(ScheduleModel.class).equalTo("catID", catID).findAllSorted("startTime");
 
         for (ScheduleModel schedule : scheduleResults){
@@ -154,7 +156,7 @@ public class CategoryActivity extends AppCompatActivity {
         Collections.sort(eventsList, new Comparator<EventModel>() {
             @Override
             public int compare(EventModel o1, EventModel o2) {
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
 
                 try {
                     Date d1 = sdf.parse(o1.getStartTime());

@@ -219,7 +219,7 @@ public class EventActivity extends AppCompatActivity {
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, Integer.parseInt(catID+id+"1"), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (operation==CREATE_NOTIFICATION){
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
             Date d = null;
 
             try {

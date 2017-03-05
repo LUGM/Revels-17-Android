@@ -145,13 +145,13 @@ public class EventActivity extends AppCompatActivity {
         }
 
         if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() != 0){
-            favFab.setImageResource(R.drawable.ic_fav_deselected);
+            favFab.setImageResource(R.drawable.ic_remove_fav);
             favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
             favFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
 
         }
         else{
-            favFab.setImageResource(R.drawable.ic_fav_selected);
+            favFab.setImageResource(R.drawable.ic_add_fav);
             favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
             favFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
         }
@@ -170,7 +170,7 @@ public class EventActivity extends AppCompatActivity {
 
         mRealm.beginTransaction();
         if (mRealm.where(FavouritesModel.class).equalTo("id", id).findAll().size() == 0){
-            favFab.setImageResource(R.drawable.ic_fav_deselected);
+            favFab.setImageResource(R.drawable.ic_remove_fav);
             favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grey)));
             favFab.setRippleColor(ContextCompat.getColor(this, R.color.grey_dark));
 
@@ -195,7 +195,7 @@ public class EventActivity extends AppCompatActivity {
             editNotification(CREATE_NOTIFICATION);
         }
         else{
-            favFab.setImageResource(R.drawable.ic_fav_selected);
+            favFab.setImageResource(R.drawable.ic_add_fav);
             favFab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.red)));
             favFab.setRippleColor(ContextCompat.getColor(this, R.color.red_dark));
 

@@ -25,6 +25,7 @@ public class HandyMan {
     }
 
     public int getCategoryLogo(String catID){
+        if (catID == null) return R.mipmap.ic_launcher;
         switch(catID){
             case "2": return R.drawable.crescendo;
             case "3": return R.drawable.haute_couture;
@@ -46,6 +47,7 @@ public class HandyMan {
     }
 
     public int getCategoryLogoByName(String catName){
+        if (catName == null) return R.mipmap.ic_launcher;
         switch(catName){
             case "crescendo": return R.drawable.crescendo;
             case "haute couture": return R.drawable.haute_couture;

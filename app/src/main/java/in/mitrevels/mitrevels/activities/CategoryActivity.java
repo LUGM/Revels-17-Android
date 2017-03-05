@@ -233,6 +233,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mRealm.close();
+        mRealm = null;
     }
 }
 

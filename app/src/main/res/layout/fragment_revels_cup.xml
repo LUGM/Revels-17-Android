@@ -24,4 +24,11 @@
         layout="@layout/layout_no_connection"
         android:visibility="gone"/>
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/results_no_data_layout"
+        layout="@layout/layout_no_data"
+        android:visibility="gone"/>
+
 </RelativeLayout>

@@ -21,6 +21,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.stream.MalformedJsonException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,7 @@ import retrofit2.Response;
 public class ResultsFragment extends Fragment {
 
     private LinearLayout noConnectionLayout;
+    private LinearLayout noDataLayout;
     private Realm mRealm;
     private List<EventResultModel> resultsList = new ArrayList<>();
     private ResultsAdapter adapter;
@@ -78,6 +82,8 @@ public class ResultsFragment extends Fragment {
 
         rootLayout = (CoordinatorLayout)getActivity().findViewById(R.id.main_activity_coordinator_layout);
 
+        noDataLayout = (LinearLayout)rootView.findViewById(R.id.results_no_data_layout);
+
         noConnectionLayout = (LinearLayout)rootView.findViewById(R.id.results_no_connection_layout);
         TextView retry = (TextView)noConnectionLayout.findViewById(R.id.no_connection_retry_button);
         retry.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +105,18 @@ public class ResultsFragment extends Fragment {
             @Override
             public void onRefresh() {
                 if (!isUpdating && HandyMan.help().isInternetConnected(getActivity())){
-                    prepareData(UPDATE_RESULTS);
+                    if (noDataLayout.getVisibility() == View.VISIBLE || noConnectionLayout.getVisibility() == View.VISIBLE){
+                        noDataLayout.setVisibility(View.GONE);
+                        noConnectionLayout.setVisibility(View.GONE);
+                        prepareData(LOAD_RESULTS);
+                    }
+                    else{
+                        prepareData(UPDATE_RESULTS);
+                    }
+                }
+                else if (!HandyMan.help().isInternetConnected(getActivity())){
+                    Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
+                    swipeRefresh.setRefreshing(false);
                 }
             }
         });
@@ -128,13 +145,13 @@ public class ResultsFragment extends Fragment {
     private void prepareData(final int operation){
         Call<ResultsListModel> call = APIClient.getAPIInterface().getResults();
 
-        if (operation == LOAD_RESULTS){
+        if (operation == LOAD_RESULTS && !swipeRefresh.isRefreshing()){
             dialog = new ProgressDialog(getActivity());
             dialog.setMessage(getResources().getString(R.string.loading_results));
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
         }
-        else{
+        else if (operation == UPDATE_RESULTS){
             isUpdating = true;
         }
 
@@ -161,15 +178,22 @@ public class ResultsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
-                if (operation == LOAD_RESULTS && dialog != null) {
-                    if (dialog.isShowing())
-                        dialog.hide();
-                    noConnectionLayout.setVisibility(View.VISIBLE);
-                }
                 isUpdating = false;
                 if (swipeRefresh.isRefreshing()) {
                     swipeRefresh.setRefreshing(false);
                     Snackbar.make(rootLayout, "Failed to update results!", Snackbar.LENGTH_SHORT).show();
+                }
+
+                if (operation == LOAD_RESULTS) {
+                    if (dialog != null && dialog.isShowing())
+                        dialog.hide();
+
+                    if (t!=null && t.getClass() == JsonSyntaxException.class){
+                        noDataLayout.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        noConnectionLayout.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -223,7 +247,17 @@ public class ResultsFragment extends Fragment {
             case R.id.results_menu_refresh:
                 if (!isUpdating && HandyMan.help().isInternetConnected(getActivity())){
                     swipeRefresh.setRefreshing(true);
-                    prepareData(UPDATE_RESULTS);
+                    if (noDataLayout.getVisibility() == View.VISIBLE || noConnectionLayout.getVisibility() == View.VISIBLE){
+                        noDataLayout.setVisibility(View.GONE);
+                        noConnectionLayout.setVisibility(View.GONE);
+                        prepareData(LOAD_RESULTS);
+                    }
+                    else{
+                        prepareData(UPDATE_RESULTS);
+                    }
+                }
+                else if (!HandyMan.help().isInternetConnected(getActivity())){
+                    Snackbar.make(rootLayout, "Check connection!", Snackbar.LENGTH_SHORT).show();
                 }
                 break;
         }

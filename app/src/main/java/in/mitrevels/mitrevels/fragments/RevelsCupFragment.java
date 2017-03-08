@@ -126,7 +126,7 @@ public class RevelsCupFragment extends Fragment {
         resultsRecyclerView.setAdapter(adapter);
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if (mRealm.where(ResultModel.class).findAll().size() != 0){
+        if (mRealm.where(SportsModel.class).findAll().size() != 0){
             displayData();
             prepareData(UPDATE_RESULTS);
         }
@@ -234,6 +234,8 @@ public class RevelsCupFragment extends Fragment {
         super.onDestroy();
         mRealm.close();
         mRealm = null;
+        if (dialog != null && dialog.isShowing())
+            dialog.hide();
     }
 
     @Override

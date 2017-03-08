@@ -234,6 +234,8 @@ public class ResultsFragment extends Fragment {
         super.onDestroy();
         mRealm.close();
         mRealm = null;
+        if (dialog != null && dialog.isShowing())
+            dialog.hide();
     }
 
     @Override

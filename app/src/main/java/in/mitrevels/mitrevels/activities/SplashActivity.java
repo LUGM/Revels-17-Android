@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
     private Realm mDatabase;
     private boolean eventsLoaded = false;
     private boolean scheduleLoaded = false;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
 
         final ImageView icon = (ImageView)findViewById(R.id.splash_revels_icon);
         final ImageView text = (ImageView)findViewById(R.id.splash_revels_text);
-        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.splash_progress_bar);
+        progressBar = (ProgressBar)findViewById(R.id.splash_progress_bar);
 
         icon.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.splash_icon_anim));
         text.setAnimation(AnimationUtils.loadAnimation(SplashActivity.this, R.anim.splash_text_anim));
@@ -132,5 +133,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onDestroy();
         mDatabase.close();
         mDatabase = null;
+        if (progressBar != null){
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

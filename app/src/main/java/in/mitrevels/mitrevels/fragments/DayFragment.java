@@ -607,6 +607,8 @@ public class DayFragment extends Fragment {
         super.onDestroy();
         mDatabase.close();
         mDatabase = null;
+        if (dialog != null && dialog.isShowing())
+            dialog.hide();
     }
 
     @Override

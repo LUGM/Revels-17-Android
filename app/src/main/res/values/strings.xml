@@ -90,4 +90,6 @@
     <string name="lug_and_sc">Linux Users\' Group, Manipal and Student Council of MIT present:</string>
     <string name="lugm_website">lugm.xyz</string>
     <string name="revels">Revels</string>
+    <string name="no_results">Patience!</string>
+    <string name="no_results_2">The results aren\'t out yet.</string>
 </resources>

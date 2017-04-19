@@ -22,7 +22,7 @@ The app uses:
 * [Potato Library](https://github.com/chipset95/Potato-Library) by [Chipset](https://github.com/chipset95/)
 * [Firebase](http://firebase.google.com) for config files and trending database
 * [Proper Rating Bar](https://github.com/techery/ProperRatingBar) for rating bars
-* Instagram API for #techtatva16
+* Instagram API for #revels17
 * RecyclerView with CustomRecyclerViewAdapter
 
 

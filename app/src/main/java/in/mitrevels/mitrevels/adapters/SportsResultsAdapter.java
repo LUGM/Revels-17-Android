@@ -16,6 +16,7 @@ import java.util.List;
 
 import in.mitrevels.mitrevels.R;
 import in.mitrevels.mitrevels.fragments.RevelsCupFragment;
+import in.mitrevels.mitrevels.utilities.HandyMan;
 
 public class SportsResultsAdapter extends RecyclerView.Adapter<SportsResultsAdapter.ResultViewHolder> {
 
@@ -38,7 +39,7 @@ public class SportsResultsAdapter extends RecyclerView.Adapter<SportsResultsAdap
 
         holder.eventName.setText(result.eventName);
         holder.eventRound.setText(result.eventRound);
-        holder.catLogo.setVisibility(View.GONE);
+        holder.catLogo.setImageResource(HandyMan.help().getCategoryLogoByName("sports"));
     }
 
     @Override

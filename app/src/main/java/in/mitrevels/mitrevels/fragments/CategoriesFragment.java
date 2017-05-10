@@ -120,7 +120,7 @@ public class CategoriesFragment extends Fragment {
                     mDatabase.beginTransaction();
                     mDatabase.where(CategoryModel.class).findAll().deleteAllFromRealm();
                     mDatabase.copyToRealm(response.body().getCategoriesList());
-                    mDatabase.where(CategoryModel.class).equalTo("categoryName", "Sports").or().equalTo("categoryName", "sports").or().equalTo("categoryName", "SPORTS").findAll().deleteAllFromRealm();
+                    //mDatabase.where(CategoryModel.class).equalTo("categoryName", "Sports").or().equalTo("categoryName", "sports").or().equalTo("categoryName", "SPORTS").findAll().deleteAllFromRealm();
                     mDatabase.where(CategoryModel.class).equalTo("categoryName", "minimilitia").or().equalTo("categoryName", "Mini Militia").or().equalTo("categoryName", "Minimilitia").or().equalTo("categoryName", "MiniMilitia").or().equalTo("categoryName", "MINIMILITIA").or().equalTo("categoryName", "MINI MILITIA").findAll().deleteAllFromRealm();
                     mDatabase.commitTransaction();
                 }

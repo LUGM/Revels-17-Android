@@ -52,16 +52,11 @@ public class CategoryEventsAdapter extends RecyclerView.Adapter<CategoryEventsAd
 
         holder.eventRound.setVisibility(View.VISIBLE);
 
-        if (!event.getRound().equals("-")){
-            if (event.getRound().toLowerCase().equals("finals") || event.getRound().toLowerCase().equals("f") || event.getRound().toLowerCase().equals("final")){
-                holder.eventRound.setText("RF");
-            }
-            else if(event.getRound().toLowerCase().equals("prelims")) {
-                holder.eventRound.setText("RP");
-            }
-            else{
-                holder.eventRound.setText("R"+event.getRound());
-            }
+        if (event.getRound() != null && !event.getRound().equals("-") && !event.getRound().equals("")){
+            if (event.getRound().toLowerCase().charAt(0) == 'r')
+                holder.eventRound.setText(event.getRound().toUpperCase());
+            else
+                holder.eventRound.setText("R"+event.getRound().toUpperCase().charAt(0));
         }
         else{
             holder.eventRound.setVisibility(View.GONE);

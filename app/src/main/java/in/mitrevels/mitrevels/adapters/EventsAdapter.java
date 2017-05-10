@@ -72,13 +72,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         holder.eventRound.setVisibility(View.VISIBLE);
 
-        if (!event.getRound().equals("-")){
-            if (event.getRound().toLowerCase().equals("finals") || event.getRound().toLowerCase().equals("f") || event.getCatId().toLowerCase().equals("final"))
-                holder.eventRound.setText("RF");
-            else if (event.getRound().toLowerCase().equals("prelims"))
-                holder.eventRound.setText("RP");
+        if (event.getRound() != null && !event.getRound().equals("-") && !event.getRound().equals("")){
+            if (event.getRound().toLowerCase().charAt(0) == 'r')
+                holder.eventRound.setText(event.getRound().toUpperCase());
             else
-                holder.eventRound.setText("R"+event.getRound());
+                holder.eventRound.setText("R"+event.getRound().toUpperCase().charAt(0));
         }
         else{
             holder.eventRound.setVisibility(View.GONE);

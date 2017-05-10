@@ -64,16 +64,11 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         int logoID = HandyMan.help().getCategoryLogo(favourite.getCatID());
         holder.favouriteLogo.setImageResource(logoID);
 
-        if (!favourite.getRound().equals("-")){
-            if (favourite.getRound().toLowerCase().equals("finals") || favourite.getRound().toLowerCase().equals("f") || favourite.getRound().toLowerCase().equals("final")){
-                holder.eventRound.setText("RF");
-            }
-            else if(favourite.getRound().toLowerCase().equals("prelims")) {
-                holder.eventRound.setText("RP");
-            }
-            else{
-                holder.eventRound.setText("R"+favourite.getRound());
-            }
+        if (favourite.getRound() != null && !favourite.getRound().equals("-") && !favourite.getRound().equals("")){
+            if (favourite.getRound().toLowerCase().charAt(0) == 'r')
+                holder.eventRound.setText(favourite.getRound().toUpperCase());
+            else
+                holder.eventRound.setText("R"+favourite.getRound().toUpperCase().charAt(0));
         }
         else{
             holder.eventRound.setVisibility(View.GONE);

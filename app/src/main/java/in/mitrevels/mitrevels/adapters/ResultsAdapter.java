@@ -39,7 +39,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultVi
 
         holder.eventName.setText(result.eventName);
         holder.eventRound.setText(result.eventRound);
-        holder.catLogo.setImageResource(HandyMan.help().getCategoryLogoByName(result.eventCategory.toLowerCase()));
+        holder.catLogo.setImageResource(HandyMan.help().getCategoryLogoByName(result.eventCategory.toLowerCase().trim()));
     }
 
     @Override

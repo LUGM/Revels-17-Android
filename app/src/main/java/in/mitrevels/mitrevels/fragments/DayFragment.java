@@ -614,8 +614,6 @@ public class DayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (searchItem != null)
-            searchItem.collapseActionView();
         adapter.notifyDataSetChanged();
     }
 }

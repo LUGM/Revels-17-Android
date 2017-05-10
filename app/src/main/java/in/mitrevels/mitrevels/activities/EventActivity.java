@@ -120,7 +120,7 @@ public class EventActivity extends AppCompatActivity {
             collapsingToolbarLayout.setTitle(title);
         else  collapsingToolbarLayout.setTitle("");
 
-        if (round != null && round.equals("-")){
+        if (round != null && (round.equals("-") || round.equals(""))){
             eventRoundLayout.setVisibility(View.GONE);
         }
         else {

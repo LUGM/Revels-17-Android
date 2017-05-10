@@ -34,6 +34,7 @@ public class SportsQualifiedTeamsAdapter extends RecyclerView.Adapter<SportsQual
     @Override
     public void onBindViewHolder(QualifiedTeamViewHolder holder, int position) {
         SportsModel result = resultsList.get(position);
+        holder.ti.setVisibility(View.GONE);
         holder.teamID.setText(result.getTeamID());
     }
 
@@ -44,10 +45,12 @@ public class SportsQualifiedTeamsAdapter extends RecyclerView.Adapter<SportsQual
 
     public class QualifiedTeamViewHolder extends RecyclerView.ViewHolder {
         TextView teamID;
+        TextView ti;
 
         public QualifiedTeamViewHolder(View itemView) {
             super(itemView);
 
+            ti = (TextView)itemView.findViewById(R.id.qual_ti_text_view);
             teamID = (TextView)itemView.findViewById(R.id.qualified_teams_id_text_view);
         }
     }

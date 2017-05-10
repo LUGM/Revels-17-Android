@@ -7,6 +7,7 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/qual_ti_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/team_id"
